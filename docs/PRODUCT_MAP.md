@@ -125,24 +125,36 @@ Delivered:
 - STORMWRIGHT_INGESTION.md canon reference committed to repo
 - reshenCost and accountLines added to objective state
 
-## Delivered release notes (v0.8 in progress)
+## Delivered releases (continued)
 
-### v0.8 — Persistence and Resume (in progress as at 2026-06-10)
+### v0.8 — Persistence and Resume ✅ Delivered (2026-06-10)
 
-Completed:
-
-- localStorage.setItem wrapped in try-catch in saveSilent() and saveState() — prevents "Table interrupted" crash on iOS private mode or full storage
-- gm-engine.js key/setKey/clearKey wrapped in try-catch — prevents uncaught throw when entering or clearing API key on restricted storage
+- localStorage.setItem wrapped in try-catch — prevents "Table interrupted" crash on iOS private mode or full storage
+- gm-engine.js key/setKey/clearKey wrapped in try-catch — prevents uncaught throw on restricted storage
 - escapeHtml() converted from String.replaceAll to .replace(/regex/g) — works on iOS Safari < 13.1 and Chrome < 85
 - toggleAmbience() wrapped in try-catch — AudioContext failure no longer becomes unhandled rejection
 - SVG filter removed from location nodes — halves GPU draw calls per render on mobile
 - -webkit-backdrop-filter added to API modal — iOS Safari < 16 compat
 
-Pending:
+Pending UAT (v0.8):
 
 - founder live test: save → close tab → reopen → Continue Session
 - founder live test on mobile (iOS Safari, Android Chrome)
-- normaliseState validation on cross-version save upgrade
+
+### v0.9 — Narrative Quality + Story Book 🔄 In Progress (2026-06-10)
+
+Completed:
+
+- Full Act I rewrite: five scenes rewritten for narrative continuity, trap payoff in ridge choice 4, aftermath loop broken
+- Four targeted prose fixes: reshen_road weight, Ser Crane → Torven name error, crossroads_davan split-speech, sera_hollow_night generic line
+- Phase 1 lore fixes: ashen_standing path continuity (kill vs step-back), sera_marches time marker
+- Story book feature: session complete 'Generate your story' button — Claude rewrites player's journal as 450–600 word prose chapter in Stormwright literary voice. Streams into serif panel. Copy and Download .txt.
+
+Pending (v0.9):
+
+- Founder full playthrough UAT (24 scenes to The Account)
+- Founder live test on mobile iOS Safari and Android Chrome
+- v1.1 scope flagged: hollow state-gated narration, decline path hollow source, Caeden texture, Act VII dice check review
 
 ## Release roadmap
 

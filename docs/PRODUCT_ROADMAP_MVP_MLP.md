@@ -42,13 +42,14 @@ A player can enter the Stormwright world, sit down at the virtual table, underst
 | v0.5 | VTT Board Foundation | Board background contract, zones, coded fallback, Kael token and board-first layout | ✅ Complete |
 | v0.6 | Board Consequence | Choices alter board overlays, location pressure and account presentation | ✅ Complete |
 | v0.7 | Module One Completion | The Noise of Purpose becomes a complete multi-scene session with rising pressure and clean landing | ✅ Complete |
-| v0.8 | Persistence and Resume | Save, continue, reset and account continuity hardened | 🔄 In Progress |
-| v0.9 | MVP UAT Candidate | Full internal UAT, accessibility, visual hierarchy and defect correction | ⬜ Upcoming |
+| v0.8 | Persistence and Resume | Save, continue, reset and account continuity hardened | ✅ Complete |
+| v0.9 | Narrative Quality + Story Book | Full Act I–VII prose rewrite, story book AI feature, founder UAT | 🔄 In Progress |
+| v1.0 | MVP UAT Candidate | Full internal UAT, accessibility, visual hierarchy and defect correction | ⬜ Upcoming |
 | v1.0 | MVP Release | One complete Stormwright tabletop session, stable and publicly playable | ⬜ Upcoming |
 
-### v0.8 current state
+### v0.9 current state
 
-Save and continue: in. LocalStorage hardened for iOS private mode, storage-full, and old browser compat (2025-06-10). Mobile crash vectors resolved. Pending: founder live test across session save → reload → resume on desktop and mobile.
+Narrative quality pass complete: full Act I rewrite (5 scenes), four targeted prose fixes across Acts II–VI, phase 1 lore fixes (path continuity, time markers). Story book feature shipped: session complete generates a 450–600 word literary prose chapter from the player's journal via Claude API. Pending: founder full playthrough UAT (24 scenes), mobile live test.
 
 ## MLP definition
 

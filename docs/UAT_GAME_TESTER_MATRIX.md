@@ -21,6 +21,8 @@ A release is not complete because code is committed. A release is complete only 
 
 | Release | UAT Target | Status |
 |---|---|---|
+| v0.9 Story Book | Complete session. Click 'Generate your story'. Prose streams into panel. Copy and Download work. Output is literary, past-tense, Stormwright voice. | Pending founder live test |
+| v0.9 Narrative Quality | Play Act I (ridge through aftermath). Prose feels connected, not standalone scenes. Captain watching/smiling. Trap revealed on breath choice. Aftermath routes to commission. | Pending founder read |
 | v0.8 Mobile Stability | Load on iOS Safari and Android Chrome. Begin on the Ridge. Make 3 choices. No crash. localStorage errors silently handled. | Pending founder mobile test |
 | v0.8 Save / Resume | Play 5+ scenes. Save. Close tab. Reopen. Continue Session resumes correctly. State intact. | Pending founder live test |
 | v0.7 Full Adventure Loop | Play from ridge through The Account (24 scenes). Session complete screen renders with full journal. | Pending founder live playthrough |
@@ -65,6 +67,8 @@ A release is not complete because code is committed. A release is complete only 
 | UAT-031 | Mobile Load | Open site on iOS Safari and Android Chrome. Tap Begin on the Ridge. | Page loads. Cover screen visible. Tap works. No crash on first render. | Pending mobile test | localStorage and SVG filter fixes applied 2026-06-10. |
 | UAT-032 | AI GM Scene Open | Enter API key. Begin session. | GM opens the ridge scene with narration within 5 seconds. Streaming text appears. | Pending founder live test | Requires valid Anthropic API key. |
 | UAT-033 | AI GM Ask | Type a question in Ask box. Press Ask or Enter. | GM responds in character within 10 seconds. Response is under 200 words. | Pending founder live test | |
+| UAT-034 | Story Book — Generate | Complete session. Click 'Generate your story'. | Prose streams into panel. 3–4 paragraphs. Third person, past tense. Stormwright voice. No generic fantasy language. | Pending founder live test | Requires valid Anthropic API key. |
+| UAT-035 | Story Book — Export | Story generated. Click Copy then Download. | Clipboard receives plain text. .txt file downloads as kael-vorn-YYYY-MM-DD.txt. | Pending founder live test | |
 
 ## Game tester matrix
 
