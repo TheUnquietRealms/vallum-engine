@@ -3,9 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Vallum Engine · The Noise of Purpose</title>
+  <title>The Iron Captain · The Stormwright Cycle</title>
   <meta name="theme-color" content="#06080A" />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+  <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="ux.css" />
   <style>
@@ -20,112 +23,138 @@
 <body>
 
   <section class="campaign-cover" id="campaignCover">
+    <div class="book-scene">
+      <div class="book" id="bookRoot">
 
-    <!-- Beat 1: Entry -->
-    <div class="intro-beat" id="introBeat1">
-      <div class="intro-title-card">
-        <p class="eyebrow">The Stormwright Cycle</p>
-        <h1 class="intro-main-title">The Noise<br>of Purpose</h1>
-        <p class="intro-tagline">"Any soldier of sufficient skill can be the storm."</p>
-        <p class="cover-status" id="coverStatus"></p>
-        <div class="intro-entry-actions">
-          <button id="continueBtn" class="primary" hidden>Continue Session</button>
-          <button id="introEnterBtn" class="primary">Enter</button>
+        <!-- Back board (always beneath the page stack) -->
+        <div class="book-board" aria-hidden="true"></div>
+
+        <!-- Leaf 4 · How it works -->
+        <div class="leaf" data-leaf="3">
+          <div class="leaf-front">
+            <div class="page-inner" id="introBeat5" data-screen-label="Page 4 How it works">
+              <p class="page-eyebrow">How the table works</p>
+              <div class="page-body">
+                <div class="book-mech">
+                  <strong>Choose an action</strong>
+                  <p>Each choice tests a quality — not skill, character. Force breaks through. Restraint holds back. Witness reads clearly. Reputation commands.</p>
+                </div>
+                <div class="book-mech">
+                  <strong>Roll d20 + moral state</strong>
+                  <p>The dice show the result. Your moral state shapes the odds. Who you are changes what you can do.</p>
+                </div>
+                <div class="book-mech">
+                  <strong>The Hollow grows</strong>
+                  <p>Some choices cost Kael something he cannot name. At seven it begins to change him. At ten the account is closed.</p>
+                </div>
+                <div class="book-mech">
+                  <strong>Ask the Game Master</strong>
+                  <p>Type a question at any point — examine the field, speak to a character. A live GM answers from within the world.</p>
+                </div>
+              </div>
+              <div class="page-actions">
+                <button id="introBack4" class="page-turn-btn page-back-btn">&lsaquo; Back</button>
+                <button id="startBtn" class="page-primary">Ride East</button>
+              </div>
+              <p class="page-folio">iv</p>
+            </div>
+          </div>
+          <div class="leaf-back"><div class="leaf-back-orn" aria-hidden="true"></div></div>
         </div>
+
+        <!-- Leaf 3 · Kael Vorn -->
+        <div class="leaf" data-leaf="2">
+          <div class="leaf-front">
+            <div class="page-inner" id="introBeat4" data-screen-label="Page 3 Kael Vorn">
+              <p class="page-eyebrow">Iron Captain &middot; Eastern Marches</p>
+              <h2 class="page-title">Kael Vorn</h2>
+              <div class="page-body">
+                <p class="page-prose page-bio"><em>Decorated officer. Effective beyond the needs of the situation. Men follow the name before they follow the orders. He has not decided whether that is useful or dangerous.</em></p>
+                <div class="book-stats">
+                  <div class="book-stat"><span class="bs-name">Force</span><span class="bs-dots">●●●●○</span><span class="bs-note">where the account begins</span></div>
+                  <div class="book-stat"><span class="bs-name">Restraint</span><span class="bs-dots">●●○○○</span><span class="bs-note">the work ahead of him</span></div>
+                  <div class="book-stat"><span class="bs-name">Witness</span><span class="bs-dots">●●○○○</span><span class="bs-note">he sees, he does not always act</span></div>
+                  <div class="book-stat book-stat-hollow"><span class="bs-name">Hollow</span><span class="bs-dots">○○○○○</span><span class="bs-note">at seven it shows; at ten the account closes</span></div>
+                  <div class="book-stat"><span class="bs-name">Reputation</span><span class="bs-dots">●●●○○</span><span class="bs-note">the name precedes the man</span></div>
+                </div>
+              </div>
+              <div class="page-actions">
+                <button id="introBack3" class="page-turn-btn page-back-btn">&lsaquo; Back</button>
+                <button id="introCont3" class="page-turn-btn">Turn the page &rsaquo;</button>
+              </div>
+              <p class="page-folio">iii</p>
+            </div>
+          </div>
+          <div class="leaf-back"><div class="leaf-back-orn" aria-hidden="true"></div></div>
+        </div>
+
+        <!-- Leaf 2 · Prologue -->
+        <div class="leaf" data-leaf="1">
+          <div class="leaf-front">
+            <div class="page-inner" id="introBeat3" data-screen-label="Page 2 Prologue">
+              <p class="page-eyebrow">Prologue &middot; The Stone Chamber</p>
+              <div id="introStream2" class="page-body page-prose"></div>
+              <div class="page-actions">
+                <button id="introBack2" class="page-turn-btn page-back-btn">&lsaquo; Back</button>
+                <button id="introSkip2" class="page-turn-btn" hidden>Skip</button>
+                <button id="introCont2" class="page-turn-btn">Turn the page &rsaquo;</button>
+              </div>
+              <p class="page-folio">ii</p>
+            </div>
+          </div>
+          <div class="leaf-back"><div class="leaf-back-orn" aria-hidden="true"></div></div>
+        </div>
+
+        <!-- Leaf 1 · Foreword -->
+        <div class="leaf" data-leaf="0">
+          <div class="leaf-front">
+            <div class="page-inner" id="introBeat2" data-screen-label="Page 1 Foreword">
+              <p class="page-eyebrow">The Northern Archive &middot; Aldric Vane, Compiler</p>
+              <div id="introStream1" class="page-body page-prose"></div>
+              <div class="page-actions">
+                <button id="introBack1" class="page-turn-btn page-back-btn">&lsaquo; Close the book</button>
+                <button id="introSkip1" class="page-turn-btn" hidden>Skip</button>
+                <button id="introCont1" class="page-turn-btn">Turn the page &rsaquo;</button>
+              </div>
+              <p class="page-folio">i</p>
+            </div>
+          </div>
+          <div class="leaf-back"><div class="leaf-back-orn" aria-hidden="true"></div></div>
+        </div>
+
+        <!-- Front cover (opens to become the left board) -->
+        <div class="book-cover" id="bookCover">
+          <div class="cover-front" id="introBeat1" data-screen-label="Book cover">
+            <div class="cover-rule" aria-hidden="true"></div>
+            <p class="cover-eyebrow">The Stormwright Cycle</p>
+            <h1 class="cover-title">The Iron<br>Captain</h1>
+            <p class="cover-chapter">Book One · The Noise of Purpose</p>
+            <p class="cover-tagline">&ldquo;Any soldier of sufficient skill can be the storm.&rdquo;</p>
+            <div class="cover-actions-book">
+              <button id="introEnterBtn" class="cover-open-btn">Open the book</button>
+              <button id="continueBtn" class="cover-resume-btn" hidden>Resume the session</button>
+            </div>
+            <p class="cover-status" id="coverStatus"></p>
+            <button id="seatGmLink" class="cover-gm-link" type="button">Want a live Game Master? Seat one</button>
+            <div class="cover-rule cover-rule-btm" aria-hidden="true"></div>
+          </div>
+          <div class="cover-inside">
+            <div class="endpaper-orn" aria-hidden="true"></div>
+            <p class="endpaper-text">ex libris &middot; the Northern Archive</p>
+          </div>
+        </div>
+
       </div>
     </div>
-
-    <!-- Beat 2: Foreword -->
-    <div class="intro-beat" id="introBeat2" hidden>
-      <div class="intro-prose-card">
-        <p class="eyebrow intro-attr">The Northern Archive &middot; Aldric Vane, Compiler</p>
-        <div id="introStream1" class="intro-stream-text"></div>
-        <div class="intro-nav-row">
-          <button id="introSkip1" class="compact-control">Skip</button>
-          <button id="introCont1" class="primary" hidden>Continue</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Beat 3: Prologue -->
-    <div class="intro-beat" id="introBeat3" hidden>
-      <div class="intro-prose-card">
-        <p class="eyebrow intro-attr">Prologue &middot; The Stone Chamber</p>
-        <div id="introStream2" class="intro-stream-text"></div>
-        <div class="intro-nav-row">
-          <button id="introSkip2" class="compact-control">Skip</button>
-          <button id="introCont2" class="primary" hidden>Begin the account</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Beat 4: Kael Vorn -->
-    <div class="intro-beat" id="introBeat4" hidden>
-      <div class="intro-char-card">
-        <p class="eyebrow">Iron Captain &middot; Eastern Marches</p>
-        <h2 class="intro-char-name">Kael Vorn</h2>
-        <p class="intro-char-bio">Decorated officer. Effective beyond the needs of the situation. Men follow the name before they follow the orders. He has not decided whether that is useful or dangerous.</p>
-        <div class="intro-stats-reveal">
-          <div class="intro-stat">
-            <div class="intro-stat-head"><span class="intro-stat-name">Force</span><span class="intro-stat-val">4</span></div>
-            <p class="intro-stat-desc">He acts through direct confrontation. This is where he is strongest — and where the account begins.</p>
-          </div>
-          <div class="intro-stat">
-            <div class="intro-stat-head"><span class="intro-stat-name">Restraint</span><span class="intro-stat-val">2</span></div>
-            <p class="intro-stat-desc">He has not yet learned to hold back. That is the work ahead of him.</p>
-          </div>
-          <div class="intro-stat">
-            <div class="intro-stat-head"><span class="intro-stat-name">Witness</span><span class="intro-stat-val">2</span></div>
-            <p class="intro-stat-desc">He sees the field clearly. He does not always act on what he sees.</p>
-          </div>
-          <div class="intro-stat intro-stat-hollow">
-            <div class="intro-stat-head"><span class="intro-stat-name">Hollow</span><span class="intro-stat-val">0</span></div>
-            <p class="intro-stat-desc">This is where it starts. Some choices will cost him something he cannot name. At seven it shows. At ten the account closes.</p>
-          </div>
-          <div class="intro-stat">
-            <div class="intro-stat-head"><span class="intro-stat-name">Reputation</span><span class="intro-stat-val">3</span></div>
-            <p class="intro-stat-desc">The name precedes the man. That is useful until it is not.</p>
-          </div>
-        </div>
-        <button id="introCont3" class="primary">I understand</button>
-      </div>
-    </div>
-
-    <!-- Beat 5: Mechanics -->
-    <div class="intro-beat" id="introBeat5" hidden>
-      <div class="intro-mech-card">
-        <p class="eyebrow">How it works</p>
-        <div class="intro-mech-grid">
-          <div class="intro-mech">
-            <strong class="intro-mech-title">Choose an action</strong>
-            <p>Each choice tests a different quality — not skill, character. Force breaks through. Restraint holds back. Witness reads clearly. Reputation commands.</p>
-          </div>
-          <div class="intro-mech">
-            <strong class="intro-mech-title">Roll d20 + moral state</strong>
-            <p>The dice show the result. Your moral state shapes the odds. High Force adds to force rolls. Low Restraint subtracts. Who you are changes what you can do.</p>
-          </div>
-          <div class="intro-mech">
-            <strong class="intro-mech-title">The Hollow grows</strong>
-            <p>Some choices cost Kael something he cannot name. Hollow tracks that cost. At seven it begins to change him. At ten the account is closed.</p>
-          </div>
-          <div class="intro-mech">
-            <strong class="intro-mech-title">Ask the GM</strong>
-            <p>At any point, type a question — examine the field, speak to a character, look at a detail. The AI Game Master answers in character from within the world.</p>
-          </div>
-        </div>
-        <button id="startBtn" class="primary">Ride East</button>
-      </div>
-    </div>
-
+    <p class="book-hint" id="bookHint">Click the cover to begin</p>
     <span id="campaignTitle" hidden></span>
-
   </section>
 
   <div class="play-shell">
 
     <header class="play-topbar">
       <div class="topbar-brand">
-        <p class="eyebrow">The Stormwright Table</p>
+        <p class="eyebrow">The Iron Captain</p>
         <h1 id="regionTitle" class="topbar-title"></h1>
       </div>
       <div class="topbar-controls">
@@ -134,27 +163,47 @@
         <span id="saveStatus" class="status-chip"></span>
         <button id="saveBtn" class="compact-control">Save</button>
         <button id="newGameBtn" class="compact-control">New</button>
-        <button id="ambienceBtn" class="compact-control music-toggle" title="Toggle Music">M</button>
-        <span id="ambienceState" class="status-chip subtle-chip">Off</span>
+        <button id="ambienceBtn" class="compact-control music-toggle" title="Toggle ambient sound">♪ Ambience · Off</button>
+        <span id="ambienceState" class="status-chip subtle-chip" hidden>Off</span>
       </div>
     </header>
 
-    <section class="play-layout">
+    <section class="game-room" data-screen-label="The game room">
 
-      <!-- LEFT: Character Sheet + Scene Context + Minimap -->
-      <aside class="char-sheet">
-        <div id="partyList"></div>
-
-        <div class="scene-context">
-          <p class="eyebrow">Current Scene</p>
+      <!-- ACROSS THE TABLE · the Game Master's seat -->
+      <section class="dm-side" data-screen-label="Game Master side">
+        <div class="dm-placard">
+          <div class="dm-chair" aria-hidden="true"><span class="dm-mark">✦</span></div>
+          <p class="eyebrow">The Game Master</p>
           <h3 id="sceneTitle" class="scene-h"></h3>
           <p class="scene-type-label" id="sceneType"></p>
           <div class="mood-card scene-mood-card" id="sceneMood"></div>
         </div>
+        <div class="dm-speech">
+          <div class="narration-zone">
+            <div class="narration" id="narration"></div>
+            <div class="gm-response-panel" id="gmResponsePanel" hidden>
+              <p class="eyebrow gm-voice-label">The GM Speaks</p>
+              <div id="gmResponse" class="gm-stream"></div>
+            </div>
+          </div>
+          <div id="diceLog" class="hidden-rolls"></div>
+          <div class="outcome-panel">
+            <p class="outcome-label">What Changed</p>
+            <div id="outcomeText"></div>
+          </div>
+        </div>
+      </section>
 
-        <div class="map-miniature">
-          <p class="eyebrow">Battlefield</p>
-          <div class="storm-map-frame">
+      <!-- THE TABLE · chairs around the world map -->
+      <section class="table-band" data-screen-label="The table">
+        <div class="seat-col seat-col-left" id="npcSeatsLeft" aria-label="Seats on your left"></div>
+        <div class="table-surface">
+          <div class="map-mini-head">
+            <p class="eyebrow">The World</p>
+            <button id="mapExpandBtn" class="compact-control map-expand-btn" type="button">Expand</button>
+          </div>
+          <div class="storm-map-frame" id="stormMapFrame" title="Open the table map">
             <svg id="worldMap" viewBox="0 0 1000 620" class="minimap-svg">
               <defs>
                 <radialGradient id="parchGrad" cx="46%" cy="38%" r="78%">
@@ -190,43 +239,58 @@
             </svg>
           </div>
         </div>
-      </aside>
+        <div class="seat-col seat-col-right" id="npcSeatsRight" aria-label="Seats on your right"></div>
+      </section>
 
-      <!-- CENTER: Primary Play Area -->
-      <main class="play-area">
-        <div class="narration-zone">
-          <div class="narration" id="narration"></div>
-          <div class="gm-response-panel" id="gmResponsePanel" hidden>
-            <p class="eyebrow gm-voice-label">The GM Speaks</p>
-            <div id="gmResponse" class="gm-stream"></div>
+      <!-- YOUR SEAT · sheet, hand, compendium -->
+      <section class="your-seat" data-screen-label="Your seat">
+        <div class="your-sheet">
+          <p class="eyebrow">Your character</p>
+          <div id="partyList"></div>
+        </div>
+        <div class="your-hand">
+          <p class="eyebrow">Your hand</p>
+          <div id="choiceList"></div>
+          <div class="ask-zone" id="gmAskRow">
+            <input id="gmAskInput" type="text" placeholder="Ask the Game Master — examine the field, talk to someone…" class="gm-ask-input" autocomplete="off" />
+            <button id="gmAskBtn" class="compact-control gm-ask-btn">Ask</button>
           </div>
         </div>
-
-        <div id="diceLog" class="hidden-rolls"></div>
-
-        <div class="choice-zone">
-          <p class="eyebrow">Available Actions</p>
-          <div id="choiceList"></div>
+        <div class="your-compendium">
+          <button class="compendium-book" id="compendiumBtn" type="button" title="Open the Account and compendium">
+            <span class="comp-title">The Account</span>
+            <span class="comp-sub">&amp; compendium</span>
+          </button>
         </div>
-
-        <div class="ask-zone" id="gmAskRow">
-          <input id="gmAskInput" type="text" placeholder="Examine the field, talk to an NPC…" class="gm-ask-input" autocomplete="off" />
-          <button id="gmAskBtn" class="compact-control gm-ask-btn">Ask</button>
-        </div>
-
-        <div class="outcome-panel">
-          <p class="outcome-label">What Changed</p>
-          <div id="outcomeText"></div>
-        </div>
-      </main>
-
-      <!-- RIGHT: The Account -->
-      <aside class="account-panel">
-        <p class="eyebrow">The Account</p>
-        <div id="journalList"></div>
-      </aside>
+      </section>
 
     </section>
+  </div>
+
+  <!-- Compendium overlay — the Account ledger + table reference -->
+  <div class="compendium-overlay" id="compendiumOverlay" hidden role="dialog" aria-modal="true" aria-label="The Account and compendium">
+    <div class="compendium-card">
+      <button class="drawer-close" id="compendiumCloseBtn" type="button">&#x2715;</button>
+      <div class="comp-col comp-account">
+        <p class="eyebrow">The Account</p>
+        <div id="journalList"></div>
+      </div>
+      <div class="comp-col comp-reference">
+        <p class="eyebrow">Table reference</p>
+        <div class="comp-ref-block">
+          <strong>The roll</strong>
+          <p>d20 + moral state against a target. Force breaks through, Restraint holds back, Witness reads, Reputation commands.</p>
+        </div>
+        <div class="comp-ref-block">
+          <strong>The Hollow</strong>
+          <p>Some choices cost Kael something he cannot name. At seven it shows. At ten the account closes.</p>
+        </div>
+        <div class="comp-ref-block">
+          <strong>The table</strong>
+          <p>The Game Master sits across from you and voices everyone else at the table. Ask anything, any time.</p>
+        </div>
+      </div>
+    </div>
   </div>
 
   <section class="session-complete" id="sessionComplete" hidden>
@@ -268,6 +332,32 @@
       <p class="drawer-role" id="drawerRole"></p>
       <p class="drawer-drive" id="drawerDrive"></p>
       <div class="drawer-stats" id="drawerStats"></div>
+    </div>
+  </div>
+
+  <!-- Full-table map overlay — the storm map frame is moved here when expanded -->
+  <div class="map-overlay" id="mapOverlay" hidden role="dialog" aria-modal="true" aria-label="Battlefield map">
+    <div class="map-overlay-inner" id="mapOverlaySlot"></div>
+    <button id="mapCloseBtn" class="compact-control map-close-btn" type="button">&#x2715; Close map</button>
+  </div>
+
+  <!-- Invite-a-player modal — seats an online player at an empty chair -->
+  <div id="inviteModal" class="api-modal" hidden role="dialog" aria-modal="true" aria-labelledby="inviteModalTitle">
+    <div class="api-card">
+      <p class="eyebrow">An empty chair</p>
+      <h2 id="inviteModalTitle">Invite a player to the table</h2>
+      <p class="api-desc">Send this link — whoever follows it is offered the chair. Their name appears at the seat while the table waits for them.</p>
+      <div class="invite-link-row">
+        <input id="inviteLinkInput" type="text" class="api-key-input" readonly spellcheck="false" />
+        <button id="inviteCopyBtn" class="compact-control">Copy link</button>
+      </div>
+      <label class="invite-name-label" for="inviteNameInput">Reserve the chair under a name (optional)</label>
+      <input id="inviteNameInput" type="text" class="api-key-input" placeholder="Player's name…" autocomplete="off" />
+      <p class="api-note">Live shared sessions need the hosted table service — in this demo an invite reserves the chair on this browser.</p>
+      <div class="api-actions">
+        <button id="inviteReserveBtn" class="primary">Reserve the chair</button>
+        <button id="inviteCancelBtn" class="compact-control">Leave it empty</button>
+      </div>
     </div>
   </div>
 

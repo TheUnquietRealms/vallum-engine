@@ -1,5 +1,5 @@
 const CAMPAIGN_PATH = "data/campaigns/noise-of-purpose.json";
-const STORAGE_KEY = "vallum.engine.session.noise-of-purpose.v0.3.2";
+const STORAGE_KEY = "vallum.engine.session.noise-of-purpose.v0.4.0";
 
 // ── Token visual identity ─────────────────────────────────────────
 
@@ -131,6 +131,11 @@ async function boot() {
     setText(dom.campaignTitle, campaign.title);
     const hasSave = !!localStorage.getItem(STORAGE_KEY);
     setText(dom.coverStatus, hasSave ? "A saved session was found on this browser." : "");
+    // Arriving via an invite link — greet the guest in-world
+    const joinCode = new URLSearchParams(location.search).get("join");
+    if (joinCode) {
+      setText(dom.coverStatus, "You have been invited to this table. The chair is being kept for you — open the book while the host readies the session.");
+    }
     if (dom.continueBtn) dom.continueBtn.hidden = !hasSave;
     render();
   } catch (error) {
@@ -139,6 +144,7 @@ async function boot() {
 }
 
 async function loadCampaign() {
+  if (window.__CAMPAIGN__) return window.__CAMPAIGN__;
   const response = await fetch(CAMPAIGN_PATH, { cache: "no-store" });
   if (!response.ok) throw new Error("Unable to load Stormwright campaign module.");
   return response.json();
@@ -189,24 +195,41 @@ function typewriter(el, text, onDone) {
 
 function showIntroBeat(n) {
   if (currentTypewriter) { currentTypewriter(); currentTypewriter = null; }
-  for (let i = 1; i <= 5; i++) {
-    const beat = dom[`introBeat${i}`];
-    if (beat) beat.hidden = (i !== n);
+  const root = document.getElementById("bookRoot");
+  if (!root) return;
+  ensureBookProse();
+  const hint = document.getElementById("bookHint");
+  if (n >= 2) {
+    root.classList.add("open");
+    if (hint) hint.hidden = true;
+  } else {
+    // Turning back past page i closes the book again
+    root.classList.remove("open");
+    if (hint) hint.hidden = false;
   }
-  if (n === 2 && dom.introStream1) {
-    currentTypewriter = typewriter(dom.introStream1, FOREWORD_TEXT, () => {
-      currentTypewriter = null;
-      if (dom.introCont1) dom.introCont1.hidden = false;
-      if (dom.introSkip1) dom.introSkip1.hidden = true;
-    });
-  }
-  if (n === 3 && dom.introStream2) {
-    currentTypewriter = typewriter(dom.introStream2, PROLOGUE_TEXT, () => {
-      currentTypewriter = null;
-      if (dom.introCont2) dom.introCont2.hidden = false;
-      if (dom.introSkip2) dom.introSkip2.hidden = true;
-    });
-  }
+  const leaves = Array.from(root.querySelectorAll(".leaf"))
+    .sort((a, b) => Number(a.dataset.leaf) - Number(b.dataset.leaf));
+  leaves.forEach((leaf, i) => {
+    const turned = i < n - 2;
+    leaf.classList.toggle("turned", turned);
+    // Turned leaves pile left (later turns on top); unturned stack right (next page on top)
+    leaf.style.zIndex = turned ? String(10 + i) : String(30 - i);
+  });
+}
+
+let bookProseSet = false;
+function ensureBookProse() {
+  if (bookProseSet) return;
+  bookProseSet = true;
+  const prose = (el, text) => {
+    if (el) el.innerHTML = "<p>" + text.replace(/\n\n/g, "</p><p>").replace(/\n/g, "<br>") + "</p>";
+  };
+  prose(dom.introStream1, FOREWORD_TEXT);
+  prose(dom.introStream2, PROLOGUE_TEXT);
+  if (dom.introCont1) dom.introCont1.hidden = false;
+  if (dom.introCont2) dom.introCont2.hidden = false;
+  if (dom.introSkip1) dom.introSkip1.hidden = true;
+  if (dom.introSkip2) dom.introSkip2.hidden = true;
 }
 
 function loadState() {
@@ -251,7 +274,19 @@ function wireControls() {
   on(dom.introCont1, "click", () => showIntroBeat(3));
   on(dom.introCont2, "click", () => showIntroBeat(4));
   on(dom.introCont3, "click", () => showIntroBeat(5));
-  on(dom.startBtn, "click", startNewSession);
+  // Turning back — buttons on each page, and clicking any turned page returns to it
+  on($("introBack1"), "click", () => showIntroBeat(1));
+  on($("introBack2"), "click", () => showIntroBeat(2));
+  on($("introBack3"), "click", () => showIntroBeat(3));
+  on($("introBack4"), "click", () => showIntroBeat(4));
+  document.querySelectorAll("#bookRoot .leaf").forEach((leaf) => {
+    leaf.addEventListener("click", (e) => {
+      if (!leaf.classList.contains("turned")) return;
+      if (e.target.closest("button")) return;
+      showIntroBeat(Number(leaf.dataset.leaf) + 2);
+    });
+  });
+  on(dom.startBtn, "click", () => startNewSession(true));
   on(dom.saveBtn, "click", saveState);
   on(dom.newGameBtn, "click", startNewSession);
   on(dom.ambienceBtn, "click", toggleAmbience);
@@ -272,18 +307,239 @@ function wireControls() {
   on(dom.apiClearBtn, "click", () => { GM.clearKey(); renderAIStatus(); hideApiModal(); });
   on(dom.apiModal, "click", (e) => { if (e.target === dom.apiModal) hideApiModal(); });
   on(dom.apiKeyInput, "keydown", (e) => { if (e.key === "Enter") saveApiKey(); });
+
+  // Cover — seat a GM from the book cover
+  on($("seatGmLink"), "click", (e) => { e.stopPropagation(); showApiModal(); });
+
+  // Clicking the closed cover opens the book
+  on($("bookCover"), "click", (e) => {
+    if (e.target.closest("button")) return;
+    const root = document.getElementById("bookRoot");
+    if (root && !root.classList.contains("open")) showIntroBeat(2);
+  });
+
+  // Map expand/collapse — the live SVG node is moved into the overlay
+  on($("mapExpandBtn"), "click", expandMap);
+  on($("stormMapFrame"), "click", (e) => {
+    if (document.body.classList.contains("map-expanded")) return;
+    if (e.target.closest(".vtt-token")) return;
+    expandMap();
+  });
+  on($("mapCloseBtn"), "click", collapseMap);
+  on($("mapOverlay"), "click", (e) => { if (e.target === $("mapOverlay")) collapseMap(); });
+  // Fit the book to the viewport (width AND height aware)
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      if (document.body.classList.contains("map-expanded")) collapseMap();
+      else if ($("inviteModal") && !$("inviteModal").hidden) closeInviteModal();
+      else if ($("compendiumOverlay") && !$("compendiumOverlay").hidden) closeCompendium();
+      else if (dom.apiModal && !dom.apiModal.hidden) hideApiModal();
+      else if (dom.characterDrawer && !dom.characterDrawer.hidden) closeCharacterSheet();
+    }
+  });
+
+  // Invite-a-player modal
+  on($("inviteCopyBtn"), "click", copyInviteLink);
+  on($("inviteReserveBtn"), "click", reserveChair);
+  on($("inviteCancelBtn"), "click", closeInviteModal);
+  on($("inviteModal"), "click", (e) => { if (e.target === $("inviteModal")) closeInviteModal(); });
+
+  // Compendium — the Account ledger at your seat
+  on($("compendiumBtn"), "click", () => { const o = $("compendiumOverlay"); if (o) o.hidden = false; });
+  on($("compendiumCloseBtn"), "click", closeCompendium);
+  on($("compendiumOverlay"), "click", (e) => { if (e.target === $("compendiumOverlay")) closeCompendium(); });
+  const fitBook = () => {
+    const book = document.getElementById("bookRoot");
+    if (!book) return;
+    const s = Math.min(1, (window.innerWidth - 36) / 960, (window.innerHeight - 90) / 660);
+    book.style.scale = String(Math.max(0.3, s));
+  };
+  window.addEventListener("resize", fitBook);
+  fitBook();
+}
+
+function expandMap() {
+  const frame = $("stormMapFrame");
+  const slot = $("mapOverlaySlot");
+  const overlay = $("mapOverlay");
+  if (!frame || !slot || !overlay) return;
+  slot.appendChild(frame);
+  overlay.hidden = false;
+  document.body.classList.add("map-expanded");
+}
+
+function collapseMap() {
+  const frame = $("stormMapFrame");
+  const overlay = $("mapOverlay");
+  const home = document.querySelector(".table-surface");
+  if (!frame || !overlay || !home) return;
+  home.appendChild(frame);
+  overlay.hidden = true;
+  document.body.classList.remove("map-expanded");
+}
+
+function closeCompendium() {
+  const o = $("compendiumOverlay");
+  if (o) o.hidden = true;
+}
+
+// ── Online seats — invites ──────────────────────────────────────
+// An invite generates a join link and can reserve a chair under a name.
+// Live shared sessions need the hosted table service; reservations are local.
+
+const INVITES_KEY = "vallum.table.invites";
+let pendingInviteCode = null;
+
+function loadInvites() {
+  try { return JSON.parse(localStorage.getItem(INVITES_KEY)) || []; } catch { return []; }
+}
+
+function saveInvites(list) {
+  try { localStorage.setItem(INVITES_KEY, JSON.stringify(list.slice(0, 2))); } catch {}
+}
+
+function makeInviteCode() {
+  return Array.from({ length: 6 }, () => "ABCDEFGHJKMNPQRSTUVWXYZ23456789"[Math.floor(Math.random() * 31)]).join("");
+}
+
+function inviteLink(code) {
+  return `${location.origin}${location.pathname}?join=${code}`;
+}
+
+function openInviteModal() {
+  pendingInviteCode = makeInviteCode();
+  const linkInput = $("inviteLinkInput");
+  const nameInput = $("inviteNameInput");
+  const copyBtn = $("inviteCopyBtn");
+  if (linkInput) { linkInput.value = inviteLink(pendingInviteCode); linkInput.setAttribute("value", linkInput.value); }
+  if (nameInput) nameInput.value = "";
+  if (copyBtn) copyBtn.textContent = "Copy link";
+  const m = $("inviteModal");
+  if (m) m.hidden = false;
+}
+
+function closeInviteModal() {
+  const m = $("inviteModal");
+  if (m) m.hidden = true;
+}
+
+async function copyInviteLink() {
+  const linkInput = $("inviteLinkInput");
+  const copyBtn = $("inviteCopyBtn");
+  if (!linkInput) return;
+  try {
+    await navigator.clipboard.writeText(linkInput.value);
+    if (copyBtn) copyBtn.textContent = "Copied";
+  } catch {
+    linkInput.select();
+    document.execCommand("copy");
+    if (copyBtn) copyBtn.textContent = "Copied";
+  }
+}
+
+function reserveChair() {
+  const name = ($("inviteNameInput")?.value || "").trim();
+  const invites = loadInvites();
+  invites.push({ code: pendingInviteCode, name: name || "A player", at: Date.now() });
+  saveInvites(invites);
+  closeInviteModal();
+  renderSeats();
+}
+
+function releaseChair(code) {
+  saveInvites(loadInvites().filter(i => i.code !== code));
+  renderSeats();
+}
+
+// ── Seats around the table ────────────────────────────────────
+// The GM voices everyone else at the table. Scene presences — threats and
+// objectives — take the side chairs; absent seats read as empty chairs.
+
+function renderSeats() {
+  const left = $("npcSeatsLeft");
+  const right = $("npcSeatsRight");
+  if (!left || !right) return;
+  left.innerHTML = "";
+  right.innerHTML = "";
+  const locs = state.activeLocations || campaign.locations || [];
+  const allies = locs.filter(l => l.kind === "objective");
+  const foes = locs.filter(l => l.kind === "threat");
+
+  const seat = (presence, side) => {
+    const div = document.createElement("div");
+    if (presence) {
+      div.className = `npc-seat npc-seat--${presence.kind}`;
+      div.innerHTML = `
+        <div class="seat-chair" aria-hidden="true"></div>
+        <p class="seat-name">${escapeHtml(presence.name)}</p>
+        <p class="seat-voice">voiced by the GM</p>`;
+      div.setAttribute("tabindex", "0");
+      div.setAttribute("role", "button");
+      div.title = `Ask the GM about ${presence.name}`;
+      const ask = () => {
+        if (dom.gmAskInput) {
+          dom.gmAskInput.value = `Tell me about ${presence.name}.`;
+          dom.gmAskInput.focus();
+        }
+      };
+      div.addEventListener("click", ask);
+      div.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); ask(); } });
+    } else {
+      div.className = "npc-seat npc-seat--empty";
+      div.innerHTML = `
+        <div class="seat-chair" aria-hidden="true"></div>
+        <p class="seat-voice">an empty chair</p>
+        <p class="seat-invite-cta">+ invite a player</p>`;
+      div.setAttribute("tabindex", "0");
+      div.setAttribute("role", "button");
+      div.title = "Invite a player to this chair";
+      div.addEventListener("click", openInviteModal);
+      div.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openInviteModal(); } });
+    }
+    side.appendChild(div);
+  };
+
+  const reservedSeat = (invite, side) => {
+    const div = document.createElement("div");
+    div.className = "npc-seat npc-seat--reserved";
+    div.innerHTML = `
+      <div class="seat-chair" aria-hidden="true"></div>
+      <p class="seat-name">${escapeHtml(invite.name)}</p>
+      <p class="seat-voice">invited · waiting</p>
+      <button class="seat-release" type="button" title="Withdraw the invitation">×</button>`;
+    div.querySelector(".seat-release").addEventListener("click", (e) => { e.stopPropagation(); releaseChair(invite.code); });
+    side.appendChild(div);
+  };
+
+  // Two chairs a side; allies on your left, foes on your right.
+  // Reserved (invited) players take empty chairs first.
+  const invites = loadInvites();
+  let inviteIdx = 0;
+  const fill = (presence, side) => {
+    if (presence) { seat(presence, side); }
+    else if (invites[inviteIdx]) { reservedSeat(invites[inviteIdx++], side); }
+    else { seat(null, side); }
+  };
+  fill(allies[0] || null, left);
+  fill(allies[1] || null, left);
+  fill(foes[0] || null, right);
+  fill(foes[1] || null, right);
 }
 
 function closeCover() {
   if (!campaign) return;
-  if (dom.campaignCover) dom.campaignCover.hidden = true;
+  if (dom.campaignCover && !dom.campaignCover.hidden) {
+    dom.campaignCover.classList.add("cover-leaving");
+    setTimeout(() => {
+      dom.campaignCover.hidden = true;
+      dom.campaignCover.classList.remove("cover-leaving");
+    }, 750);
+  }
   document.body.classList.remove("cover-open");
   render();
   renderAIStatus();
-  if (!GM.hasKey()) {
-    showApiModal();
-  } else {
-    // GM opens the scene — fires on enter, not after a choice
+  // GM setup never interrupts entry — it is offered on the cover and on first Ask.
+  if (GM.hasKey()) {
     gmOpenScene();
   }
 }
@@ -300,10 +556,12 @@ async function gmOpenScene() {
   });
 }
 
-function startNewSession() {
+function startNewSession(fromBook) {
   if (!campaign) return;
   const hasSave = !!localStorage.getItem(STORAGE_KEY);
-  if (hasSave && !confirm("Begin a new session? Your current progress will be lost.")) return;
+  // Riding East from the book is an explicit fresh start — the cover already
+  // offered Resume. Only the top-bar "New" asks for confirmation.
+  if (!fromBook && hasSave && !confirm("Begin a new session? Your current progress will be lost.")) return;
   localStorage.removeItem(STORAGE_KEY);
   state = createInitialState(campaign);
   if (dom.sessionComplete) dom.sessionComplete.hidden = true;
@@ -339,6 +597,7 @@ function render() {
     renderCharacterPanel();
     renderJournal();
     renderMap(scene);
+    renderSeats();
     renderOutcome();
     renderAudioState(scene);
     if (audio.enabled) playAmbience(scene.ambience);
@@ -459,10 +718,10 @@ function renderMap(scene) {
     dom.routeLayer.appendChild(svg("line", {
       x1: from.x, y1: from.y, x2: to.x, y2: to.y,
       class: active ? "route-active" : "",
-      stroke: "rgba(180,170,150,0.32)",
-      "stroke-width": 7,
+      stroke: "rgba(90,62,24,0.45)",
+      "stroke-width": 5,
       "stroke-linecap": "round",
-      "stroke-dasharray": "16 16"
+      "stroke-dasharray": "4 14"
     }));
   });
   (activeLocs || []).forEach((location) => renderLocation(location, scene.location));
@@ -474,12 +733,12 @@ function renderBattlefieldTexture() {
 
   // ── Region watermark ────────────────────────────────────────────
   const regionLabel = svg("text", {
-    x: 500, y: 560,
+    x: 500, y: 74,
     "text-anchor": "middle",
     "font-size": "32",
     fill: "#3a2008",
     "font-style": "italic",
-    opacity: "0.12",
+    opacity: "0.14",
     "letter-spacing": "0.06em",
     "pointer-events": "none"
   });
@@ -633,10 +892,14 @@ function renderLocation(location, currentId) {
   const label = svg("text", {
     x, y: y + 28,
     "text-anchor": "middle",
-    "font-size": "11",
+    "font-size": "13",
     "font-style": "italic",
     "font-weight": isActive ? "bold" : "normal",
     fill: isActive ? "#3a2008" : "#4a3010",
+    stroke: "#e2d2a4",
+    "stroke-width": "3",
+    "paint-order": "stroke",
+    "stroke-linejoin": "round",
     "letter-spacing": "0.02em",
     "pointer-events": "none"
   });
@@ -820,19 +1083,24 @@ function renderAllTokens(scene, activeLocs) {
     dom.tokenLayer.appendChild(token);
   });
 
-  // Named threats — enemy pieces visible on the board
+  // Named threats — enemy pieces visible on the board.
+  // Rendered BENEATH the party layer, and offset sideways when sharing the
+  // scene anchor, so the hero token is never painted over.
   locs
     .filter(loc => loc.kind === "threat")
     .forEach(loc => {
       const k = KIND_PALETTE.threat;
-      dom.tokenLayer.appendChild(makeToken({
-        cx: loc.x, cy: loc.y - 66,
+      const sharesAnchor = anchor && loc.id === anchor.id;
+      const token = makeToken({
+        cx: loc.x + (sharesAnchor ? 64 : 0),
+        cy: loc.y - 66,
         r: k.r, body: k.body, hi: k.hi, rim: k.rim,
         initial: tokenInitial(loc.name),
         label: loc.name,
         tier: "threat",
         isActive: false, isDamaged: false
-      }));
+      });
+      dom.tokenLayer.insertBefore(token, dom.tokenLayer.firstChild);
     });
 }
 
@@ -872,7 +1140,7 @@ function renderSessionComplete() {
   if (!dom.sessionComplete) return;
   dom.sessionComplete.hidden = false;
   setText(dom.completeTitle, campaign.title);
-  setText(dom.completeEyebrow, `${campaign.region} · ${campaign.series || "Vallum"}`);
+  setText(dom.completeEyebrow, "The Iron Captain · Book One closes");
   if (dom.completeJournal) {
     dom.completeJournal.innerHTML = "";
     state.journal.forEach((entry) => {
@@ -1009,7 +1277,7 @@ async function choose(choice) {
     };
     state.completedChoices.push({ scene: startingScene, label: choice.label, nextScene: state.currentScene, at: new Date().toISOString() });
     saveSilent();
-    setStatus("Autosaved.");
+    setStatus("Autosaved");
     clearGMResponse();
     render();
 
@@ -1228,19 +1496,18 @@ async function toggleAmbience() {
     if (!audio.enabled) {
       await startAudio();
       audio.enabled = true;
-      setText(dom.ambienceBtn, "M");
       playAmbience(getScene().ambience);
     } else {
       stopAmbience();
       audio.enabled = false;
-      setText(dom.ambienceBtn, "M");
     }
     renderAudioState(getScene());
   } catch {}
 }
 
 function renderAudioState() {
-  setText(dom.ambienceState, audio.enabled ? "On" : "Off");
+  setText(dom.ambienceBtn, audio.enabled ? "\u266a Ambience \u00b7 On" : "\u266a Ambience \u00b7 Off");
+  if (dom.ambienceState) dom.ambienceState.hidden = true;
 }
 
 async function startAudio() {
