@@ -29,9 +29,13 @@
   box-sizing: border-box;
 }
 
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
 body {
   margin: 0;
-  min-height: 100vh;
   color: var(--parchment);
   background:
     radial-gradient(ellipse at 18% 12%, rgba(108, 92, 61, 0.14), transparent 28rem),
