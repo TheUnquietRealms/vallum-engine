@@ -253,9 +253,14 @@
 /* ── Play shell ──────────────────────────────────────────── */
 
 .play-shell {
-  width: min(1920px, calc(100vw - 28px));
+  width: 100%;
+  max-width: 1920px;
   margin: 0 auto;
-  padding: 20px 14px;
+  padding: 0 14px 14px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 /* ── Top bar ─────────────────────────────────────────────── */
@@ -266,6 +271,8 @@
   align-items: flex-end;
   gap: 16px;
   flex-wrap: wrap;
+  flex-shrink: 0;
+  padding-top: 14px;
   margin-bottom: 14px;
 }
 
@@ -338,7 +345,10 @@
   display: grid;
   grid-template-columns: minmax(220px, 0.52fr) minmax(440px, 1.6fr) minmax(220px, 0.52fr);
   gap: 16px;
-  align-items: start;
+  align-items: stretch;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
 }
 
 .char-sheet,
@@ -349,16 +359,19 @@
   background: var(--panel);
   box-shadow: 0 20px 70px rgba(0, 0, 0, 0.45);
   padding: 20px;
+  overflow-y: auto;
+  min-height: 0;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(216, 189, 132, 0.18) transparent;
 }
 
 .char-sheet {
-  min-height: calc(100vh - 132px);
   background: linear-gradient(180deg, rgba(17, 22, 24, 0.99), rgba(15, 19, 21, 0.96));
   border-color: rgba(216, 189, 132, 0.20);
 }
 
 .account-panel {
-  min-height: calc(100vh - 132px);
+  /* height filled by grid stretch */
 }
 
 /* ── Character sheet — scene context ────────────────────── */
@@ -1115,31 +1128,45 @@
 /* ── Responsive ──────────────────────────────────────────── */
 
 @media (max-width: 1100px) {
+  .play-shell {
+    height: auto;
+    overflow: visible;
+  }
   .play-layout {
     grid-template-columns: minmax(200px, 0.55fr) minmax(360px, 1.45fr);
     grid-template-rows: auto auto;
+    flex: none;
+    min-height: 0;
+    overflow: visible;
+  }
+  .char-sheet,
+  .play-area,
+  .account-panel {
+    overflow-y: visible;
+    min-height: auto;
   }
   .account-panel {
     grid-column: 1 / -1;
-    min-height: auto;
-  }
-  .char-sheet,
-  .gm-panel,
-  .character-panel {
-    min-height: auto;
   }
 }
 
 @media (max-width: 700px) {
+  .play-shell {
+    height: auto;
+    overflow: visible;
+  }
   .play-layout {
     grid-template-columns: 1fr;
+    overflow: visible;
+  }
+  .char-sheet,
+  .play-area,
+  .account-panel {
+    overflow-y: visible;
+    min-height: auto;
   }
   .play-area {
     order: -1;
-  }
-  .char-sheet,
-  .account-panel {
-    min-height: auto;
   }
   .minimap-svg {
     height: 120px;
