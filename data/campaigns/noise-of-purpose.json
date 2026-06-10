@@ -104,7 +104,7 @@
       "stakes": "Six civilians are exposed below. The raider captain is holding the attack together. Kael cannot answer both problems cleanly.",
       "narration": [
         "The caravan burns below the ridge. Smoke folds into the rain and makes the road look smaller than it is. The raiders move badly except near their captain, where they move with shape.",
-        "Kael sees the whole field before he decides what any of it means. Civilians under the wheels. Two raiders breaking toward them. The captain turning his horse in the road, smiling as if he has already understood the choice being offered."
+        "Kael sees the whole field before he decides what any of it means. Civilians trapped under a broken wheel. Two raiders cutting toward them. The captain turning his horse in the road, watching, smiling as if he has already understood the choice being offered."
       ],
       "choices": [
         {
@@ -112,7 +112,7 @@
           "roll": {
             "stat": "force",
             "target": 11,
-            "success": "Kael descends like the decision has already been made. The captain's line buckles.",
+            "success": "Kael descends like the decision has already been made. The captain's line buckles before it understands why.",
             "failure": "The descent is fast but not clean. The captain gives ground and the field widens around him."
           },
           "objectives": {
@@ -134,7 +134,7 @@
           "roll": {
             "stat": "restraint",
             "target": 12,
-            "success": "He turns away from the cleanest target and reaches the civilians before the raiders do.",
+            "success": "He turns away from the cleanest target. The road lengthens in the time it takes to reach them. He reaches them first.",
             "failure": "He reaches them late enough to know what late means."
           },
           "objectives": {
@@ -156,7 +156,7 @@
           "roll": {
             "stat": "reputation",
             "target": 12,
-            "success": "The men hear the name before the orders. For once, the name is useful.",
+            "success": "The men hear the name before the orders. For once, the name is useful rather than simply large.",
             "failure": "The orders are sound. The field is louder."
           },
           "objectives": {
@@ -178,7 +178,7 @@
           "roll": {
             "stat": "witness",
             "target": 13,
-            "success": "The attack is not random. The captain is driving the civilians into the road to force pursuit.",
+            "success": "The attack is a trap. The captain has been moving the civilians into the road deliberately — they are the bait, not the objective. Kael knows this now. It does not simplify the choice. It clarifies what the choice will cost.",
             "failure": "The breath costs him. The field does not pause because he does."
           },
           "objectives": {
@@ -204,8 +204,8 @@
       "ambience": "storm",
       "stakes": "The civilians can still be moved toward the eastern road, but the captain is using the delay.",
       "narration": [
-        "A woman is pinned under a cracked wheel. A boy is trying to pull her free with both hands and no leverage. Kael reaches them with the storm behind him and the captain still alive in the road.",
-        "This is not the clean part of battle. This is weight, mud, fear, and the ugly arithmetic of seconds."
+        "A woman is pinned under a cracked wheel. A boy is trying to pull her free with both hands and no leverage. Kael reached them before the raiders did. The captain is still alive in the road.",
+        "This is not the clean part of battle. This is weight and mud and the arithmetic of seconds. The captain's men are watching the delay."
       ],
       "choices": [
         {
@@ -233,8 +233,8 @@
           "roll": {
             "stat": "force",
             "target": 11,
-            "success": "He leaves the wheel and reaches the road with killing clarity.",
-            "failure": "He leaves the wheel and still arrives late."
+            "success": "He leaves the wheel. He does not look back. The road to the captain is clear and he runs it.",
+            "failure": "He leaves the wheel and still arrives late. The cost of the wheel is already paid. The cost of the captain is not yet calculated."
           },
           "objectives": {
             "civilians": -2,
@@ -300,8 +300,8 @@
       "ambience": "storm",
       "stakes": "The field responds to Kael's reputation. That makes the problem easier and the name harder to lay down later.",
       "narration": [
-        "When Kael gives the first order, the men move. Not because the order is brilliant. Because it is his voice. Because the name has already done part of the work.",
-        "The Iron Captain is useful. That is the first danger of it."
+        "When Kael speaks, the men orient before the order is finished. This is what the name does. It arrives before he does. The field is already answering.",
+        "The Iron Captain is not Kael. It is what the world made of Kael, and it is useful here, and that is the problem."
       ],
       "choices": [
         {
@@ -352,8 +352,8 @@
           "roll": {
             "stat": "restraint",
             "target": 13,
-            "success": "The men obey the order instead of the legend. Fewer move, but they move cleanly.",
-            "failure": "Without the name, hesitation enters the line."
+            "success": "Fewer men move. They move because the order was correct, not because the name was attached to it. The difference is small and it matters.",
+            "failure": "Without the name the order is just an order. The men obey it the way they obey rain."
           },
           "objectives": {
             "civilians": 1
@@ -371,8 +371,8 @@
           "roll": {
             "stat": "reputation",
             "target": 9,
-            "success": "The men become certain. Certainty moves fast.",
-            "failure": "The certainty becomes noise and men mistake movement for judgement."
+            "success": "The name becomes the field's shape for a moment. Men move faster than thought. The captain sees it and adjusts.",
+            "failure": "The certainty becomes noise. Men mistake movement for judgement."
           },
           "objectives": {
             "raiderThreat": -3,
@@ -398,7 +398,8 @@
       "stakes": "The captain can be broken. The question is what else narrows with him.",
       "narration": [
         "The field becomes simple in the way violence sometimes lies by becoming simple. The captain is there. The line is there. The distance is countable.",
-        "Kael feels the surge arrive. Not madness. Not rage. Purpose. That is why it is dangerous."
+        "Kael feels the surge arrive. Not madness. Not rage. Purpose. That is why it is dangerous.",
+        "Somewhere behind him, or already decided, is the question of the woman under the wheel. The surge does not ask about her. That too is part of what the surge does."
       ],
       "choices": [
         {
@@ -496,7 +497,7 @@
       "stakes": "What happened can be reported as victory. That does not make the account accurate.",
       "narration": [
         "Afterward, the road is smaller again. The rain works at the blood and does not clean it. Men begin counting what can be counted because the rest has no agreed measure.",
-        "Kael stands where the field left him. The captain is gone, dead, broken, escaped, or named. Civilians live or do not. The men look to Kael for the shape of the story."
+        "Kael stands where the field left him. The men are already shaping the story in their mouths — which part they say first, which part they leave between the words. He is still part of the field. He is also already the name they will attach to it."
       ],
       "choices": [
         {
@@ -512,7 +513,7 @@
             "hollow": 2
           },
           "journal": "The report made the victory cleaner than the road was.",
-          "nextScene": "aftermath",
+          "nextScene": "caeden_summons",
           "time": "Night"
         },
         {
@@ -529,7 +530,7 @@
             "reputation": -1
           },
           "journal": "Kael put the cost into the account instead of outside it.",
-          "nextScene": "aftermath",
+          "nextScene": "caeden_summons",
           "time": "Night"
         },
         {
@@ -545,7 +546,7 @@
             "hollow": 1
           },
           "journal": "Kael let others shape the story of the road.",
-          "nextScene": "aftermath",
+          "nextScene": "caeden_summons",
           "time": "Night"
         },
         {
