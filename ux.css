@@ -51,6 +51,206 @@
   margin-top: 28px;
 }
 
+/* ── Intro sequence — 5-beat world entry ─────────────────── */
+
+.intro-beat {
+  width: 100%;
+  max-height: 100vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 20px;
+  animation: intro-fade 0.45s ease-out;
+}
+
+@keyframes intro-fade {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Beat 1 — Title */
+.intro-title-card {
+  text-align: center;
+  max-width: 520px;
+}
+
+.intro-main-title {
+  margin: 10px 0 18px;
+  font-size: clamp(3.2rem, 9vw, 6rem);
+  letter-spacing: -0.06em;
+  line-height: 0.9;
+  color: var(--parchment);
+}
+
+.intro-tagline {
+  font-style: italic;
+  color: rgba(216, 189, 132, 0.5);
+  font-size: 0.95rem;
+  margin: 0 0 8px;
+  line-height: 1.7;
+}
+
+.intro-entry-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+/* Beats 2 & 3 — Prose */
+.intro-prose-card {
+  max-width: 660px;
+  width: 100%;
+}
+
+.intro-attr {
+  margin-bottom: 18px;
+  opacity: 0.65;
+}
+
+.intro-stream-text {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1rem;
+  line-height: 1.85;
+  color: #c8b870;
+  max-height: 52vh;
+  overflow-y: auto;
+  padding-right: 6px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(216, 189, 132, 0.18) transparent;
+}
+
+.intro-stream-text p {
+  margin: 0 0 1em;
+}
+
+.intro-stream-text p:last-child {
+  margin-bottom: 0;
+}
+
+.intro-nav-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 22px;
+}
+
+/* Beat 4 — Character */
+.intro-char-card {
+  max-width: 580px;
+  width: 100%;
+}
+
+.intro-char-name {
+  margin: 6px 0 10px;
+  font-size: clamp(2rem, 5vw, 3rem);
+  letter-spacing: -0.04em;
+  color: var(--parchment);
+}
+
+.intro-char-bio {
+  color: var(--ink);
+  line-height: 1.72;
+  margin: 0 0 18px;
+  font-style: italic;
+  font-size: 0.93rem;
+}
+
+.intro-stats-reveal {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  margin-bottom: 26px;
+  border-top: 1px solid rgba(216, 189, 132, 0.12);
+  padding-top: 14px;
+}
+
+.intro-stat {
+  border-left: 2px solid rgba(216, 189, 132, 0.22);
+  padding-left: 12px;
+}
+
+.intro-stat-hollow {
+  border-left-color: rgba(160, 100, 160, 0.45);
+}
+
+.intro-stat-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 2px;
+}
+
+.intro-stat-name {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(216, 189, 132, 0.65);
+  font-weight: 600;
+}
+
+.intro-stat-val {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #d8bd84;
+  line-height: 1;
+}
+
+.intro-stat-desc {
+  font-size: 0.8rem;
+  color: rgba(200, 184, 112, 0.58);
+  line-height: 1.58;
+  margin: 0;
+}
+
+.intro-stat-hollow .intro-stat-name { color: rgba(190, 130, 190, 0.7); }
+.intro-stat-hollow .intro-stat-val  { color: #c898c8; }
+
+/* Beat 5 — Mechanics */
+.intro-mech-card {
+  max-width: 740px;
+  width: 100%;
+}
+
+.intro-mech-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 14px 0 26px;
+}
+
+.intro-mech {
+  border: 1px solid rgba(216, 189, 132, 0.13);
+  border-radius: 12px;
+  padding: 15px 17px;
+  background: rgba(0, 0, 0, 0.14);
+}
+
+.intro-mech-title {
+  display: block;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: rgba(216, 189, 132, 0.75);
+  margin-bottom: 7px;
+}
+
+.intro-mech p {
+  font-size: 0.83rem;
+  color: var(--ink);
+  line-height: 1.65;
+  margin: 0;
+}
+
+@media (max-width: 600px) {
+  .intro-mech-grid { grid-template-columns: 1fr; }
+  .intro-main-title { font-size: clamp(2.6rem, 11vw, 4rem); }
+  .intro-beat { padding: 24px 16px; }
+}
+
 /* ── Play shell ──────────────────────────────────────────── */
 
 .play-shell {

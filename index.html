@@ -20,62 +20,105 @@
 <body>
 
   <section class="campaign-cover" id="campaignCover">
-    <div class="cover-card">
-      <p class="eyebrow">The Stormwright Cycle</p>
-      <h1 id="campaignTitle">The Noise of Purpose</h1>
-      <p class="cover-copy prologue-card"><strong>You play as Kael Vorn.</strong> A soldier on a road. A column of smoke on the horizon that was not there an hour before. The world is about to ask him to be what it made him — and he has not yet decided if that is what he wants to be.</p>
-      <p class="cover-copy">This is the account he wrote, years later, alone in a stone chamber in the northern hills. What it cost to write it is what the game is about.</p>
 
-      <div class="cover-sections">
-
-        <div class="cover-section">
-          <p class="cover-section-label">Your Character</p>
-          <div class="cover-char-card">
-            <div class="cover-char-header">
-              <strong>Kael Vorn</strong>
-              <span class="cover-char-role">Iron Captain · Eastern Marches</span>
-            </div>
-            <p class="cover-char-bio">Decorated officer. Effective beyond the needs of the situation. Men follow the name before they follow the orders. He has not decided whether that is useful or dangerous.</p>
-            <div class="cover-stats-row">
-              <span class="cstat" title="Shapes rolls when you act through force or direct confrontation">Force <em>4</em></span>
-              <span class="cstat" title="Shapes rolls when you hold back, protect, or refuse">Restraint <em>2</em></span>
-              <span class="cstat" title="Shapes rolls when you read the field clearly">Witness <em>2</em></span>
-              <span class="cstat cstat-hollow" title="Grows when choices cost him something essential. At 7 it shows. At 10 the account closes.">Hollow <em>0</em></span>
-              <span class="cstat" title="Shapes how fast others obey or fear">Reputation <em>3</em></span>
-            </div>
-          </div>
+    <!-- Beat 1: Entry -->
+    <div class="intro-beat" id="introBeat1">
+      <div class="intro-title-card">
+        <p class="eyebrow">The Stormwright Cycle</p>
+        <h1 class="intro-main-title">The Noise<br>of Purpose</h1>
+        <p class="intro-tagline">"Any soldier of sufficient skill can be the storm."</p>
+        <p class="cover-status" id="coverStatus"></p>
+        <div class="intro-entry-actions">
+          <button id="continueBtn" class="primary" hidden>Continue Session</button>
+          <button id="introEnterBtn" class="primary">Enter</button>
         </div>
-
-        <div class="cover-section">
-          <p class="cover-section-label">How It Works</p>
-          <div class="cover-rules-grid">
-            <div class="cover-rule">
-              <strong>Choose an action</strong>
-              <span>Each choice tests a different quality. Force breaks through. Restraint holds back. Witness reads clearly. Reputation commands.</span>
-            </div>
-            <div class="cover-rule">
-              <strong>Roll d20 + stat</strong>
-              <span>The dice show the result; your moral state shapes the odds. High Force adds to force rolls. Low Restraint subtracts from restraint rolls.</span>
-            </div>
-            <div class="cover-rule">
-              <strong>The hollow grows</strong>
-              <span>Some choices cost Kael something he cannot name yet. Hollow tracks that cost. At 7 it begins to change him. At 10 the account is closed.</span>
-            </div>
-            <div class="cover-rule">
-              <strong>Ask the GM</strong>
-              <span>At any time, type a question in the Ask box — examine the field, speak to a character, look at a detail. The AI GM answers in character.</span>
-            </div>
-          </div>
-        </div>
-
       </div>
+    </div>
 
-      <p class="cover-status" id="coverStatus"></p>
-      <div class="cover-actions">
-        <button id="continueBtn" class="primary" hidden>Continue Session</button>
+    <!-- Beat 2: Foreword -->
+    <div class="intro-beat" id="introBeat2" hidden>
+      <div class="intro-prose-card">
+        <p class="eyebrow intro-attr">The Northern Archive &middot; Aldric Vane, Compiler</p>
+        <div id="introStream1" class="intro-stream-text"></div>
+        <div class="intro-nav-row">
+          <button id="introSkip1" class="compact-control">Skip</button>
+          <button id="introCont1" class="primary" hidden>Continue</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Beat 3: Prologue -->
+    <div class="intro-beat" id="introBeat3" hidden>
+      <div class="intro-prose-card">
+        <p class="eyebrow intro-attr">Prologue &middot; The Stone Chamber</p>
+        <div id="introStream2" class="intro-stream-text"></div>
+        <div class="intro-nav-row">
+          <button id="introSkip2" class="compact-control">Skip</button>
+          <button id="introCont2" class="primary" hidden>Begin the account</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Beat 4: Kael Vorn -->
+    <div class="intro-beat" id="introBeat4" hidden>
+      <div class="intro-char-card">
+        <p class="eyebrow">Iron Captain &middot; Eastern Marches</p>
+        <h2 class="intro-char-name">Kael Vorn</h2>
+        <p class="intro-char-bio">Decorated officer. Effective beyond the needs of the situation. Men follow the name before they follow the orders. He has not decided whether that is useful or dangerous.</p>
+        <div class="intro-stats-reveal">
+          <div class="intro-stat">
+            <div class="intro-stat-head"><span class="intro-stat-name">Force</span><span class="intro-stat-val">4</span></div>
+            <p class="intro-stat-desc">He acts through direct confrontation. This is where he is strongest — and where the account begins.</p>
+          </div>
+          <div class="intro-stat">
+            <div class="intro-stat-head"><span class="intro-stat-name">Restraint</span><span class="intro-stat-val">2</span></div>
+            <p class="intro-stat-desc">He has not yet learned to hold back. That is the work ahead of him.</p>
+          </div>
+          <div class="intro-stat">
+            <div class="intro-stat-head"><span class="intro-stat-name">Witness</span><span class="intro-stat-val">2</span></div>
+            <p class="intro-stat-desc">He sees the field clearly. He does not always act on what he sees.</p>
+          </div>
+          <div class="intro-stat intro-stat-hollow">
+            <div class="intro-stat-head"><span class="intro-stat-name">Hollow</span><span class="intro-stat-val">0</span></div>
+            <p class="intro-stat-desc">This is where it starts. Some choices will cost him something he cannot name. At seven it shows. At ten the account closes.</p>
+          </div>
+          <div class="intro-stat">
+            <div class="intro-stat-head"><span class="intro-stat-name">Reputation</span><span class="intro-stat-val">3</span></div>
+            <p class="intro-stat-desc">The name precedes the man. That is useful until it is not.</p>
+          </div>
+        </div>
+        <button id="introCont3" class="primary">I understand</button>
+      </div>
+    </div>
+
+    <!-- Beat 5: Mechanics -->
+    <div class="intro-beat" id="introBeat5" hidden>
+      <div class="intro-mech-card">
+        <p class="eyebrow">How it works</p>
+        <div class="intro-mech-grid">
+          <div class="intro-mech">
+            <strong class="intro-mech-title">Choose an action</strong>
+            <p>Each choice tests a different quality — not skill, character. Force breaks through. Restraint holds back. Witness reads clearly. Reputation commands.</p>
+          </div>
+          <div class="intro-mech">
+            <strong class="intro-mech-title">Roll d20 + moral state</strong>
+            <p>The dice show the result. Your moral state shapes the odds. High Force adds to force rolls. Low Restraint subtracts. Who you are changes what you can do.</p>
+          </div>
+          <div class="intro-mech">
+            <strong class="intro-mech-title">The Hollow grows</strong>
+            <p>Some choices cost Kael something he cannot name. Hollow tracks that cost. At seven it begins to change him. At ten the account is closed.</p>
+          </div>
+          <div class="intro-mech">
+            <strong class="intro-mech-title">Ask the GM</strong>
+            <p>At any point, type a question — examine the field, speak to a character, look at a detail. The AI Game Master answers in character from within the world.</p>
+          </div>
+        </div>
         <button id="startBtn" class="primary">Ride East</button>
       </div>
     </div>
+
+    <span id="campaignTitle" hidden></span>
+
   </section>
 
   <div class="play-shell" style="margin: 0 auto; padding: 20px 14px;">

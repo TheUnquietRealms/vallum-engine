@@ -66,6 +66,20 @@ const dom = {
   storyControls: $("storyControls"),
   storyCopyBtn: $("storyCopyBtn"),
   storyDownloadBtn: $("storyDownloadBtn"),
+  // Intro sequence
+  introEnterBtn: $("introEnterBtn"),
+  introBeat1: $("introBeat1"),
+  introBeat2: $("introBeat2"),
+  introBeat3: $("introBeat3"),
+  introBeat4: $("introBeat4"),
+  introBeat5: $("introBeat5"),
+  introStream1: $("introStream1"),
+  introStream2: $("introStream2"),
+  introSkip1: $("introSkip1"),
+  introSkip2: $("introSkip2"),
+  introCont1: $("introCont1"),
+  introCont2: $("introCont2"),
+  introCont3: $("introCont3"),
   // AI GM
   gmResponse: $("gmResponse"),
   gmResponsePanel: $("gmResponsePanel"),
@@ -82,6 +96,29 @@ const dom = {
 let campaign = null;
 let state = null;
 let audio = { ctx: null, master: null, nodes: [], enabled: false, currentMood: null };
+let currentTypewriter = null;
+
+const FOREWORD_TEXT = [
+  "What follows is not a chronicle in the conventional sense.",
+  "The man who came to be called the Iron Captain left behind no formal record of himself. He held no title that persisted. He served no lord long enough to warrant mention in their accounts. When he finally withdrew from the world of campaigns and commissions, he did so with the practiced completeness of a man who had decided to become difficult to find.",
+  "What we have instead are fragments.",
+  "A garrison log entry from the eastern marches. A cartographer's private correspondence, never sent. An alley in a border village where, according to a tanner who claimed to have been present, a man let another man walk away when no one would have known the difference.",
+  "And then — from much later — a bundle of parchments discovered in the ruins of a small stone fortification in the northern hills. Written in a hand that suggests both formal education and long disuse of it. He wrote plainly, without the instinct to justify. He did not write to be absolved.",
+  "He wrote, it seems, to understand.",
+  "Any soldier of sufficient skill can be the storm. To sit in a stone chamber and watch one pass — to feel nothing in yourself that answers it — requires a different order of discipline entirely."
+].join("\n\n");
+
+const PROLOGUE_TEXT = [
+  "The storm had been building since dusk.",
+  "From the narrow window of his stone chamber, the valley lay stretched beneath a sky the colour of bruised iron. Lightning stitched briefly across the horizon — too distant yet for thunder — illuminating the road that cut through the fields below.",
+  "There had been a time when a sky like this would have stirred him to motion. He had ridden beneath storms with steel in hand and men at his back, rain blinding and thunder shaking the earth. He had mistaken that noise for purpose. Mistaken the charge of blood for clarity.",
+  "He stood at the window and watched the storm gather.",
+  "The sword rested against the far wall, sheathed, maintained, within reach. He had not cast it away. To discard a blade was easy. To keep it and not draw it required something else.",
+  "“There is always a storm,” he said quietly.",
+  "Not in challenge. Not in warning.",
+  "Only in recognition.",
+  "This is the account of how he learned the difference."
+].join("\n\n");
 
 boot();
 
@@ -92,7 +129,7 @@ async function boot() {
     document.body.classList.add("cover-open", "stormwright-theme");
     setText(dom.campaignTitle, campaign.title);
     const hasSave = !!localStorage.getItem(STORAGE_KEY);
-    setText(dom.coverStatus, hasSave ? "Saved Stormwright session found on this browser." : "No saved Stormwright session found. Begin on the ridge.");
+    setText(dom.coverStatus, hasSave ? "A saved session was found on this browser." : "");
     if (dom.continueBtn) dom.continueBtn.hidden = !hasSave;
     wireControls();
     render();
@@ -128,6 +165,48 @@ function createInitialState(module) {
   };
   console.log("Initialized game state:", initialState);
   return initialState;
+}
+
+function typewriter(el, text, onDone) {
+  el.innerHTML = '';
+  let i = 0;
+  let buf = '';
+  const flush = () => {
+    el.innerHTML = '<p>' + buf.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>') + '</p>';
+    el.scrollTop = el.scrollHeight;
+  };
+  const id = setInterval(() => {
+    buf += text.slice(i, i + 3);
+    i = Math.min(i + 3, text.length);
+    flush();
+    if (i >= text.length) {
+      clearInterval(id);
+      if (onDone) onDone();
+    }
+  }, 18);
+  return () => { clearInterval(id); buf = text; flush(); if (onDone) onDone(); };
+}
+
+function showIntroBeat(n) {
+  if (currentTypewriter) { currentTypewriter(); currentTypewriter = null; }
+  for (let i = 1; i <= 5; i++) {
+    const beat = dom[`introBeat${i}`];
+    if (beat) beat.hidden = (i !== n);
+  }
+  if (n === 2 && dom.introStream1) {
+    currentTypewriter = typewriter(dom.introStream1, FOREWORD_TEXT, () => {
+      currentTypewriter = null;
+      if (dom.introCont1) dom.introCont1.hidden = false;
+      if (dom.introSkip1) dom.introSkip1.hidden = true;
+    });
+  }
+  if (n === 3 && dom.introStream2) {
+    currentTypewriter = typewriter(dom.introStream2, PROLOGUE_TEXT, () => {
+      currentTypewriter = null;
+      if (dom.introCont2) dom.introCont2.hidden = false;
+      if (dom.introSkip2) dom.introSkip2.hidden = true;
+    });
+  }
 }
 
 function loadState() {
@@ -166,6 +245,12 @@ function normaliseOutcome(outcome) {
 
 function wireControls() {
   on(dom.continueBtn, "click", closeCover);
+  on(dom.introEnterBtn, "click", () => showIntroBeat(2));
+  on(dom.introSkip1, "click", () => { if (currentTypewriter) { currentTypewriter(); currentTypewriter = null; } });
+  on(dom.introSkip2, "click", () => { if (currentTypewriter) { currentTypewriter(); currentTypewriter = null; } });
+  on(dom.introCont1, "click", () => showIntroBeat(3));
+  on(dom.introCont2, "click", () => showIntroBeat(4));
+  on(dom.introCont3, "click", () => showIntroBeat(5));
   on(dom.startBtn, "click", startNewSession);
   on(dom.saveBtn, "click", saveState);
   on(dom.newGameBtn, "click", startNewSession);
