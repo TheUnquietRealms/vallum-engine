@@ -60,6 +60,12 @@ const dom = {
   completePortrait: $("completePortrait"),
   completeHook: $("completeHook"),
   completeRestartBtn: $("completeRestartBtn"),
+  storyGenBtn: $("storyGenBtn"),
+  storyPanel: $("storyPanel"),
+  storyOutput: $("storyOutput"),
+  storyControls: $("storyControls"),
+  storyCopyBtn: $("storyCopyBtn"),
+  storyDownloadBtn: $("storyDownloadBtn"),
   // AI GM
   gmResponse: $("gmResponse"),
   gmResponsePanel: $("gmResponsePanel"),
@@ -166,6 +172,9 @@ function wireControls() {
   on(dom.ambienceBtn, "click", toggleAmbience);
   on(dom.closeDrawerBtn, "click", closeCharacterSheet);
   on(dom.completeRestartBtn, "click", startNewSession);
+  on(dom.storyGenBtn, "click", generateStory);
+  on(dom.storyCopyBtn, "click", copyStory);
+  on(dom.storyDownloadBtn, "click", downloadStory);
   on(dom.characterDrawer, "click", (event) => {
     if (event.target === dom.characterDrawer) closeCharacterSheet();
   });
@@ -211,6 +220,10 @@ function startNewSession() {
   localStorage.removeItem(STORAGE_KEY);
   state = createInitialState(campaign);
   if (dom.sessionComplete) dom.sessionComplete.hidden = true;
+  if (dom.storyPanel) { dom.storyPanel.hidden = true; }
+  if (dom.storyOutput) dom.storyOutput.textContent = "";
+  if (dom.storyControls) dom.storyControls.hidden = true;
+  if (dom.storyGenBtn) { dom.storyGenBtn.disabled = false; dom.storyGenBtn.textContent = "Generate your story"; }
   closeCover();
   setStatus("New session started.");
 }
@@ -836,6 +849,51 @@ function buildForwardHook() {
     return "The woman from under the wheel has sent a name to the garrison. She is asking for the captain who made a different choice. Somewhere in the interior, there is a community with a problem that does not require a blade — or would not, if the right person arrived first.";
   }
   return "The garrison wants a report. The Council of the Eastern Marches will want more than that. What happened on the road has already left the road — it lives now in accounts carried by men who were not there, and the shape of those accounts is not entirely accurate. Kael has not yet decided whether to correct them.";
+}
+
+async function generateStory() {
+  if (!GM.hasKey()) { showApiModal(); return; }
+  if (dom.storyPanel) dom.storyPanel.hidden = false;
+  if (dom.storyOutput) dom.storyOutput.textContent = "";
+  if (dom.storyControls) dom.storyControls.hidden = true;
+  if (dom.storyGenBtn) { dom.storyGenBtn.disabled = true; dom.storyGenBtn.textContent = "Writing…"; }
+  let fullText = "";
+  await GM.stream({
+    userContent: GM.storyPrompt(state.journal, state.moralState, state.objectives),
+    systemOverride: GM.STORY_SYSTEM,
+    maxTokens: 800,
+    onToken(t) {
+      fullText += t;
+      if (dom.storyOutput) dom.storyOutput.textContent = fullText;
+    },
+    onDone() {
+      if (dom.storyControls) dom.storyControls.hidden = false;
+      if (dom.storyGenBtn) { dom.storyGenBtn.disabled = false; dom.storyGenBtn.textContent = "Regenerate"; }
+    },
+    onError(err) {
+      if (dom.storyOutput) dom.storyOutput.textContent = "Could not generate story. " + (err || "");
+      if (dom.storyGenBtn) { dom.storyGenBtn.disabled = false; dom.storyGenBtn.textContent = "Generate your story"; }
+    }
+  });
+}
+
+function copyStory() {
+  const text = dom.storyOutput?.textContent || "";
+  if (!text) return;
+  try { navigator.clipboard.writeText(text); } catch {}
+}
+
+function downloadStory() {
+  const text = dom.storyOutput?.textContent || "";
+  if (!text) return;
+  const date = new Date().toISOString().slice(0, 10);
+  const blob = new Blob([text], { type: "text/plain" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `kael-vorn-${date}.txt`;
+  a.click();
+  URL.revokeObjectURL(url);
 }
 
 async function choose(choice) {

@@ -694,7 +694,40 @@
 
 .complete-actions {
   display: flex;
+  gap: 0.75rem;
   justify-content: flex-end;
+  align-items: center;
+}
+
+/* ── Story panel ─────────────────────────────────────────── */
+
+.story-panel {
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.story-panel > .eyebrow {
+  font-size: 0.65rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(232, 213, 163, 0.45);
+  margin: 0 0 1rem;
+}
+
+.story-output {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 0.97rem;
+  line-height: 1.85;
+  color: rgba(232, 213, 163, 0.88);
+  white-space: pre-wrap;
+  max-width: 68ch;
+}
+
+.story-controls {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
 }
 
 @media (max-width: 700px) {

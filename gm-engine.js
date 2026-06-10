@@ -32,7 +32,7 @@ Stay under 140 words total. Narrate only what Kael perceives. Never explain game
   function clearKey()   { try { localStorage.removeItem(KEY_STORE); } catch {} }
   function hasKey()     { return !!key(); }
 
-  async function stream({ userContent, onToken, onDone, onError }) {
+  async function stream({ userContent, onToken, onDone, onError, systemOverride, maxTokens }) {
     const k = key();
     if (!k) { onError?.('No API key set.'); return; }
 
@@ -48,8 +48,8 @@ Stay under 140 words total. Narrate only what Kael perceives. Never explain game
         },
         body: JSON.stringify({
           model: MODEL,
-          max_tokens: 350,
-          system: SYSTEM,
+          max_tokens: maxTokens || 350,
+          system: systemOverride || SYSTEM,
           stream: true,
           messages: [{ role: 'user', content: userContent }]
         })
@@ -142,5 +142,47 @@ Player examines: "${query}"
 Respond as GM. 1–2 short paragraphs. Present-tense. This is what Kael perceives.`;
   }
 
-  return { key, setKey, clearKey, hasKey, stream, openScenePrompt, choicePrompt, askPrompt };
+  const STORY_SYSTEM = `You are a literary narrator for The Stormwright Cycle, a dark feudal fantasy series. Write in third person, past tense, in the restrained and morally precise voice of the novels.
+
+The subject is Kael Vorn, Iron Captain of the Eastern Marches — a man of extraordinary capability who is beginning to understand what capability costs.
+
+World: wet, feudal, contested. Violence is concrete, not glorious. Every victory costs something. The Surge is a heightened operational state where the world narrows and action becomes effortless. The Hollow is what follows: a void that grows wider with each act that feeds the Surge without asking what it was for.
+
+You will be given the decisions this Kael made and his final moral state. Write it as a chapter of a novel — not a game summary.
+
+Rules:
+- Third person, past tense throughout.
+- 450–600 words. Three to four paragraphs. No headers, no lists, no section breaks.
+- Do not quote the journal entries directly — weave them into narrative.
+- Do not explain numbers. Render moral state as interiority, action, and what he notices.
+- Voice: restrained, morally weighted, precise. Short declarative sentences. No purple prose.
+- Forbidden words: epic, incredible, legendary, powerful, suddenly, vast, ancient.
+- End on the specific weight of where he arrived.`;
+
+  function storyPrompt(journal, moralState, objectives) {
+    const m = moralState;
+    const o = objectives || {};
+    const forceDesc = m.force >= 7 ? "dominant, instinctive" : m.force >= 4 ? "present, reaching" : "held";
+    const restraintDesc = m.restraint >= 6 ? "hard-won, costly" : m.restraint >= 3 ? "possible, not instinct" : "thin";
+    const witnessDesc = m.witness >= 6 ? "clear, uncomfortable" : m.witness >= 3 ? "partial, growing" : "narrow";
+    const hollowDesc = m.hollow >= 7 ? "dominant, fraying" : m.hollow >= 4 ? "present, acknowledged" : "contained";
+    const repDesc = m.reputation >= 6 ? "legend, a burden" : m.reputation >= 3 ? "useful, undecided" : "still earning";
+    const entries = journal.slice(1).map((e, i) => `${i + 1}. ${e}`).join('\n');
+    return `Write the prose account of Kael Vorn's journey.
+
+THE DECISIONS (in order):
+${entries}
+
+HIS STATE AT THE END:
+Force: ${m.force} — ${forceDesc}
+Restraint: ${m.restraint} — ${restraintDesc}
+Witness: ${m.witness} — ${witnessDesc}
+Hollow: ${m.hollow} — ${hollowDesc}
+Reputation: ${m.reputation} — ${repDesc}
+Civilians: ${o.civilians ?? '?'}
+
+Write the chapter.`;
+  }
+
+  return { key, setKey, clearKey, hasKey, stream, openScenePrompt, choicePrompt, askPrompt, storyPrompt, STORY_SYSTEM };
 })();
