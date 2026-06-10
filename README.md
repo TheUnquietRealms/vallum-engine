@@ -96,6 +96,7 @@ Key files:
 - `index.html` — application shell and landing
 - `styles.css` and `ux.css` — design system and tabletop layout
 - `app.js` — runtime engine, choices, state, ambience, save and session complete
+- `gm-engine.js` — Game Master narration and decision logic
 - `data/campaigns/noise-of-purpose.json` — first Stormwright module
 - `PROJECT_STATE.md` — current delivery state
 - `CHANGELOG.md` — release history
@@ -111,3 +112,6 @@ Key files:
 - Pre-choice state deltas remain hidden.
 - AI belongs first in authoring and later in bounded companion behaviour, not unbounded runtime improvisation.
 - A release is not final until internal UAT and founder live signoff pass.
+
+---
+© 2026 ZenCloud Global Consultants. All rights reserved. Proprietary and confidential.

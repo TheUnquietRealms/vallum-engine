@@ -3,3 +3,11 @@ docs/source/
 
 # Claude Code / Superpowers plugin cache
 .superpowers/
+
+# Secrets and dependencies
+.env
+.env.*
+.env.local
+node_modules/
+dist/
+build/
