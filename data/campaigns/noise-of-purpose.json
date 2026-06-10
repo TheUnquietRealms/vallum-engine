@@ -695,8 +695,8 @@
       "ambience": "rain",
       "stakes": "The operation is underway. Efficiency is the skill he has. The question is what he chooses to see.",
       "narration": [
-        "Three hamlets, widely spaced. Farmers, mostly. A mill. A tanner's yard that smelled of rot and iron. Dogs that barked and then went quiet.",
-        "He had always been efficient. The valley was unremarkable. The roads through it would carry no sympathy after. He knew how to do this. That was the problem."
+        "Three hamlets, widely spaced. Farmers, mostly. A mill. A tanner's yard that smelled of rot and iron. Dogs that barked and then went quiet. He had been in a hundred valleys like this one.",
+        "He had always been efficient. The valley did not require him to look at it to work. The roads through it would carry no sympathy after. He knew how to do this. That was the problem."
       ],
       "choices": [
         {
@@ -704,7 +704,7 @@
           "roll": {
             "stat": "force",
             "target": 9,
-            "success": "The valley is altered by the second evening. He makes his report and receives his commendation.",
+            "success": "The valley is quiet by the second evening. He makes his report and receives his commendation.",
             "failure": "Efficient is not always clean. Some things resist efficiency."
           },
           "objectives": {
@@ -961,7 +961,7 @@
           "roll": {
             "stat": "restraint",
             "target": 12,
-            "success": "She says: you are not here. He says: I am here. She says: whoever is sitting there is not the man I know. The silence between them is the most honest thing they have managed.",
+            "success": "She says: you are not here. He says: I am here. She says: there is no heat in you tonight. He does not argue. The silence between them is the most honest thing they have managed.",
             "failure": "He tries to sit with it and finds the weight of her expectation too specific to ignore."
           },
           "moral": {
@@ -1340,11 +1340,11 @@
           "time": "Morning"
         },
         {
-          "label": "Tell him the truth. I am not what those stories say I am.",
+          "label": "Tell him the truth. Speak plainly about what you are becoming.",
           "roll": {
             "stat": "witness",
             "target": 11,
-            "success": "Or I was, and am becoming something else. The distinction matters. Davan tilts his head. What are you becoming? Kael says: I don't know yet. But it requires silence.",
+            "success": "I was what those stories say, he tells the boy. I am becoming something else. The distinction matters. Davan tilts his head: what are you becoming? Kael says: I don't know yet. But it requires silence.",
             "failure": "The truth comes out shaped like a dismissal. Davan hears what he expected."
           },
           "moral": {
@@ -1556,7 +1556,7 @@
           "roll": {
             "stat": "witness",
             "target": 11,
-            "success": "He writes slowly. He crosses out more than he keeps. He signs it with his actual name — not the Iron Captain. Ser Crane will not want the attention. The letter gives him reason and cover to act.",
+            "success": "He writes slowly. He crosses out more than he keeps. He signs it with his actual name — not the Iron Captain. Torven will not want the attention. The letter gives him reason and cover to act.",
             "failure": "He writes the letter and signs it and hands it over and stands in the doorway watching her descend thinking: I have used my name. The thing I have been putting down, I lifted it off the shelf and applied it like a blade."
           },
           "objectives": {
