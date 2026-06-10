@@ -5,7 +5,10 @@
   "series": "The Stormwright Cycle",
   "canonStatus": "Book I full adaptation — 8-hour solo adventure",
   "startingScene": "ridge",
-  "initialTime": { "day": 1, "phase": "Stormlight" },
+  "initialTime": {
+    "day": 1,
+    "phase": "Stormlight"
+  },
   "objectives": {
     "civilians": 6,
     "raiderThreat": 8,
@@ -33,21 +36,65 @@
     }
   ],
   "locations": [
-    { "id": "ridge",     "name": "Ridge",           "x": 190, "y": 150, "kind": "kael" },
-    { "id": "caravan",   "name": "Burning Caravan",  "x": 520, "y": 335, "kind": "fire" },
-    { "id": "civilians", "name": "Civilians",         "x": 355, "y": 455, "kind": "objective" },
-    { "id": "captain",   "name": "Raider Captain",    "x": 745, "y": 235, "kind": "threat" },
-    { "id": "road",      "name": "Eastern Road",      "x": 670, "y": 505, "kind": "road" }
+    {
+      "id": "ridge",
+      "name": "Ridge",
+      "x": 190,
+      "y": 150,
+      "kind": "kael"
+    },
+    {
+      "id": "caravan",
+      "name": "Burning Caravan",
+      "x": 520,
+      "y": 335,
+      "kind": "fire"
+    },
+    {
+      "id": "civilians",
+      "name": "Civilians",
+      "x": 355,
+      "y": 455,
+      "kind": "objective"
+    },
+    {
+      "id": "captain",
+      "name": "Raider Captain",
+      "x": 745,
+      "y": 235,
+      "kind": "threat"
+    },
+    {
+      "id": "road",
+      "name": "Eastern Road",
+      "x": 670,
+      "y": 505,
+      "kind": "road"
+    }
   ],
   "routes": [
-    ["ridge", "caravan"],
-    ["ridge", "civilians"],
-    ["caravan", "captain"],
-    ["civilians", "road"],
-    ["captain", "road"]
+    [
+      "ridge",
+      "caravan"
+    ],
+    [
+      "ridge",
+      "civilians"
+    ],
+    [
+      "caravan",
+      "captain"
+    ],
+    [
+      "civilians",
+      "road"
+    ],
+    [
+      "captain",
+      "road"
+    ]
   ],
   "scenes": {
-
     "ridge": {
       "title": "The Ridge Above the Fire",
       "type": "Crisis",
@@ -62,43 +109,93 @@
       "choices": [
         {
           "label": "Cut the head. Break the captain before the attack has a centre.",
-          "roll": { "stat": "force", "target": 11, "success": "Kael descends like the decision has already been made. The captain's line buckles.", "failure": "The descent is fast but not clean. The captain gives ground and the field widens around him." },
-          "objectives": { "raiderThreat": -3, "captainPressure": -4, "civilians": -2 },
-          "moral": { "force": 1, "hollow": 2, "reputation": 1 },
+          "roll": {
+            "stat": "force",
+            "target": 11,
+            "success": "Kael descends like the decision has already been made. The captain's line buckles.",
+            "failure": "The descent is fast but not clean. The captain gives ground and the field widens around him."
+          },
+          "objectives": {
+            "raiderThreat": -3,
+            "captainPressure": -4,
+            "civilians": -2
+          },
+          "moral": {
+            "force": 1,
+            "hollow": 2,
+            "reputation": 1
+          },
           "journal": "Kael chose the captain first. The field answered in screams behind him.",
           "nextScene": "surge",
           "time": "Blood Rain"
         },
         {
           "label": "Move for the civilians. Put steel between them and the road.",
-          "roll": { "stat": "restraint", "target": 12, "success": "He turns away from the cleanest target and reaches the civilians before the raiders do.", "failure": "He reaches them late enough to know what late means." },
-          "objectives": { "civilians": 2, "captainPressure": 2, "raiderThreat": -1 },
-          "moral": { "restraint": 1, "witness": 1, "hollow": 1 },
+          "roll": {
+            "stat": "restraint",
+            "target": 12,
+            "success": "He turns away from the cleanest target and reaches the civilians before the raiders do.",
+            "failure": "He reaches them late enough to know what late means."
+          },
+          "objectives": {
+            "civilians": 2,
+            "captainPressure": 2,
+            "raiderThreat": -1
+          },
+          "moral": {
+            "restraint": 1,
+            "witness": 1,
+            "hollow": 1
+          },
           "journal": "Kael chose the civilians first. The captain remained in the road.",
           "nextScene": "civilians",
           "time": "Blood Rain"
         },
         {
           "label": "Command the men. Make the field answer to him.",
-          "roll": { "stat": "reputation", "target": 12, "success": "The men hear the name before the orders. For once, the name is useful.", "failure": "The orders are sound. The field is louder." },
-          "objectives": { "civilians": 1, "raiderThreat": -2, "captainPressure": -1 },
-          "moral": { "force": 1, "reputation": 2, "hollow": 1 },
+          "roll": {
+            "stat": "reputation",
+            "target": 12,
+            "success": "The men hear the name before the orders. For once, the name is useful.",
+            "failure": "The orders are sound. The field is louder."
+          },
+          "objectives": {
+            "civilians": 1,
+            "raiderThreat": -2,
+            "captainPressure": -1
+          },
+          "moral": {
+            "force": 1,
+            "reputation": 2,
+            "hollow": 1
+          },
           "journal": "Kael used the name the world had given him.",
           "nextScene": "command",
           "time": "Blood Rain"
         },
         {
           "label": "Hold one breath. Read the field before becoming part of it.",
-          "roll": { "stat": "witness", "target": 13, "success": "The attack is not random. The captain is driving the civilians into the road to force pursuit.", "failure": "The breath costs him. The field does not pause because he does." },
-          "objectives": { "captainPressure": -1, "civilians": -1 },
-          "moral": { "witness": 2, "restraint": 1, "hollow": 1 },
+          "roll": {
+            "stat": "witness",
+            "target": 13,
+            "success": "The attack is not random. The captain is driving the civilians into the road to force pursuit.",
+            "failure": "The breath costs him. The field does not pause because he does."
+          },
+          "objectives": {
+            "captainPressure": -1,
+            "civilians": -1
+          },
+          "moral": {
+            "witness": 2,
+            "restraint": 1,
+            "hollow": 1
+          },
           "journal": "Kael looked before acting. Seeing did not make the choice cleaner.",
           "nextScene": "surge",
           "time": "Blood Rain"
         }
       ]
     },
-
     "civilians": {
       "title": "The Wheels and the Screaming",
       "type": "Protection",
@@ -111,13 +208,90 @@
         "This is not the clean part of battle. This is weight, mud, fear, and the ugly arithmetic of seconds."
       ],
       "choices": [
-        { "label": "Lift the wheel and order the soldiers to cover the road.", "roll": { "stat": "force", "target": 10, "success": "The wheel comes up. The woman breathes once and begins crawling.", "failure": "The wheel shifts but does not clear. The boy will remember the sound." }, "objectives": { "civilians": 2, "raiderThreat": -1 }, "moral": { "force": 1, "witness": 1 }, "journal": "Kael used strength for protection, not pursuit.", "nextScene": "aftermath", "time": "After" },
-        { "label": "Abandon the wheel and take the captain before more raiders arrive.", "roll": { "stat": "force", "target": 11, "success": "He leaves the wheel and reaches the road with killing clarity.", "failure": "He leaves the wheel and still arrives late." }, "objectives": { "civilians": -2, "captainPressure": -3, "raiderThreat": -2 }, "moral": { "force": 1, "hollow": 2, "reputation": 1 }, "journal": "Kael left the trapped behind to regain the centre of the field.", "nextScene": "surge", "time": "After" },
-        { "label": "Stay with the trapped and let the captain go.", "roll": { "stat": "restraint", "target": 12, "success": "The captain escapes. Four civilians live because Kael did not follow.", "failure": "The captain escapes and the work still costs blood." }, "objectives": { "civilians": 3, "captainPressure": 3 }, "moral": { "restraint": 2, "witness": 1, "hollow": 1 }, "journal": "Kael let the captain go because the living were still in reach.", "nextScene": "aftermath", "time": "After" },
-        { "label": "Look at the boy and tell him exactly what to do.", "roll": { "stat": "witness", "target": 11, "success": "The boy stops screaming and starts listening. That saves more time than strength would have.", "failure": "The boy hears only the fire." }, "objectives": { "civilians": 1 }, "moral": { "witness": 2, "restraint": 1 }, "journal": "Kael found one living mind inside the panic and gave it shape.", "nextScene": "aftermath", "time": "After" }
+        {
+          "label": "Lift the wheel and order the soldiers to cover the road.",
+          "roll": {
+            "stat": "force",
+            "target": 10,
+            "success": "The wheel comes up. The woman breathes once and begins crawling.",
+            "failure": "The wheel shifts but does not clear. The boy will remember the sound."
+          },
+          "objectives": {
+            "civilians": 2,
+            "raiderThreat": -1
+          },
+          "moral": {
+            "force": 1,
+            "witness": 1
+          },
+          "journal": "Kael used strength for protection, not pursuit.",
+          "nextScene": "aftermath",
+          "time": "After"
+        },
+        {
+          "label": "Abandon the wheel and take the captain before more raiders arrive.",
+          "roll": {
+            "stat": "force",
+            "target": 11,
+            "success": "He leaves the wheel and reaches the road with killing clarity.",
+            "failure": "He leaves the wheel and still arrives late."
+          },
+          "objectives": {
+            "civilians": -2,
+            "captainPressure": -3,
+            "raiderThreat": -2
+          },
+          "moral": {
+            "force": 1,
+            "hollow": 2,
+            "reputation": 1
+          },
+          "journal": "Kael left the trapped behind to regain the centre of the field.",
+          "nextScene": "surge",
+          "time": "After"
+        },
+        {
+          "label": "Stay with the trapped and let the captain go.",
+          "roll": {
+            "stat": "restraint",
+            "target": 12,
+            "success": "The captain escapes. Four civilians live because Kael did not follow.",
+            "failure": "The captain escapes and the work still costs blood."
+          },
+          "objectives": {
+            "civilians": 3,
+            "captainPressure": 3
+          },
+          "moral": {
+            "restraint": 2,
+            "witness": 1,
+            "hollow": 1
+          },
+          "journal": "Kael let the captain go because the living were still in reach.",
+          "nextScene": "aftermath",
+          "time": "After"
+        },
+        {
+          "label": "Look at the boy and tell him exactly what to do.",
+          "roll": {
+            "stat": "witness",
+            "target": 11,
+            "success": "The boy stops screaming and starts listening. That saves more time than strength would have.",
+            "failure": "The boy hears only the fire."
+          },
+          "objectives": {
+            "civilians": 1
+          },
+          "moral": {
+            "witness": 2,
+            "restraint": 1
+          },
+          "journal": "Kael found one living mind inside the panic and gave it shape.",
+          "nextScene": "aftermath",
+          "time": "After"
+        }
       ]
     },
-
     "command": {
       "title": "The Name Used as a Tool",
       "type": "Command",
@@ -130,13 +304,91 @@
         "The Iron Captain is useful. That is the first danger of it."
       ],
       "choices": [
-        { "label": "Drive the men at the captain and accept the cost.", "roll": { "stat": "force", "target": 10, "success": "The line punches through. The captain's horse rears under the pressure.", "failure": "The line hits unevenly and men fall where the order put them." }, "objectives": { "captainPressure": -3, "raiderThreat": -3, "civilians": -1 }, "moral": { "force": 1, "reputation": 1, "hollow": 2 }, "journal": "Kael turned reputation into pressure.", "nextScene": "surge", "time": "After" },
-        { "label": "Split the men. Half to civilians, half to the road.", "roll": { "stat": "witness", "target": 12, "success": "The split is ugly but enough. The field holds in two places.", "failure": "The split weakens both halves. The captain sees it immediately." }, "objectives": { "civilians": 1, "raiderThreat": -1 }, "moral": { "witness": 1, "reputation": 1, "hollow": 1 }, "journal": "Kael tried to make an imperfect field hold two truths at once.", "nextScene": "aftermath", "time": "After" },
-        { "label": "Refuse the name. Give the order plainly, without theatre.", "roll": { "stat": "restraint", "target": 13, "success": "The men obey the order instead of the legend. Fewer move, but they move cleanly.", "failure": "Without the name, hesitation enters the line." }, "objectives": { "civilians": 1 }, "moral": { "restraint": 2, "hollow": -1 }, "journal": "Kael tried to command without feeding the Iron Captain.", "nextScene": "aftermath", "time": "After" },
-        { "label": "Let the name roar because it works.", "roll": { "stat": "reputation", "target": 9, "success": "The men become certain. Certainty moves fast.", "failure": "The certainty becomes noise and men mistake movement for judgement." }, "objectives": { "raiderThreat": -3, "captainPressure": -2 }, "moral": { "reputation": 2, "force": 1, "hollow": 2 }, "journal": "The Iron Captain grew larger because it solved the immediate problem.", "nextScene": "surge", "time": "After" }
+        {
+          "label": "Drive the men at the captain and accept the cost.",
+          "roll": {
+            "stat": "force",
+            "target": 10,
+            "success": "The line punches through. The captain's horse rears under the pressure.",
+            "failure": "The line hits unevenly and men fall where the order put them."
+          },
+          "objectives": {
+            "captainPressure": -3,
+            "raiderThreat": -3,
+            "civilians": -1
+          },
+          "moral": {
+            "force": 1,
+            "reputation": 1,
+            "hollow": 2
+          },
+          "journal": "Kael turned reputation into pressure.",
+          "nextScene": "surge",
+          "time": "After"
+        },
+        {
+          "label": "Split the men. Half to civilians, half to the road.",
+          "roll": {
+            "stat": "witness",
+            "target": 12,
+            "success": "The split is ugly but enough. The field holds in two places.",
+            "failure": "The split weakens both halves. The captain sees it immediately."
+          },
+          "objectives": {
+            "civilians": 1,
+            "raiderThreat": -1
+          },
+          "moral": {
+            "witness": 1,
+            "reputation": 1,
+            "hollow": 1
+          },
+          "journal": "Kael tried to make an imperfect field hold two truths at once.",
+          "nextScene": "aftermath",
+          "time": "After"
+        },
+        {
+          "label": "Refuse the name. Give the order plainly, without theatre.",
+          "roll": {
+            "stat": "restraint",
+            "target": 13,
+            "success": "The men obey the order instead of the legend. Fewer move, but they move cleanly.",
+            "failure": "Without the name, hesitation enters the line."
+          },
+          "objectives": {
+            "civilians": 1
+          },
+          "moral": {
+            "restraint": 2,
+            "hollow": -1
+          },
+          "journal": "Kael tried to command without feeding the Iron Captain.",
+          "nextScene": "aftermath",
+          "time": "After"
+        },
+        {
+          "label": "Let the name roar because it works.",
+          "roll": {
+            "stat": "reputation",
+            "target": 9,
+            "success": "The men become certain. Certainty moves fast.",
+            "failure": "The certainty becomes noise and men mistake movement for judgement."
+          },
+          "objectives": {
+            "raiderThreat": -3,
+            "captainPressure": -2
+          },
+          "moral": {
+            "reputation": 2,
+            "force": 1,
+            "hollow": 2
+          },
+          "journal": "The Iron Captain grew larger because it solved the immediate problem.",
+          "nextScene": "surge",
+          "time": "After"
+        }
       ]
     },
-
     "surge": {
       "title": "The Surge",
       "type": "Violence",
@@ -149,13 +401,92 @@
         "Kael feels the surge arrive. Not madness. Not rage. Purpose. That is why it is dangerous."
       ],
       "choices": [
-        { "label": "Take the captain cleanly.", "roll": { "stat": "force", "target": 10, "success": "The captain's smile breaks before his guard does. Then both are gone.", "failure": "The captain survives the first exchange and sees something in Kael worth fearing." }, "objectives": { "captainPressure": -5, "raiderThreat": -2, "civilians": -1 }, "moral": { "force": 1, "hollow": 2, "reputation": 1 }, "journal": "Kael broke the captain and felt the clarity of it.", "nextScene": "aftermath", "time": "After" },
-        { "label": "Disable him and leave him alive for answers.", "roll": { "stat": "restraint", "target": 13, "success": "Kael changes the cut at the last moment. The captain falls alive and furious.", "failure": "The change comes too late to be mercy and too early to be clean." }, "objectives": { "captainPressure": -3, "raiderThreat": -1 }, "moral": { "restraint": 2, "witness": 1, "hollow": 1 }, "journal": "Kael chose an answer over a body.", "nextScene": "aftermath", "time": "After" },
-        { "label": "Look past the captain for the real objective.", "roll": { "stat": "witness", "target": 13, "success": "The captain is bait. The raiders are pulling something from the second wagon.", "failure": "The captain remains the whole world because Kael lets him." }, "objectives": { "captainPressure": 1, "raiderThreat": -2 }, "moral": { "witness": 2, "hollow": 1 }, "journal": "Kael saw the shape behind the visible threat.", "nextScene": "aftermath", "time": "After" },
-        { "label": "Step back from the surge before it decides for him.", "roll": { "stat": "restraint", "target": 14, "success": "The space between urge and act is almost nothing. It is still enough.", "failure": "He tries to step back and discovers how much of him has already moved." }, "objectives": { "civilians": 1, "captainPressure": 1 }, "moral": { "restraint": 2, "hollow": -1, "reputation": -1 }, "journal": "Kael found the edge of the surge and did not immediately cross it.", "nextScene": "aftermath", "time": "After" }
+        {
+          "label": "Take the captain cleanly.",
+          "roll": {
+            "stat": "force",
+            "target": 10,
+            "success": "The captain's smile breaks before his guard does. Then both are gone.",
+            "failure": "The captain survives the first exchange and sees something in Kael worth fearing."
+          },
+          "objectives": {
+            "captainPressure": -5,
+            "raiderThreat": -2,
+            "civilians": -1
+          },
+          "moral": {
+            "force": 1,
+            "hollow": 2,
+            "reputation": 1
+          },
+          "journal": "Kael broke the captain and felt the clarity of it.",
+          "nextScene": "aftermath",
+          "time": "After"
+        },
+        {
+          "label": "Disable him and leave him alive for answers.",
+          "roll": {
+            "stat": "restraint",
+            "target": 13,
+            "success": "Kael changes the cut at the last moment. The captain falls alive and furious.",
+            "failure": "The change comes too late to be mercy and too early to be clean."
+          },
+          "objectives": {
+            "captainPressure": -3,
+            "raiderThreat": -1
+          },
+          "moral": {
+            "restraint": 2,
+            "witness": 1,
+            "hollow": 1
+          },
+          "journal": "Kael chose an answer over a body.",
+          "nextScene": "aftermath",
+          "time": "After"
+        },
+        {
+          "label": "Look past the captain for the real objective.",
+          "roll": {
+            "stat": "witness",
+            "target": 13,
+            "success": "The captain is bait. The raiders are pulling something from the second wagon.",
+            "failure": "The captain remains the whole world because Kael lets him."
+          },
+          "objectives": {
+            "captainPressure": 1,
+            "raiderThreat": -2
+          },
+          "moral": {
+            "witness": 2,
+            "hollow": 1
+          },
+          "journal": "Kael saw the shape behind the visible threat.",
+          "nextScene": "aftermath",
+          "time": "After"
+        },
+        {
+          "label": "Step back from the surge before it decides for him.",
+          "roll": {
+            "stat": "restraint",
+            "target": 14,
+            "success": "The space between urge and act is almost nothing. It is still enough.",
+            "failure": "He tries to step back and discovers how much of him has already moved."
+          },
+          "objectives": {
+            "civilians": 1,
+            "captainPressure": 1
+          },
+          "moral": {
+            "restraint": 2,
+            "hollow": -1,
+            "reputation": -1
+          },
+          "journal": "Kael found the edge of the surge and did not immediately cross it.",
+          "nextScene": "aftermath",
+          "time": "After"
+        }
       ]
     },
-
     "aftermath": {
       "title": "After the Road Goes Quiet",
       "type": "Aftermath",
@@ -168,13 +499,67 @@
         "Kael stands where the field left him. The captain is gone, dead, broken, escaped, or named. Civilians live or do not. The men look to Kael for the shape of the story."
       ],
       "choices": [
-        { "label": "Write the report as a clean victory.", "roll": { "stat": "reputation", "target": 9, "success": "The account will travel well. It will also be less true than it should be.", "failure": "Even the clean version will not hold under every eye." }, "moral": { "reputation": 2, "hollow": 2 }, "journal": "The report made the victory cleaner than the road was.", "nextScene": "aftermath", "time": "Night" },
-        { "label": "Name the civilian cost in the account.", "roll": { "stat": "witness", "target": 11, "success": "The words sit badly on the page because they belong there.", "failure": "The account names the cost and still avoids the part that matters." }, "moral": { "witness": 2, "hollow": -1, "reputation": -1 }, "journal": "Kael put the cost into the account instead of outside it.", "nextScene": "aftermath", "time": "Night" },
-        { "label": "Say nothing and let the men tell it.", "roll": { "stat": "restraint", "target": 10, "success": "The story leaves him and becomes larger before sunset.", "failure": "Silence does not prevent the legend. It only removes his hand from it." }, "moral": { "reputation": 1, "hollow": 1 }, "journal": "Kael let others shape the story of the road.", "nextScene": "aftermath", "time": "Night" },
-        { "label": "Leave the road behind. Lord Caeden's summons arrives within the week.", "result": "The account from the ridge stays open. It will be answered later, on a different road, in a different way.", "moral": { "witness": 1 }, "journal": "The road east ends. The commission north begins.", "nextScene": "caeden_summons", "time": "Dawn" }
+        {
+          "label": "Write the report as a clean victory.",
+          "roll": {
+            "stat": "reputation",
+            "target": 9,
+            "success": "The account will travel well. It will also be less true than it should be.",
+            "failure": "Even the clean version will not hold under every eye."
+          },
+          "moral": {
+            "reputation": 2,
+            "hollow": 2
+          },
+          "journal": "The report made the victory cleaner than the road was.",
+          "nextScene": "aftermath",
+          "time": "Night"
+        },
+        {
+          "label": "Name the civilian cost in the account.",
+          "roll": {
+            "stat": "witness",
+            "target": 11,
+            "success": "The words sit badly on the page because they belong there.",
+            "failure": "The account names the cost and still avoids the part that matters."
+          },
+          "moral": {
+            "witness": 2,
+            "hollow": -1,
+            "reputation": -1
+          },
+          "journal": "Kael put the cost into the account instead of outside it.",
+          "nextScene": "aftermath",
+          "time": "Night"
+        },
+        {
+          "label": "Say nothing and let the men tell it.",
+          "roll": {
+            "stat": "restraint",
+            "target": 10,
+            "success": "The story leaves him and becomes larger before sunset.",
+            "failure": "Silence does not prevent the legend. It only removes his hand from it."
+          },
+          "moral": {
+            "reputation": 1,
+            "hollow": 1
+          },
+          "journal": "Kael let others shape the story of the road.",
+          "nextScene": "aftermath",
+          "time": "Night"
+        },
+        {
+          "label": "Leave the road behind. Lord Caeden's summons arrives within the week.",
+          "result": "The account from the ridge stays open. It will be answered later, on a different road, in a different way.",
+          "moral": {
+            "witness": 1
+          },
+          "journal": "The road east ends. The commission north begins.",
+          "nextScene": "caeden_summons",
+          "time": "Dawn"
+        }
       ]
     },
-
     "caeden_summons": {
       "title": "The Great Hall",
       "type": "Commission",
@@ -183,13 +568,37 @@
       "ambience": "rain",
       "stakes": "Caeden has a commission. The words he uses are careful. The thing he is asking for is not.",
       "locations": [
-        { "id": "garrison_east", "name": "East Garrison",    "x": 200, "y": 450, "kind": "road" },
-        { "id": "caeden_keep",   "name": "Caeden's Keep",    "x": 650, "y": 140, "kind": "threat" },
-        { "id": "reshen_valley", "name": "Reshen Valley",    "x": 420, "y": 310, "kind": "objective" }
+        {
+          "id": "garrison_east",
+          "name": "East Garrison",
+          "x": 200,
+          "y": 450,
+          "kind": "road"
+        },
+        {
+          "id": "caeden_keep",
+          "name": "Caeden's Keep",
+          "x": 650,
+          "y": 140,
+          "kind": "threat"
+        },
+        {
+          "id": "reshen_valley",
+          "name": "Reshen Valley",
+          "x": 420,
+          "y": 310,
+          "kind": "objective"
+        }
       ],
       "routes": [
-        ["garrison_east", "caeden_keep"],
-        ["caeden_keep", "reshen_valley"]
+        [
+          "garrison_east",
+          "caeden_keep"
+        ],
+        [
+          "caeden_keep",
+          "reshen_valley"
+        ]
       ],
       "narration": [
         "The great hall is warm. Lord Caeden stands at the window with wine already poured — a small courtesy that functions as information. He does not raise his voice. He never wastes men. These had seemed like virtues.",
@@ -198,43 +607,85 @@
       "choices": [
         {
           "label": "Accept without asking. The surge requires a target and a permission.",
-          "roll": { "stat": "force", "target": 10, "success": "The commission is clean. The question of what is below the words does not arrive until later.", "failure": "Even in acceptance, something registers. He files it and does not look at it." },
-          "objectives": { "reshenCost": 3 },
-          "moral": { "force": 1, "hollow": 2 },
+          "roll": {
+            "stat": "force",
+            "target": 10,
+            "success": "The commission is clean. The question of what is below the words does not arrive until later.",
+            "failure": "Even in acceptance, something registers. He files it and does not look at it."
+          },
+          "objectives": {
+            "reshenCost": 3
+          },
+          "moral": {
+            "force": 1,
+            "hollow": 2
+          },
           "journal": "Kael did not ask what insurgents meant. He did not want to know.",
           "nextScene": "reshen_road",
           "time": "Morning"
         },
         {
           "label": "Ask how many fighters. Get a number.",
-          "roll": { "stat": "witness", "target": 12, "success": "Caeden's pause is brief, but it is there. The number is vague. That is also information.", "failure": "Caeden answers smoothly. The answer tells him nothing he did not already suspect." },
-          "objectives": { "reshenCost": 1 },
-          "moral": { "witness": 2, "restraint": 1 },
+          "roll": {
+            "stat": "witness",
+            "target": 12,
+            "success": "Caeden's pause is brief, but it is there. The number is vague. That is also information.",
+            "failure": "Caeden answers smoothly. The answer tells him nothing he did not already suspect."
+          },
+          "objectives": {
+            "reshenCost": 1
+          },
+          "moral": {
+            "witness": 2,
+            "restraint": 1
+          },
           "journal": "Kael asked one question. The answer was not designed to be answered.",
           "nextScene": "reshen_road",
           "time": "Morning"
         },
         {
           "label": "Ask what sheltering means. Ask for specifics.",
-          "roll": { "stat": "witness", "target": 13, "success": "Caeden shifts. It is less about fighters than about the shelter itself, he says. The valley is a passage. This is not an insurgent operation. Kael understands now exactly what he is being asked to do.", "failure": "The question is asked. The answer is wrapped in language that makes it sound reasonable." },
-          "objectives": { "reshenCost": 0 },
-          "moral": { "witness": 3, "restraint": 2, "hollow": 1 },
+          "roll": {
+            "stat": "witness",
+            "target": 13,
+            "success": "Caeden shifts. It is less about fighters than about the shelter itself, he says. The valley is a passage. This is not an insurgent operation. Kael understands now exactly what he is being asked to do.",
+            "failure": "The question is asked. The answer is wrapped in language that makes it sound reasonable."
+          },
+          "objectives": {
+            "reshenCost": 0
+          },
+          "moral": {
+            "witness": 3,
+            "restraint": 2,
+            "hollow": 1
+          },
           "journal": "Kael asked what sheltering meant. The answer told him what the commission was for.",
           "nextScene": "reshen_road",
           "time": "Morning"
         },
         {
           "label": "Decline the commission. Set the cup down.",
-          "roll": { "stat": "restraint", "target": 14, "success": "Caeden's expression does not change. He nods once. The door to the hall remains open.", "failure": "The refusal comes out as a question rather than a statement. Caeden hears the hesitation." },
-          "objectives": { "reshenCost": 0, "captainPressure": -2 },
-          "moral": { "restraint": 3, "reputation": -2, "hollow": -1 },
+          "roll": {
+            "stat": "restraint",
+            "target": 14,
+            "success": "Caeden's expression does not change. He nods once. The door to the hall remains open.",
+            "failure": "The refusal comes out as a question rather than a statement. Caeden hears the hesitation."
+          },
+          "objectives": {
+            "reshenCost": 0,
+            "captainPressure": -2
+          },
+          "moral": {
+            "restraint": 3,
+            "reputation": -2,
+            "hollow": -1
+          },
           "journal": "Kael declined the commission in Caeden's hall. The lord's expression did not change.",
-          "nextScene": "garrison_truth",
+          "nextScene": "sera_marches",
           "time": "Afternoon"
         }
       ]
     },
-
     "reshen_road": {
       "title": "The Valley in Autumn",
       "type": "Operation",
@@ -249,34 +700,68 @@
       "choices": [
         {
           "label": "Work efficiently. Do not look at faces. The operation requires no witness.",
-          "roll": { "stat": "force", "target": 9, "success": "The valley is altered by the second evening. He makes his report and receives his commendation.", "failure": "Efficient is not always clean. Some things resist efficiency." },
-          "objectives": { "reshenCost": 4, "civilians": -3 },
-          "moral": { "force": 2, "hollow": 3 },
+          "roll": {
+            "stat": "force",
+            "target": 9,
+            "success": "The valley is altered by the second evening. He makes his report and receives his commendation.",
+            "failure": "Efficient is not always clean. Some things resist efficiency."
+          },
+          "objectives": {
+            "reshenCost": 4,
+            "civilians": -3
+          },
+          "moral": {
+            "force": 2,
+            "hollow": 3
+          },
           "journal": "Kael worked efficiently. He had provided his own blindness and called it discipline.",
           "nextScene": "garrison_truth",
           "time": "Evening"
         },
         {
           "label": "Stop at each hamlet. Confirm they are only farmers.",
-          "roll": { "stat": "witness", "target": 12, "success": "They are farmers. The root cellars hold grain and old tools. He returns to the road a different man than he left it.", "failure": "He stops and looks. What he sees does not stop the operation." },
-          "objectives": { "reshenCost": 1, "civilians": 1 },
-          "moral": { "witness": 3, "restraint": 1, "hollow": 2 },
+          "roll": {
+            "stat": "witness",
+            "target": 12,
+            "success": "They are farmers. The root cellars hold grain and old tools. He returns to the road a different man than he left it.",
+            "failure": "He stops and looks. What he sees does not stop the operation."
+          },
+          "objectives": {
+            "reshenCost": 1,
+            "civilians": 1
+          },
+          "moral": {
+            "witness": 3,
+            "restraint": 1,
+            "hollow": 2
+          },
           "journal": "Kael stopped to look at what he had been sent to clear. He wished he had not.",
           "nextScene": "garrison_truth",
           "time": "Evening"
         },
         {
           "label": "Hold the operation at the mill. Send the men back. End it here.",
-          "roll": { "stat": "restraint", "target": 14, "success": "The men look at him. He gives no explanation. He rides back to the garrison with an unfinished commission and a weight that has already started to settle.", "failure": "He tries to hold it. The momentum of forty men and a signed commission is its own force." },
-          "objectives": { "reshenCost": 0, "civilians": 2 },
-          "moral": { "restraint": 4, "reputation": -2, "hollow": 1 },
+          "roll": {
+            "stat": "restraint",
+            "target": 14,
+            "success": "The men look at him. He gives no explanation. He rides back to the garrison with an unfinished commission and a weight that has already started to settle.",
+            "failure": "He tries to hold it. The momentum of forty men and a signed commission is its own force."
+          },
+          "objectives": {
+            "reshenCost": 0,
+            "civilians": 2
+          },
+          "moral": {
+            "restraint": 4,
+            "reputation": -2,
+            "hollow": 1
+          },
           "journal": "Kael stopped the operation at the mill. He did not explain. He rode back.",
           "nextScene": "garrison_truth",
           "time": "Evening"
         }
       ]
     },
-
     "garrison_truth": {
       "title": "The Cartographer's Account",
       "type": "Revelation",
@@ -291,33 +776,61 @@
       "choices": [
         {
           "label": "Hear Edric out. All of it.",
-          "roll": { "stat": "witness", "target": 11, "success": "Edric lays it out precisely. The trade route. The landholders who wouldn't sell. The thing Caeden had needed solved. Kael listens without interrupting.", "failure": "He hears it. The words arrive and land in the hollow and he does not yet know what to do with them." },
-          "objectives": { "reshenCost": 1 },
-          "moral": { "witness": 3, "hollow": 2 },
+          "roll": {
+            "stat": "witness",
+            "target": 11,
+            "success": "Edric lays it out precisely. The trade route. The landholders who wouldn't sell. The thing Caeden had needed solved. Kael listens without interrupting.",
+            "failure": "He hears it. The words arrive and land in the hollow and he does not yet know what to do with them."
+          },
+          "objectives": {
+            "reshenCost": 1
+          },
+          "moral": {
+            "witness": 3,
+            "hollow": 2
+          },
           "journal": "Edric told Kael there were no insurgents. Kael had not wanted to ask. He had not been deceived.",
           "nextScene": "sera_marches",
           "time": "Night"
         },
         {
           "label": "Send Edric away. You did your job. This changes nothing.",
-          "roll": { "stat": "force", "target": 10, "success": "Edric leaves. The hall is empty. The hollow that was already present deepens without filling.", "failure": "Edric leaves. He says one thing before he goes that Kael does not hear until three in the morning." },
-          "objectives": { "reshenCost": 2 },
-          "moral": { "force": 1, "hollow": 3 },
+          "roll": {
+            "stat": "force",
+            "target": 10,
+            "success": "Edric leaves. The hall is empty. The hollow that was already present deepens without filling.",
+            "failure": "Edric leaves. He says one thing before he goes that Kael does not hear until three in the morning."
+          },
+          "objectives": {
+            "reshenCost": 2
+          },
+          "moral": {
+            "force": 1,
+            "hollow": 3
+          },
           "journal": "Kael sent Edric away. He sat alone in the hall until the fire burned low.",
           "nextScene": "sera_marches",
           "time": "Night"
         },
         {
           "label": "Ask Edric why he is telling him this.",
-          "roll": { "stat": "witness", "target": 10, "success": "Because you are not the first man he has used this way, Edric says. And because I have run out of methods for living with it quietly. They sit in silence until the fire burns low.", "failure": "Edric's answer is precise. It answers the question and opens three more." },
-          "moral": { "witness": 2, "restraint": 1, "hollow": 1 },
+          "roll": {
+            "stat": "witness",
+            "target": 10,
+            "success": "Because you are not the first man he has used this way, Edric says. And because I have run out of methods for living with it quietly. They sit in silence until the fire burns low.",
+            "failure": "Edric's answer is precise. It answers the question and opens three more."
+          },
+          "moral": {
+            "witness": 2,
+            "restraint": 1,
+            "hollow": 1
+          },
           "journal": "Edric came because he had run out of methods for living with it quietly.",
           "nextScene": "sera_marches",
           "time": "Night"
         }
       ]
     },
-
     "sera_marches": {
       "title": "The Eastern Marches Town",
       "type": "Interlude",
@@ -326,13 +839,37 @@
       "ambience": "rain",
       "stakes": "He has left Caeden's service. There is a woman in this garrison town who is entirely unafraid of him.",
       "locations": [
-        { "id": "marches_town", "name": "Marches Town",   "x": 200, "y": 200, "kind": "road" },
-        { "id": "sera_house",   "name": "Sera's House",   "x": 490, "y": 310, "kind": "objective" },
-        { "id": "river_ford",   "name": "River Ford",     "x": 740, "y": 430, "kind": "fire" }
+        {
+          "id": "marches_town",
+          "name": "Marches Town",
+          "x": 200,
+          "y": 200,
+          "kind": "road"
+        },
+        {
+          "id": "sera_house",
+          "name": "Sera's House",
+          "x": 490,
+          "y": 310,
+          "kind": "objective"
+        },
+        {
+          "id": "river_ford",
+          "name": "River Ford",
+          "x": 740,
+          "y": 430,
+          "kind": "fire"
+        }
       ],
       "routes": [
-        ["marches_town", "sera_house"],
-        ["sera_house", "river_ford"]
+        [
+          "marches_town",
+          "sera_house"
+        ],
+        [
+          "sera_house",
+          "river_ford"
+        ]
       ],
       "narration": [
         "Her name was Sera. She ran the household of a wool merchant who traveled often. She was practical, self-possessed, and entirely unafraid of him. That was what caught him first.",
@@ -341,31 +878,55 @@
       "choices": [
         {
           "label": "Let her draw out the accounts of battles. She listens like understanding.",
-          "roll": { "stat": "force", "target": 10, "success": "The conversations she wants are the ones where the heat is still in him. He gives her what she wants. It feels like being seen.", "failure": "He tells her what she wants to hear and watches her lean forward and understands something is wrong." },
-          "moral": { "force": 1, "hollow": 2, "reputation": 1 },
+          "roll": {
+            "stat": "force",
+            "target": 10,
+            "success": "The conversations she wants are the ones where the heat is still in him. He gives her what she wants. It feels like being seen.",
+            "failure": "He tells her what she wants to hear and watches her lean forward and understands something is wrong."
+          },
+          "moral": {
+            "force": 1,
+            "hollow": 2,
+            "reputation": 1
+          },
           "journal": "Kael gave Sera the accounts she wanted. He mistook her wanting for understanding.",
           "nextScene": "sera_hollow_night",
           "time": "Afternoon"
         },
         {
           "label": "Stay longer than the contract requires. Let the quiet have time.",
-          "roll": { "stat": "restraint", "target": 11, "success": "He is aware of being watched in a way that is different from command. She is not watching for what he can do. She is watching what he is.", "failure": "Staying longer changes the terms of the contract in ways he does not yet have words for." },
-          "moral": { "restraint": 1, "witness": 1 },
+          "roll": {
+            "stat": "restraint",
+            "target": 11,
+            "success": "He is aware of being watched in a way that is different from command. She is not watching for what he can do. She is watching what he is.",
+            "failure": "Staying longer changes the terms of the contract in ways he does not yet have words for."
+          },
+          "moral": {
+            "restraint": 1,
+            "witness": 1
+          },
           "journal": "Kael stayed longer than the work required. He did not examine why.",
           "nextScene": "sera_hollow_night",
           "time": "Afternoon"
         },
         {
           "label": "Notice what she is listening for and name it to himself.",
-          "roll": { "stat": "witness", "target": 13, "success": "The conversations she prefers are the ones where the heat is in him. She loves the fire. He knows this without naming it and does not yet know what to do with knowing.", "failure": "He almost sees it. The shape is there but he does not look at it directly." },
-          "moral": { "witness": 3, "restraint": 1 },
+          "roll": {
+            "stat": "witness",
+            "target": 13,
+            "success": "The conversations she prefers are the ones where the heat is in him. She loves the fire. He knows this without naming it and does not yet know what to do with knowing.",
+            "failure": "He almost sees it. The shape is there but he does not look at it directly."
+          },
+          "moral": {
+            "witness": 3,
+            "restraint": 1
+          },
           "journal": "Kael saw what Sera was listening for. He did not name it aloud. Not yet.",
           "nextScene": "sera_hollow_night",
           "time": "Afternoon"
         }
       ]
     },
-
     "sera_hollow_night": {
       "title": "The Candle Burning Low",
       "type": "Reckoning",
@@ -380,31 +941,56 @@
       "choices": [
         {
           "label": "Fill the silence with the account. Give her what she is waiting for.",
-          "roll": { "stat": "force", "target": 10, "success": "He performs the heat that is not there. She leans forward. He watches himself do it and understands, with cold precision, that this is what using a sword as a weapon for self-definition looks like.", "failure": "He tries to perform it and finds the hollow is wider than performance can fill." },
-          "moral": { "force": 1, "hollow": 3 },
+          "roll": {
+            "stat": "force",
+            "target": 10,
+            "success": "He performs the heat that is not there. She leans forward. He watches himself do it and understands, with cold precision, that this is what using a sword as a weapon for self-definition looks like.",
+            "failure": "He tries to perform it and finds the hollow is wider than performance can fill."
+          },
+          "moral": {
+            "force": 1,
+            "hollow": 3
+          },
           "journal": "Kael gave Sera the fire she wanted. He supplied his own blindness for a different kind of commission.",
           "nextScene": "sera_departure",
           "time": "Night"
         },
         {
           "label": "Sit with the hollow. Say nothing. Let the candle burn.",
-          "roll": { "stat": "restraint", "target": 12, "success": "She says: you are not here. He says: I am here. She says: whoever is sitting there is not the man I know. The silence between them is the most honest thing they have managed.", "failure": "He tries to sit with it and finds the weight of her expectation too specific to ignore." },
-          "moral": { "restraint": 3, "witness": 2, "hollow": -1 },
+          "roll": {
+            "stat": "restraint",
+            "target": 12,
+            "success": "She says: you are not here. He says: I am here. She says: whoever is sitting there is not the man I know. The silence between them is the most honest thing they have managed.",
+            "failure": "He tries to sit with it and finds the weight of her expectation too specific to ignore."
+          },
+          "moral": {
+            "restraint": 3,
+            "witness": 2,
+            "hollow": -1
+          },
           "journal": "Kael sat with the hollow in another person's presence. She named what she saw. He did not argue.",
           "nextScene": "sera_departure",
           "time": "Night"
         },
         {
           "label": "Tell her about the hollow. Not the battles. The thing after.",
-          "roll": { "stat": "witness", "target": 13, "success": "She listens differently. Her expression shifts from waiting to something more final than hurt. I know, she says. That is the problem. The distinction she draws is accurate.", "failure": "He begins. She listens. He can feel the point where her attention changes from following to waiting for him to return to the other thing." },
-          "moral": { "witness": 2, "restraint": 2, "hollow": 1 },
+          "roll": {
+            "stat": "witness",
+            "target": 13,
+            "success": "She listens differently. Her expression shifts from waiting to something more final than hurt. I know, she says. That is the problem. The distinction she draws is accurate.",
+            "failure": "He begins. She listens. He can feel the point where her attention changes from following to waiting for him to return to the other thing."
+          },
+          "moral": {
+            "witness": 2,
+            "restraint": 2,
+            "hollow": 1
+          },
           "journal": "Kael tried to tell Sera about the hollow. She said: I know. That is the problem.",
           "nextScene": "sera_departure",
           "time": "Night"
         }
       ]
     },
-
     "sera_departure": {
       "title": "The Before-Dawn Road",
       "type": "Departure",
@@ -420,31 +1006,52 @@
         {
           "label": "Ride west. The question has changed shape. That is enough for now.",
           "result": "The road goes quiet around him. The hollow travels with him, as it always does. He had expected, eventually, to outride it. He does not.",
-          "moral": { "restraint": 1, "witness": 1 },
+          "moral": {
+            "restraint": 1,
+            "witness": 1
+          },
           "journal": "Kael left before the house was awake. He rode west. The hollow came with him.",
           "nextScene": "ashen_crossing_market",
           "time": "Dawn"
         },
         {
           "label": "Stop at the edge of town and write down what just happened.",
-          "roll": { "stat": "witness", "target": 12, "success": "He sits his horse in the cold and tries to put the distinction into words. The words are partial. They are the beginning of accuracy.", "failure": "He tries to write it. The words for what just happened do not yet exist." },
-          "objectives": { "accountLines": 1 },
-          "moral": { "witness": 3, "restraint": 1 },
+          "roll": {
+            "stat": "witness",
+            "target": 12,
+            "success": "He sits his horse in the cold and tries to put the distinction into words. The words are partial. They are the beginning of accuracy.",
+            "failure": "He tries to write it. The words for what just happened do not yet exist."
+          },
+          "objectives": {
+            "accountLines": 1
+          },
+          "moral": {
+            "witness": 3,
+            "restraint": 1
+          },
           "journal": "Kael stopped on the road and tried to write down what Sera had named. The words were partial.",
           "nextScene": "ashen_crossing_market",
           "time": "Dawn"
         },
         {
           "label": "Go back. This is not the right kind of leaving.",
-          "roll": { "stat": "restraint", "target": 14, "success": "He turns the horse. He returns to the house. The conversation is different in daylight. Neither of them says more than they mean. He leaves an hour later with the same hollow, but without the performance of flight.", "failure": "He turns the horse and then turns it back. The right kind of leaving requires a decision he has not yet made." },
-          "moral": { "restraint": 2, "witness": 2, "hollow": -1 },
+          "roll": {
+            "stat": "restraint",
+            "target": 14,
+            "success": "He turns the horse. He returns to the house. The conversation is different in daylight. Neither of them says more than they mean. He leaves an hour later with the same hollow, but without the performance of flight.",
+            "failure": "He turns the horse and then turns it back. The right kind of leaving requires a decision he has not yet made."
+          },
+          "moral": {
+            "restraint": 2,
+            "witness": 2,
+            "hollow": -1
+          },
           "journal": "Kael went back. The second leaving was quieter than the first.",
           "nextScene": "ashen_crossing_market",
           "time": "Morning"
         }
       ]
     },
-
     "ashen_crossing_market": {
       "title": "The Market at Ashen Crossing",
       "type": "Recognition",
@@ -453,13 +1060,37 @@
       "ambience": "rain",
       "stakes": "Mael carried the commission to Reshen. He is standing at a market stall. The sky is darkening.",
       "locations": [
-        { "id": "old_road",     "name": "Old Road",        "x": 190, "y": 430, "kind": "road" },
-        { "id": "ashen_square", "name": "Market Square",   "x": 440, "y": 230, "kind": "road" },
-        { "id": "ashen_alley",  "name": "The Alley",       "x": 690, "y": 340, "kind": "threat" }
+        {
+          "id": "old_road",
+          "name": "Old Road",
+          "x": 190,
+          "y": 430,
+          "kind": "road"
+        },
+        {
+          "id": "ashen_square",
+          "name": "Market Square",
+          "x": 440,
+          "y": 230,
+          "kind": "road"
+        },
+        {
+          "id": "ashen_alley",
+          "name": "The Alley",
+          "x": 690,
+          "y": 340,
+          "kind": "threat"
+        }
       ],
       "routes": [
-        ["old_road", "ashen_square"],
-        ["ashen_square", "ashen_alley"]
+        [
+          "old_road",
+          "ashen_square"
+        ],
+        [
+          "ashen_square",
+          "ashen_alley"
+        ]
       ],
       "narration": [
         "The thing you pursue retreats. The thing you release comes to stand in front of you at a market stall on a grey afternoon, reaching for a piece of bread.",
@@ -468,31 +1099,55 @@
       "choices": [
         {
           "label": "Follow immediately. Do not let the moment pass.",
-          "roll": { "stat": "force", "target": 10, "success": "He moves before the thought completes. The familiar narrowing arrives. Mael has not looked up.", "failure": "He moves fast and Mael sees him across the market. The shape of what follows changes." },
-          "moral": { "force": 1, "hollow": 1 },
+          "roll": {
+            "stat": "force",
+            "target": 10,
+            "success": "He moves before the thought completes. The familiar narrowing arrives. Mael has not looked up.",
+            "failure": "He moves fast and Mael sees him across the market. The shape of what follows changes."
+          },
+          "moral": {
+            "force": 1,
+            "hollow": 1
+          },
           "journal": "Kael followed Mael before the thought completed. The familiar narrowing arrived.",
           "nextScene": "ashen_alley",
           "time": "Afternoon"
         },
         {
           "label": "Watch him for a while first. Read the shape of what he is now.",
-          "roll": { "stat": "witness", "target": 12, "success": "Mael adjusts his collar against the wind. He pays for his bread without hurry. He is a man who has not spent three years carrying Reshen. That is also information.", "failure": "He watches. The heat builds while he watches and the watching becomes its own kind of certainty." },
-          "moral": { "witness": 2, "restraint": 1 },
+          "roll": {
+            "stat": "witness",
+            "target": 12,
+            "success": "Mael adjusts his collar against the wind. He pays for his bread without hurry. He is a man who has not spent three years carrying Reshen. That is also information.",
+            "failure": "He watches. The heat builds while he watches and the watching becomes its own kind of certainty."
+          },
+          "moral": {
+            "witness": 2,
+            "restraint": 1
+          },
           "journal": "Kael watched Mael for a while before following. He noticed that the man did not carry what Kael carried.",
           "nextScene": "ashen_alley",
           "time": "Afternoon"
         },
         {
           "label": "Let it go. The thing you release keeps returning. Release it again.",
-          "roll": { "stat": "restraint", "target": 15, "success": "He turns away. The heat rises and he does not feed it. He walks out of the market and finds a tavern and sits in it for two hours. The hollow is present. It is not a void. It is closer to a clearing.", "failure": "He turns away and makes it half a block and then the heat has already decided." },
-          "moral": { "restraint": 4, "witness": 2, "hollow": -2 },
+          "roll": {
+            "stat": "restraint",
+            "target": 15,
+            "success": "He turns away. The heat rises and he does not feed it. He walks out of the market and finds a tavern and sits in it for two hours. The hollow is present. It is not a void. It is closer to a clearing.",
+            "failure": "He turns away and makes it half a block and then the heat has already decided."
+          },
+          "moral": {
+            "restraint": 4,
+            "witness": 2,
+            "hollow": -2
+          },
           "journal": "Kael turned away from Mael in the market. The hollow arrived. It was not a void.",
           "nextScene": "ashen_standing",
           "time": "Afternoon"
         }
       ]
     },
-
     "ashen_alley": {
       "title": "The Alley in the Patient Rain",
       "type": "Threshold",
@@ -507,40 +1162,76 @@
       "choices": [
         {
           "label": "Draw the blade. Caeden is beyond reach. This is what is available.",
-          "roll": { "stat": "force", "target": 11, "success": "The blade comes free. The heat completes itself. The hollow by nightfall will be wider than any hollow before it.", "failure": "His hand goes to the hilt and stops there. Something in the gap is louder than the heat." },
-          "objectives": { "reshenCost": 2 },
-          "moral": { "force": 2, "hollow": 4 },
+          "roll": {
+            "stat": "force",
+            "target": 11,
+            "success": "The blade comes free. The heat completes itself. The hollow by nightfall will be wider than any hollow before it.",
+            "failure": "His hand goes to the hilt and stops there. Something in the gap is louder than the heat."
+          },
+          "objectives": {
+            "reshenCost": 2
+          },
+          "moral": {
+            "force": 2,
+            "hollow": 4
+          },
           "journal": "Kael drew the blade in the alley. He had added to the ledger. Mael had been right: he did not ask.",
           "nextScene": "ashen_standing",
           "time": "Evening"
         },
         {
           "label": "Press him harder. Ask what Caeden told him. Get the full account.",
-          "roll": { "stat": "witness", "target": 12, "success": "Mael talks. The account he gives is precise and self-serving and accurate. Kael listens to all of it.", "failure": "Mael talks. The words are designed to share the culpability. They are not wrong." },
-          "moral": { "witness": 2, "restraint": 1, "hollow": 1 },
+          "roll": {
+            "stat": "witness",
+            "target": 12,
+            "success": "Mael talks. The account he gives is precise and self-serving and accurate. Kael listens to all of it.",
+            "failure": "Mael talks. The words are designed to share the culpability. They are not wrong."
+          },
+          "moral": {
+            "witness": 2,
+            "restraint": 1,
+            "hollow": 1
+          },
           "journal": "Kael made Mael give him the full account. He listened without interrupting.",
           "nextScene": "ashen_standing",
           "time": "Evening"
         },
         {
           "label": "Step back. Let him go. The heat does not cool. It does not need to.",
-          "roll": { "stat": "restraint", "target": 13, "success": "The space between urge and act is almost nothing. It is still enough. He steps back. Mael goes. The hollow that follows is different in quality — not a void. An opening.", "failure": "He tries to step back and finds how much of him has already committed to the forward motion." },
-          "moral": { "restraint": 3, "witness": 2, "hollow": -2 },
+          "roll": {
+            "stat": "restraint",
+            "target": 13,
+            "success": "The space between urge and act is almost nothing. It is still enough. He steps back. Mael goes. The hollow that follows is different in quality — not a void. An opening.",
+            "failure": "He tries to step back and finds how much of him has already committed to the forward motion."
+          },
+          "moral": {
+            "restraint": 3,
+            "witness": 2,
+            "hollow": -2
+          },
           "journal": "Kael stepped back from the blade. The hollow that followed was not a void. It was closer to an opening.",
           "nextScene": "ashen_standing",
           "time": "Evening"
         },
         {
           "label": "Say: you were right. I did not ask. Then walk away.",
-          "roll": { "stat": "witness", "target": 14, "success": "He says it aloud. The words cost something. Mael does not know what to do with them. Kael walks out of the alley into the storm.", "failure": "He tries to say it and the words come out shaped like a threat." },
-          "moral": { "witness": 4, "restraint": 3, "hollow": -3 },
+          "roll": {
+            "stat": "witness",
+            "target": 14,
+            "success": "He says it aloud. The words cost something. Mael does not know what to do with them. Kael walks out of the alley into the storm.",
+            "failure": "He tries to say it and the words come out shaped like a threat."
+          },
+          "moral": {
+            "witness": 4,
+            "restraint": 3,
+            "hollow": -3
+          },
           "journal": "Kael said: you were right, I did not ask. Then he walked away. The rain fell.",
           "nextScene": "ashen_standing",
           "time": "Evening"
         }
       ]
     },
-
     "ashen_standing": {
       "title": "Standing in the Rain",
       "type": "Reflection",
@@ -556,23 +1247,35 @@
         {
           "label": "Walk north. The road is empty and it is enough.",
           "result": "He walked through the storm. The hollow traveled with him. This time he did not try to outride it.",
-          "moral": { "restraint": 1, "witness": 1 },
+          "moral": {
+            "restraint": 1,
+            "witness": 1
+          },
           "journal": "Kael walked north out of Ashen Crossing. The hollow was present. He did not try to fill it.",
           "nextScene": "crossroads_davan",
           "time": "Dark"
         },
         {
           "label": "Sit in a tavern for a while. Examine what just happened.",
-          "roll": { "stat": "witness", "target": 11, "success": "He sits for two hours and writes down the anatomy of what happened in the gap. The words are not yet accurate. They are the beginning of accuracy.", "failure": "He tries to examine it and finds the event is still too close to see clearly." },
-          "objectives": { "accountLines": 1 },
-          "moral": { "witness": 2, "restraint": 1 },
+          "roll": {
+            "stat": "witness",
+            "target": 11,
+            "success": "He sits for two hours and writes down the anatomy of what happened in the gap. The words are not yet accurate. They are the beginning of accuracy.",
+            "failure": "He tries to examine it and finds the event is still too close to see clearly."
+          },
+          "objectives": {
+            "accountLines": 1
+          },
+          "moral": {
+            "witness": 2,
+            "restraint": 1
+          },
           "journal": "Kael sat in the tavern and tried to write down what lived in the gap. The hollow, he wrote, was not empty.",
           "nextScene": "crossroads_davan",
           "time": "Night"
         }
       ]
     },
-
     "crossroads_davan": {
       "title": "The Crossroads Garrison",
       "type": "Recognition",
@@ -581,13 +1284,37 @@
       "ambience": "rain",
       "stakes": "He has heard his own past in another person's mouth. What he does with that recognition is the question.",
       "locations": [
-        { "id": "western_road",   "name": "Western Road",     "x": 190, "y": 430, "kind": "road" },
-        { "id": "crossroads_post","name": "Crossroads Post",  "x": 440, "y": 220, "kind": "objective" },
-        { "id": "hills_north",    "name": "Hills North",      "x": 720, "y": 140, "kind": "road" }
+        {
+          "id": "western_road",
+          "name": "Western Road",
+          "x": 190,
+          "y": 430,
+          "kind": "road"
+        },
+        {
+          "id": "crossroads_post",
+          "name": "Crossroads Post",
+          "x": 440,
+          "y": 220,
+          "kind": "objective"
+        },
+        {
+          "id": "hills_north",
+          "name": "Hills North",
+          "x": 720,
+          "y": 140,
+          "kind": "road"
+        }
       ],
       "routes": [
-        ["western_road", "crossroads_post"],
-        ["crossroads_post", "hills_north"]
+        [
+          "western_road",
+          "crossroads_post"
+        ],
+        [
+          "crossroads_post",
+          "hills_north"
+        ]
       ],
       "narration": [
         "He noticed the boy the way you notice a mirror in an unfamiliar room: not with pleasure, but with the sudden recognition of your own face. Fair-haired. Nineteen. A kind of stillness that in young men was usually performance but in this one was something else.",
@@ -596,31 +1323,56 @@
       "choices": [
         {
           "label": "Take him on. Teach him what you know.",
-          "roll": { "stat": "force", "target": 10, "success": "Davan's eyes change when Kael agrees. That specific change is the problem.", "failure": "He agrees and immediately understands why he should not have." },
-          "moral": { "force": 1, "hollow": 2, "reputation": 1 },
+          "roll": {
+            "stat": "force",
+            "target": 10,
+            "success": "Davan's eyes change when Kael agrees. That specific change is the problem.",
+            "failure": "He agrees and immediately understands why he should not have."
+          },
+          "moral": {
+            "force": 1,
+            "hollow": 2,
+            "reputation": 1
+          },
           "journal": "Kael agreed to teach Davan. He could not teach the skills without teaching the certainty that made them dangerous.",
           "nextScene": "road_north",
           "time": "Morning"
         },
         {
           "label": "Tell him the truth. I am not what those stories say I am.",
-          "roll": { "stat": "witness", "target": 11, "success": "Or I was, and am becoming something else. The distinction matters. Davan tilts his head. What are you becoming? Kael says: I don't know yet. But it requires silence.", "failure": "The truth comes out shaped like a dismissal. Davan hears what he expected." },
-          "moral": { "witness": 3, "restraint": 2, "hollow": -1 },
+          "roll": {
+            "stat": "witness",
+            "target": 11,
+            "success": "Or I was, and am becoming something else. The distinction matters. Davan tilts his head. What are you becoming? Kael says: I don't know yet. But it requires silence.",
+            "failure": "The truth comes out shaped like a dismissal. Davan hears what he expected."
+          },
+          "moral": {
+            "witness": 3,
+            "restraint": 2,
+            "hollow": -1
+          },
           "journal": "Kael told Davan: I am becoming something else. The distinction matters. I don't know yet what.",
           "nextScene": "road_north",
           "time": "Morning"
         },
         {
           "label": "Refuse and ride on. You have no wisdom to offer him.",
-          "roll": { "stat": "restraint", "target": 12, "success": "He mounts and rides. He thinks about the refusal not whether it was right but what it would have meant to say yes.", "failure": "He refuses and finds he cannot explain why in a way that does not sound like cowardice." },
-          "moral": { "restraint": 2, "witness": 1 },
+          "roll": {
+            "stat": "restraint",
+            "target": 12,
+            "success": "He mounts and rides. He thinks about the refusal not whether it was right but what it would have meant to say yes.",
+            "failure": "He refuses and finds he cannot explain why in a way that does not sound like cowardice."
+          },
+          "moral": {
+            "restraint": 2,
+            "witness": 1
+          },
           "journal": "Kael refused Davan and rode. Some work had to be done in the specific weight of one's own history.",
           "nextScene": "road_north",
           "time": "Morning"
         }
       ]
     },
-
     "road_north": {
       "title": "The Hills Road",
       "type": "Transit",
@@ -636,23 +1388,35 @@
         {
           "label": "Keep moving until the room presents itself.",
           "result": "Three weeks told in a chapter of accretion. He passes through country he has ridden through before. It looks different when you are not moving toward a target.",
-          "moral": { "restraint": 1, "witness": 2 },
+          "moral": {
+            "restraint": 1,
+            "witness": 2
+          },
           "journal": "Kael rode north for three weeks looking for a room with a window facing somewhere worth looking.",
           "nextScene": "stone_chamber_found",
           "time": "First Light"
         },
         {
           "label": "Write down the criteria for the room as they become clear.",
-          "roll": { "stat": "witness", "target": 11, "success": "Old. Small. No garrison attached. A window facing east. A desk, if possible. A hearth that draws. He reads the list back and recognises it is also a description of what he needs from himself.", "failure": "He begins to write. The list becomes a letter he does not send." },
-          "objectives": { "accountLines": 1 },
-          "moral": { "witness": 2, "restraint": 1 },
+          "roll": {
+            "stat": "witness",
+            "target": 11,
+            "success": "Old. Small. No garrison attached. A window facing east. A desk, if possible. A hearth that draws. He reads the list back and recognises it is also a description of what he needs from himself.",
+            "failure": "He begins to write. The list becomes a letter he does not send."
+          },
+          "objectives": {
+            "accountLines": 1
+          },
+          "moral": {
+            "witness": 2,
+            "restraint": 1
+          },
           "journal": "Kael wrote down what he was looking for. The list told him more than it should have.",
           "nextScene": "stone_chamber_found",
           "time": "First Light"
         }
       ]
     },
-
     "stone_chamber_found": {
       "title": "The Abandoned Fortification",
       "type": "Arrival",
@@ -661,13 +1425,37 @@
       "ambience": "rain",
       "stakes": "He has found the room. The sword goes against the wall. Within reach, maintained, neither renounced nor relied upon. The question is what he does next.",
       "locations": [
-        { "id": "hills_approach", "name": "Hills Approach",   "x": 280, "y": 380, "kind": "road" },
-        { "id": "stone_chamber",  "name": "Stone Chamber",    "x": 580, "y": 220, "kind": "kael" },
-        { "id": "valley_below",   "name": "Valley Below",     "x": 800, "y": 450, "kind": "objective" }
+        {
+          "id": "hills_approach",
+          "name": "Hills Approach",
+          "x": 280,
+          "y": 380,
+          "kind": "road"
+        },
+        {
+          "id": "stone_chamber",
+          "name": "Stone Chamber",
+          "x": 580,
+          "y": 220,
+          "kind": "kael"
+        },
+        {
+          "id": "valley_below",
+          "name": "Valley Below",
+          "x": 800,
+          "y": 450,
+          "kind": "objective"
+        }
       ],
       "routes": [
-        ["hills_approach", "stone_chamber"],
-        ["stone_chamber", "valley_below"]
+        [
+          "hills_approach",
+          "stone_chamber"
+        ],
+        [
+          "stone_chamber",
+          "valley_below"
+        ]
       ],
       "narration": [
         "He found it three weeks later — a stone chamber in the hills above a valley, part of an abandoned border fortification. One room. A window facing east. A hearth that still drew well. A desk of solid oak, worn smooth at the edges by years of use.",
@@ -677,16 +1465,29 @@
         {
           "label": "Set the sword against the wall. Within reach, maintained, neither renounced nor relied upon.",
           "result": "He sets it carefully. Maintained. Within reach. The distinction matters and he holds it in mind like a stone that must not be set down.",
-          "moral": { "restraint": 2, "witness": 2 },
+          "moral": {
+            "restraint": 2,
+            "witness": 2
+          },
           "journal": "Kael set the sword against the wall. Within reach. Not renounced. Not relied upon.",
           "nextScene": "calla_petition",
           "time": "Evening"
         },
         {
           "label": "Sit at the desk and write the first line of the account.",
-          "roll": { "stat": "witness", "target": 12, "success": "He finds ink. He finds parchment. He looks at them for a while. Then he writes: the sky had already broken by the time they reached the ridge. The sentence is true. It is the beginning.", "failure": "He finds ink and parchment and looks at them for a long time and does not yet write." },
-          "objectives": { "accountLines": 3 },
-          "moral": { "witness": 4, "restraint": 1 },
+          "roll": {
+            "stat": "witness",
+            "target": 12,
+            "success": "He finds ink. He finds parchment. He looks at them for a while. Then he writes: the sky had already broken by the time they reached the ridge. The sentence is true. It is the beginning.",
+            "failure": "He finds ink and parchment and looks at them for a long time and does not yet write."
+          },
+          "objectives": {
+            "accountLines": 3
+          },
+          "moral": {
+            "witness": 4,
+            "restraint": 1
+          },
           "journal": "Kael wrote the first line of the account. The sky had already broken. He did not know yet that it was the first line.",
           "nextScene": "calla_petition",
           "time": "Evening"
@@ -694,29 +1495,55 @@
         {
           "label": "Build a fire first. The room requires warmth before it requires words.",
           "result": "He builds the fire and sits in front of it for a while. Outside, the hills hold their shape against the fading light. There will be storms. He is not ready to write yet. That is also the beginning.",
-          "moral": { "restraint": 1, "witness": 1 },
+          "moral": {
+            "restraint": 1,
+            "witness": 1
+          },
           "journal": "Kael built a fire and sat with it. He was not ready to write yet. He knew what that meant.",
           "nextScene": "calla_petition",
           "time": "Night"
         }
       ]
     },
-
     "calla_petition": {
       "title": "The Petitioner from Wrenford",
       "type": "Commission",
-      "location": "stone_chamber",
+      "location": "chamber_desk",
       "mood": "A village woman who has come not expecting help but expecting to have tried.",
       "ambience": "rain",
       "stakes": "Calla describes the situation plainly, without performance. She does not ask for the sword. She stops when she has said all she has to say.",
       "locations": [
-        { "id": "chamber_desk",  "name": "Stone Chamber",   "x": 200, "y": 220, "kind": "kael" },
-        { "id": "wrenford_road", "name": "Wrenford Road",   "x": 510, "y": 370, "kind": "objective" },
-        { "id": "torven_lands",  "name": "Torven's Hold",   "x": 760, "y": 180, "kind": "threat" }
+        {
+          "id": "chamber_desk",
+          "name": "Stone Chamber",
+          "x": 200,
+          "y": 220,
+          "kind": "kael"
+        },
+        {
+          "id": "wrenford_road",
+          "name": "Wrenford Road",
+          "x": 510,
+          "y": 370,
+          "kind": "objective"
+        },
+        {
+          "id": "torven_lands",
+          "name": "Torven's Hold",
+          "x": 760,
+          "y": 180,
+          "kind": "threat"
+        }
       ],
       "routes": [
-        ["chamber_desk", "wrenford_road"],
-        ["wrenford_road", "torven_lands"]
+        [
+          "chamber_desk",
+          "wrenford_road"
+        ],
+        [
+          "wrenford_road",
+          "torven_lands"
+        ]
       ],
       "narration": [
         "Her name was Calla. She was from Wrenford, three days southeast. An administrator named Torven had been levying fees he had not been authorised to collect. A miller fined for a licence he had never needed. A family evicted.",
@@ -725,34 +1552,68 @@
       "choices": [
         {
           "label": "Write a letter. Use his name. The name can do what the sword does not need to.",
-          "roll": { "stat": "witness", "target": 11, "success": "He writes slowly. He crosses out more than he keeps. He signs it with his actual name — not the Iron Captain. Ser Crane will not want the attention. The letter gives him reason and cover to act.", "failure": "He writes the letter and signs it and hands it over and stands in the doorway watching her descend thinking: I have used my name. The thing I have been putting down, I lifted it off the shelf and applied it like a blade." },
-          "objectives": { "civilians": 1 },
-          "moral": { "restraint": 2, "reputation": 1, "witness": 2 },
+          "roll": {
+            "stat": "witness",
+            "target": 11,
+            "success": "He writes slowly. He crosses out more than he keeps. He signs it with his actual name — not the Iron Captain. Ser Crane will not want the attention. The letter gives him reason and cover to act.",
+            "failure": "He writes the letter and signs it and hands it over and stands in the doorway watching her descend thinking: I have used my name. The thing I have been putting down, I lifted it off the shelf and applied it like a blade."
+          },
+          "objectives": {
+            "civilians": 1
+          },
+          "moral": {
+            "restraint": 2,
+            "reputation": 1,
+            "witness": 2
+          },
           "journal": "Kael wrote a letter using his name. It worked because of what he had been. He examined this with suspicion.",
           "nextScene": "edric_second",
           "time": "Afternoon"
         },
         {
           "label": "Ride to Wrenford with a blade and remove the problem directly.",
-          "roll": { "stat": "force", "target": 11, "success": "Six men and a minor lord's collector discover they have made a significant error of judgement. The problem is solved.", "failure": "He arrives and the situation is more complicated than a collector with six swords." },
-          "objectives": { "civilians": 2, "reshenCost": 1 },
-          "moral": { "force": 2, "hollow": 2, "reputation": 2 },
+          "roll": {
+            "stat": "force",
+            "target": 11,
+            "success": "Six men and a minor lord's collector discover they have made a significant error of judgement. The problem is solved.",
+            "failure": "He arrives and the situation is more complicated than a collector with six swords."
+          },
+          "objectives": {
+            "civilians": 2,
+            "reshenCost": 1
+          },
+          "moral": {
+            "force": 2,
+            "hollow": 2,
+            "reputation": 2
+          },
           "journal": "Kael rode to Wrenford. The problem was solved by what he was.",
           "nextScene": "edric_second",
           "time": "Afternoon"
         },
         {
           "label": "Write the letter and note the discomfort of using the name that way.",
-          "roll": { "stat": "witness", "target": 13, "success": "He writes the letter and writes beside it, in the account, the precise texture of having used his reputation as a blade. Both documents are true. The distinction between them is real. He notices that telling himself the distinction is real requires effort.", "failure": "He writes the letter. He tries to write the account of it and finds it resists the accuracy he is trying to build." },
-          "objectives": { "civilians": 1, "accountLines": 2 },
-          "moral": { "witness": 4, "restraint": 2, "hollow": -1 },
+          "roll": {
+            "stat": "witness",
+            "target": 13,
+            "success": "He writes the letter and writes beside it, in the account, the precise texture of having used his reputation as a blade. Both documents are true. The distinction between them is real. He notices that telling himself the distinction is real requires effort.",
+            "failure": "He writes the letter. He tries to write the account of it and finds it resists the accuracy he is trying to build."
+          },
+          "objectives": {
+            "civilians": 1,
+            "accountLines": 2
+          },
+          "moral": {
+            "witness": 4,
+            "restraint": 2,
+            "hollow": -1
+          },
           "journal": "Kael wrote the letter and recorded his discomfort with using the name. Things that are simply true do not usually require effort.",
           "nextScene": "edric_second",
           "time": "Afternoon"
         }
       ]
     },
-
     "edric_second": {
       "title": "The Cartographer on Foot",
       "type": "Witness",
@@ -767,31 +1628,54 @@
       "choices": [
         {
           "label": "Accept the folio. Read it. All twelve pages.",
-          "roll": { "stat": "witness", "target": 11, "success": "He reads it carefully, the way he had learned to read terrain. Most of it he knew. What he had not known was the miller. An older man. A widower. He had hidden three children under the floorboards. He had not survived the telling. The children had.", "failure": "He reads it. He stops at the miller. He sets the pages down and does not yet have words for what has stopped him." },
-          "moral": { "witness": 4, "hollow": 2 },
+          "roll": {
+            "stat": "witness",
+            "target": 11,
+            "success": "He reads it carefully, the way he had learned to read terrain. Most of it he knew. What he had not known was the miller. An older man. A widower. He had hidden three children under the floorboards. He had not survived the telling. The children had.",
+            "failure": "He reads it. He stops at the miller. He sets the pages down and does not yet have words for what has stopped him."
+          },
+          "moral": {
+            "witness": 4,
+            "hollow": 2
+          },
           "journal": "Kael read the folio. The miller's name was Fen. He had not known about the miller. He had not known because knowing was not part of the operation.",
           "nextScene": "fen_named",
           "time": "Evening"
         },
         {
           "label": "Refuse the folio. You do not need it to be worse than it is.",
-          "roll": { "stat": "force", "target": 10, "success": "Edric leaves the folio on the desk. He does not take it back. It sits there. Kael does not touch it for two days.", "failure": "He refuses and Edric nods and picks it up and Kael says: leave it. It is already part of it." },
-          "moral": { "hollow": 3, "restraint": -1 },
+          "roll": {
+            "stat": "force",
+            "target": 10,
+            "success": "Edric leaves the folio on the desk. He does not take it back. It sits there. Kael does not touch it for two days.",
+            "failure": "He refuses and Edric nods and picks it up and Kael says: leave it. It is already part of it."
+          },
+          "moral": {
+            "hollow": 3,
+            "restraint": -1
+          },
           "journal": "Kael refused the folio at first. It sat on the desk for two days. He knew what was in it.",
           "nextScene": "fen_named",
           "time": "Evening"
         },
         {
           "label": "Ask what Edric wants him to do with it.",
-          "roll": { "stat": "witness", "target": 10, "success": "We witness it, Kael says before Edric can answer. Accurately. Without the instinct to justify. Edric looks at him. Is that enough? No, Kael says. But it is what is available, and it is real, and it is better than letting it settle into the ground.", "failure": "Edric answers: I thought you would know. He does not know yet." },
-          "moral": { "witness": 3, "restraint": 1 },
+          "roll": {
+            "stat": "witness",
+            "target": 10,
+            "success": "We witness it, Kael says before Edric can answer. Accurately. Without the instinct to justify. Edric looks at him. Is that enough? No, Kael says. But it is what is available, and it is real, and it is better than letting it settle into the ground.",
+            "failure": "Edric answers: I thought you would know. He does not know yet."
+          },
+          "moral": {
+            "witness": 3,
+            "restraint": 1
+          },
           "journal": "We witness it accurately, without the instinct to justify. That was the only answer Kael had.",
           "nextScene": "fen_named",
           "time": "Evening"
         }
       ]
     },
-
     "fen_named": {
       "title": "The Name on the Page",
       "type": "Witness",
@@ -807,17 +1691,32 @@
         {
           "label": "Write Fen at the top of a blank page. Just the name.",
           "result": "He writes it. The name sits on the page and does not explain itself. That is accurate.",
-          "objectives": { "accountLines": 3 },
-          "moral": { "witness": 4, "hollow": -1 },
+          "objectives": {
+            "accountLines": 3
+          },
+          "moral": {
+            "witness": 4,
+            "hollow": -1
+          },
           "journal": "Kael wrote the miller's name — Fen — at the top of a blank sheet. He did not know what it was for. He wrote it anyway.",
           "nextScene": "caeden_dead",
           "time": "Night"
         },
         {
           "label": "Write Caeden's name first. Then Fen's beneath it. Both on the same page.",
-          "roll": { "stat": "witness", "target": 12, "success": "He does not try to resolve what it means that the world produced both of them and then moved on. He closes the folio. He goes to make tea.", "failure": "He writes both names and stares at them for a long time and the distinction he is trying to hold does not resolve into language." },
-          "objectives": { "accountLines": 4 },
-          "moral": { "witness": 5, "hollow": -2 },
+          "roll": {
+            "stat": "witness",
+            "target": 12,
+            "success": "He does not try to resolve what it means that the world produced both of them and then moved on. He closes the folio. He goes to make tea.",
+            "failure": "He writes both names and stares at them for a long time and the distinction he is trying to hold does not resolve into language."
+          },
+          "objectives": {
+            "accountLines": 4
+          },
+          "moral": {
+            "witness": 5,
+            "hollow": -2
+          },
           "journal": "Kael wrote Caeden's name and Fen's name on the same page. Both real. Both requiring account. He closed the folio and made tea.",
           "nextScene": "caeden_dead",
           "time": "Night"
@@ -825,30 +1724,57 @@
         {
           "label": "Leave the page blank. The name is in the folio. That is enough for now.",
           "result": "He closes the folio without adding to it. The name is in there in Edric's hand. It is more than nothing. It is less than what it should be.",
-          "objectives": { "accountLines": 1 },
-          "moral": { "hollow": 2 },
+          "objectives": {
+            "accountLines": 1
+          },
+          "moral": {
+            "hollow": 2
+          },
           "journal": "Kael left the page blank. The name was in Edric's folio. He told himself that was enough.",
           "nextScene": "caeden_dead",
           "time": "Night"
         }
       ]
     },
-
     "caeden_dead": {
       "title": "The Ledger",
       "type": "Reckoning",
-      "location": "chamber_desk",
+      "location": "chamber_window",
       "mood": "Spring light, thin and clean. A provision woman with news from the valley market.",
       "ambience": "rain",
       "stakes": "Lord Caeden is dead. A fever. Not in battle. Not by the hand of any man he wronged. The world does not balance its own ledgers.",
       "locations": [
-        { "id": "chamber_window", "name": "Stone Chamber",    "x": 200, "y": 200, "kind": "kael" },
-        { "id": "village_road",   "name": "Village Road",     "x": 460, "y": 150, "kind": "road" },
-        { "id": "valley_fire",    "name": "Village Square",   "x": 710, "y": 360, "kind": "fire" }
+        {
+          "id": "chamber_window",
+          "name": "Stone Chamber",
+          "x": 200,
+          "y": 200,
+          "kind": "kael"
+        },
+        {
+          "id": "village_road",
+          "name": "Village Road",
+          "x": 460,
+          "y": 150,
+          "kind": "road"
+        },
+        {
+          "id": "valley_fire",
+          "name": "Village Square",
+          "x": 710,
+          "y": 360,
+          "kind": "fire"
+        }
       ],
       "routes": [
-        ["chamber_window", "village_road"],
-        ["village_road", "valley_fire"]
+        [
+          "chamber_window",
+          "village_road"
+        ],
+        [
+          "village_road",
+          "valley_fire"
+        ]
       ],
       "narration": [
         "Lord Caeden was dead. Not in battle. Not by the hand of any man he had wronged. A fever, in the cold months. He had declined for three weeks and then stopped declining. His lands had been absorbed by a neighbouring lordship. The consolidation had been efficient.",
@@ -857,32 +1783,57 @@
       "choices": [
         {
           "label": "Feel nothing. Record the fact and return to the desk.",
-          "roll": { "stat": "witness", "target": 11, "success": "He sits at the desk. He understands, now, that he had been holding a quiet fiction — the idea that formal accounting was possible. The fiction is gone. What remains is accurate.", "failure": "He tries to feel nothing and discovers that nothing is not what is there." },
-          "moral": { "witness": 3 },
+          "roll": {
+            "stat": "witness",
+            "target": 11,
+            "success": "He sits at the desk. He understands, now, that he had been holding a quiet fiction — the idea that formal accounting was possible. The fiction is gone. What remains is accurate.",
+            "failure": "He tries to feel nothing and discovers that nothing is not what is there."
+          },
+          "moral": {
+            "witness": 3
+          },
           "journal": "Kael received the news that Caeden was dead and returned to the desk. The fiction of formal accounting was gone.",
           "nextScene": "village_smoke",
           "time": "Morning"
         },
         {
           "label": "Write Caeden's name on a page and then Fen's name beneath it.",
-          "roll": { "stat": "witness", "target": 12, "success": "He opens Edric's folio. He reads the account of Reshen again — all twelve pages, without rushing, without looking away. Then he writes. Both real. The world had not balanced its ledger. He would do it in the account instead.", "failure": "He writes both names and finds the page is not a ledger. There is no balance available. He closes it knowing that." },
-          "objectives": { "accountLines": 3 },
-          "moral": { "witness": 5, "hollow": -2 },
+          "roll": {
+            "stat": "witness",
+            "target": 12,
+            "success": "He opens Edric's folio. He reads the account of Reshen again — all twelve pages, without rushing, without looking away. Then he writes. Both real. The world had not balanced its ledger. He would do it in the account instead.",
+            "failure": "He writes both names and finds the page is not a ledger. There is no balance available. He closes it knowing that."
+          },
+          "objectives": {
+            "accountLines": 3
+          },
+          "moral": {
+            "witness": 5,
+            "hollow": -2
+          },
           "journal": "Caeden's name. Fen's name beneath it. Both real. The world does not balance its books. He would witness both accurately.",
           "nextScene": "village_smoke",
           "time": "Morning"
         },
         {
           "label": "Ride to Caeden's lands to see what the dissolution looks like.",
-          "roll": { "stat": "force", "target": 10, "success": "He rides three days and sees the consolidation underway. Efficient. He returns with the specific knowledge of what the end of an injustice looks like when no one names it as such.", "failure": "He rides and turns back. The seeing is not what he thought it would accomplish." },
-          "moral": { "force": 1, "witness": 2, "hollow": 1 },
+          "roll": {
+            "stat": "force",
+            "target": 10,
+            "success": "He rides three days and sees the consolidation underway. Efficient. He returns with the specific knowledge of what the end of an injustice looks like when no one names it as such.",
+            "failure": "He rides and turns back. The seeing is not what he thought it would accomplish."
+          },
+          "moral": {
+            "force": 1,
+            "witness": 2,
+            "hollow": 1
+          },
           "journal": "Kael rode to see what Caeden's death had settled. It had settled nothing. He came back with that knowledge specific and exact.",
           "nextScene": "village_smoke",
           "time": "Morning"
         }
       ]
     },
-
     "village_smoke": {
       "title": "The Smoke from Below",
       "type": "Threshold",
@@ -897,31 +1848,54 @@
       "choices": [
         {
           "label": "Take the sword — it is a tool — and descend the hill.",
-          "roll": { "stat": "restraint", "target": 11, "success": "He takes it because it is a tool and he is going into a situation about which he knows nothing. The taking is preparation, not decision. He goes out the door.", "failure": "He takes it and is halfway down the hill before he asks himself whether the tool was necessary and does not have a clean answer." },
-          "moral": { "restraint": 2, "witness": 1 },
+          "roll": {
+            "stat": "restraint",
+            "target": 11,
+            "success": "He takes it because it is a tool and he is going into a situation about which he knows nothing. The taking is preparation, not decision. He goes out the door.",
+            "failure": "He takes it and is halfway down the hill before he asks himself whether the tool was necessary and does not have a clean answer."
+          },
+          "moral": {
+            "restraint": 2,
+            "witness": 1
+          },
           "journal": "Kael took the sword because it was a tool. He went down the hill to see what needed doing.",
           "nextScene": "bucket_chain",
           "time": "Afternoon"
         },
         {
           "label": "Leave the sword. Go down as a man with two hands, not a blade.",
-          "roll": { "stat": "restraint", "target": 12, "success": "He puts on his coat and leaves the sword where it is. He goes down the hill. What concern feels like when it is not attached to the surge is quieter than he expected.", "failure": "He leaves it and reaches the village and there is a moment where the sword's absence is acutely specific." },
-          "moral": { "restraint": 3, "witness": 2, "hollow": -1 },
+          "roll": {
+            "stat": "restraint",
+            "target": 12,
+            "success": "He puts on his coat and leaves the sword where it is. He goes down the hill. What concern feels like when it is not attached to the surge is quieter than he expected.",
+            "failure": "He leaves it and reaches the village and there is a moment where the sword's absence is acutely specific."
+          },
+          "moral": {
+            "restraint": 3,
+            "witness": 2,
+            "hollow": -1
+          },
           "journal": "Kael left the sword. He descended the hill as a man with two hands, not as a blade.",
           "nextScene": "bucket_chain",
           "time": "Afternoon"
         },
         {
           "label": "Watch from the window. It is their fire. You have chosen this room.",
-          "roll": { "stat": "force", "target": 10, "success": "He watches from the window until he can no longer watch and goes down the hill angry at himself for having watched at all.", "failure": "He watches from the window. The smoke becomes the shape of a question he does not yet know how to answer." },
-          "moral": { "hollow": 3 },
+          "roll": {
+            "stat": "force",
+            "target": 10,
+            "success": "He watches from the window until he can no longer watch and goes down the hill angry at himself for having watched at all.",
+            "failure": "He watches from the window. The smoke becomes the shape of a question he does not yet know how to answer."
+          },
+          "moral": {
+            "hollow": 3
+          },
           "journal": "Kael watched from the window. He went down the hill eventually, angry at having watched.",
           "nextScene": "bucket_chain",
           "time": "Afternoon"
         }
       ]
     },
-
     "bucket_chain": {
       "title": "The Bucket Chain",
       "type": "Action",
@@ -936,32 +1910,60 @@
       "choices": [
         {
           "label": "Take command of the response. The field needs shape.",
-          "roll": { "stat": "reputation", "target": 10, "success": "They respond to the name. The operation becomes more efficient. Three buildings are saved instead of two. He goes home with sore shoulders and the old question of whether that was help or performance.", "failure": "Some of them respond to the name and some do not. The field works around both versions." },
-          "moral": { "force": 1, "reputation": 1, "hollow": 1 },
+          "roll": {
+            "stat": "reputation",
+            "target": 10,
+            "success": "They respond to the name. The operation becomes more efficient. Three buildings are saved instead of two. He goes home with sore shoulders and the old question of whether that was help or performance.",
+            "failure": "Some of them respond to the name and some do not. The field works around both versions."
+          },
+          "moral": {
+            "force": 1,
+            "reputation": 1,
+            "hollow": 1
+          },
           "journal": "Kael took command of the village fire. The field was more efficient. He asked himself whether that was the right reason.",
           "nextScene": "chamber_return",
           "time": "Evening"
         },
         {
           "label": "Join the chain where the gap is weakest. Do the available work.",
-          "roll": { "stat": "restraint", "target": 11, "success": "Three hours. Sore shoulders. The fire is out. The dry-goods store is gone. Three adjacent buildings have survived. He sat on the ground with the others and drank water and said very little.", "failure": "He joins the chain and works and the fire costs more than it had to. He stayed until the end anyway." },
-          "objectives": { "civilians": 1 },
-          "moral": { "restraint": 3, "witness": 2, "hollow": -2 },
+          "roll": {
+            "stat": "restraint",
+            "target": 11,
+            "success": "Three hours. Sore shoulders. The fire is out. The dry-goods store is gone. Three adjacent buildings have survived. He sat on the ground with the others and drank water and said very little.",
+            "failure": "He joins the chain and works and the fire costs more than it had to. He stayed until the end anyway."
+          },
+          "objectives": {
+            "civilians": 1
+          },
+          "moral": {
+            "restraint": 3,
+            "witness": 2,
+            "hollow": -2
+          },
           "journal": "Kael joined the bucket chain where the gap was weakest. He worked for three hours and said very little.",
           "nextScene": "chamber_return",
           "time": "Evening"
         },
         {
           "label": "Fight the fire as he fought everything — alone, at the centre, taking the worst of it.",
-          "roll": { "stat": "force", "target": 12, "success": "He moves through the burning building pulling people out until the roof makes him stop. Effective. The old efficiency. He comes home with burns on his forearms.", "failure": "He enters the burning structure and the structure does not cooperate with individual heroism." },
-          "moral": { "force": 2, "hollow": 1, "reputation": 1 },
+          "roll": {
+            "stat": "force",
+            "target": 12,
+            "success": "He moves through the burning building pulling people out until the roof makes him stop. Effective. The old efficiency. He comes home with burns on his forearms.",
+            "failure": "He enters the burning structure and the structure does not cooperate with individual heroism."
+          },
+          "moral": {
+            "force": 2,
+            "hollow": 1,
+            "reputation": 1
+          },
           "journal": "Kael fought the fire the old way. Alone at the centre. It was effective. He came home with burns.",
           "nextScene": "chamber_return",
           "time": "Evening"
         }
       ]
     },
-
     "chamber_return": {
       "title": "Sore Shoulders, Embers, the Farmer's Words",
       "type": "Reflection",
@@ -976,9 +1978,19 @@
       "choices": [
         {
           "label": "Write down why the farmer was wrong. The distinction is real, even if it is hard to articulate.",
-          "roll": { "stat": "witness", "target": 12, "success": "He writes slowly. The distinction between coming down because the situation required a specific quality of violence and coming down because there was smoke and people were in trouble and he had a body and two useful hands. He does not resolve it. He writes it down accurately and goes to bed.", "failure": "He tries to write it and finds the distinction, which is real, collapses under the pressure of language. He writes what he can and stops." },
-          "objectives": { "accountLines": 4 },
-          "moral": { "witness": 5, "hollow": -2 },
+          "roll": {
+            "stat": "witness",
+            "target": 12,
+            "success": "He writes slowly. The distinction between coming down because the situation required a specific quality of violence and coming down because there was smoke and people were in trouble and he had a body and two useful hands. He does not resolve it. He writes it down accurately and goes to bed.",
+            "failure": "He tries to write it and finds the distinction, which is real, collapses under the pressure of language. He writes what he can and stops."
+          },
+          "objectives": {
+            "accountLines": 4
+          },
+          "moral": {
+            "witness": 5,
+            "hollow": -2
+          },
           "journal": "Kael tried to write the distinction the farmer collapsed. Same thing, the farmer said. He wrote: it is not the same thing. But why requires a different kind of sentence than he has yet learned to write.",
           "nextScene": "the_account",
           "time": "Night"
@@ -986,24 +1998,38 @@
         {
           "label": "Sit by the fire without writing. The distinction will still be there in the morning.",
           "result": "He does not go to the desk. He eats and builds up the fire and sits in front of it for a while. He is too tired for the distinction tonight. In the morning he will try to write it down. That is, he has come to understand, the shape of the work.",
-          "objectives": { "accountLines": 1 },
-          "moral": { "restraint": 2, "witness": 1 },
+          "objectives": {
+            "accountLines": 1
+          },
+          "moral": {
+            "restraint": 2,
+            "witness": 1
+          },
           "journal": "Kael sat by the fire without writing. In the morning. That was also the shape of it.",
           "nextScene": "the_account",
           "time": "Night"
         },
         {
           "label": "Write the farmer's words down exactly. Let them sit there. Do not resolve them.",
-          "roll": { "stat": "witness", "target": 11, "success": "Same thing, he writes. And then nothing more on that page. The sentence sits there and does not explain itself. He thinks: that is accurate. He goes to bed.", "failure": "He writes the farmer's words and begins an argument with them and loses the thread of the argument and closes the book." },
-          "objectives": { "accountLines": 2 },
-          "moral": { "witness": 3, "restraint": 1 },
+          "roll": {
+            "stat": "witness",
+            "target": 11,
+            "success": "Same thing, he writes. And then nothing more on that page. The sentence sits there and does not explain itself. He thinks: that is accurate. He goes to bed.",
+            "failure": "He writes the farmer's words and begins an argument with them and loses the thread of the argument and closes the book."
+          },
+          "objectives": {
+            "accountLines": 2
+          },
+          "moral": {
+            "witness": 3,
+            "restraint": 1
+          },
           "journal": "Same thing, Kael wrote. He let the sentence sit without resolution. Sometimes accuracy is knowing what not to add.",
           "nextScene": "the_account",
           "time": "Night"
         }
       ]
     },
-
     "the_account": {
       "title": "The First Page",
       "type": "Aftermath",
@@ -1019,8 +2045,12 @@
         {
           "label": "Write the account of the ridge. The caravan. The choice. All of it.",
           "result": "The module ends. The account begins. The sky had already broken by the time they reached the ridge. He writes it as accurately as he can. This is the beginning of what someone will find, four centuries from now, in the ruins of a stone fortification in the northern hills.",
-          "objectives": { "accountLines": 5 },
-          "moral": { "witness": 3 },
+          "objectives": {
+            "accountLines": 5
+          },
+          "moral": {
+            "witness": 3
+          },
           "journal": "Session complete: The Noise of Purpose. The account is written. The sky had already broken by the time they reached the ridge.",
           "nextScene": "the_account",
           "time": "Night"
@@ -1028,8 +2058,13 @@
         {
           "label": "Write the account of Reshen. The miller. The children who did not run fast enough.",
           "result": "The module ends. The account records what was not recorded anywhere else. Fen. His name sits at the top of the page and the rest follows it. This is what the room was for.",
-          "objectives": { "accountLines": 5 },
-          "moral": { "witness": 4, "hollow": -2 },
+          "objectives": {
+            "accountLines": 5
+          },
+          "moral": {
+            "witness": 4,
+            "hollow": -2
+          },
           "journal": "Session complete: The Noise of Purpose. Kael wrote the miller's name at the top of the account. Fen. The rest followed.",
           "nextScene": "the_account",
           "time": "Night"
@@ -1037,14 +2072,19 @@
         {
           "label": "Write the account of the hollow. What it was. What it is now.",
           "result": "The module ends. He writes not the events but the interior. The surge and the hollow and the long road between them. The storm outside. The candle. The nib touching parchment. He felt nothing in himself that answered it.",
-          "objectives": { "accountLines": 5 },
-          "moral": { "witness": 5, "hollow": -3, "restraint": 2 },
+          "objectives": {
+            "accountLines": 5
+          },
+          "moral": {
+            "witness": 5,
+            "hollow": -3,
+            "restraint": 2
+          },
           "journal": "Session complete: The Noise of Purpose. Kael wrote the hollow. Not what he did — what it cost. The candle held steady.",
           "nextScene": "the_account",
           "time": "Night"
         }
       ]
     }
-
   }
 }
