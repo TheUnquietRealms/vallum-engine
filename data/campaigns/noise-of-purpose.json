@@ -4,7 +4,7 @@
   "region": "Eastern Marches",
   "series": "The Stormwright Cycle",
   "canonStatus": "Book I full adaptation — 8-hour solo adventure",
-  "startingScene": "ridge",
+  "startingScene": "eastern_road",
   "initialTime": {
     "day": 1,
     "phase": "Stormlight"
@@ -95,6 +95,36 @@
     ]
   ],
   "scenes": {
+    "eastern_road": {
+      "title": "The Eastern Road",
+      "type": "Prologue",
+      "location": "road",
+      "mood": "Cold morning, empty road, wrong quality of light on the horizon.",
+      "ambience": "storm",
+      "stakes": "He has not been asked to help. The smoke does not know he is watching it.",
+      "narration": [
+        "He had been riding the Eastern Road since before the light was full. The horse knew the pace and did not need direction. At some point the quality of the morning changed — not the weather, not the wind. Something in the distance that was not there an hour before.",
+        "He crested the rise and understood. Below him, the valley road. A column of smoke rising from it that was too dark to be a hearth fire. Sound traveling wrong through the cold air. He pulled up the horse and looked at the field before the field knew he was in it."
+      ],
+      "choices": [
+        {
+          "label": "Ride toward the smoke. That is what soldiers do.",
+          "result": "He does not hesitate. The horse feels the decision and moves before the order is finished.",
+          "moral": { "force": 1 },
+          "journal": "Kael rode toward the smoke before he had decided to.",
+          "nextScene": "ridge",
+          "time": "Blood Rain"
+        },
+        {
+          "label": "This is not his commission. The road continues east.",
+          "result": "He rides east for a count of thirty. The sound of screaming reaches him before he has put enough distance between himself and the smoke. He turns back.",
+          "moral": { "restraint": 1, "witness": 1 },
+          "journal": "Kael tried to pass it by. The road did not let him.",
+          "nextScene": "ridge",
+          "time": "Blood Rain"
+        }
+      ]
+    },
     "ridge": {
       "title": "The Ridge Above the Fire",
       "type": "Crisis",
