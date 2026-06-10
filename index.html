@@ -121,107 +121,109 @@
 
   </section>
 
-  <div class="play-shell" style="margin: 0 auto; padding: 20px 14px;">
+  <div class="play-shell">
 
-    <header class="topbar compact-topbar" style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:14px; gap:16px; flex-wrap:wrap;">
-      <div>
-        <p class="eyebrow">Vallum Engine · Stormwright Table</p>
-        <h1 id="regionTitle" style="margin:0; font-size:clamp(1.8rem,2.5vw,3.4rem); letter-spacing:-0.04em;"></h1>
+    <header class="play-topbar">
+      <div class="topbar-brand">
+        <p class="eyebrow">The Stormwright Table</p>
+        <h1 id="regionTitle" class="topbar-title"></h1>
       </div>
-      <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
-        <span id="saveStatus" class="status-chip"></span>
-        <span id="ambienceState" class="status-chip subtle-chip">Off</span>
+      <div class="topbar-controls">
         <span id="timeBox" class="status-chip"></span>
+        <button id="aiStatus" class="ai-status-btn" title="AI GM settings"></button>
+        <span id="saveStatus" class="status-chip"></span>
         <button id="saveBtn" class="compact-control">Save</button>
         <button id="newGameBtn" class="compact-control">New</button>
         <button id="ambienceBtn" class="compact-control music-toggle" title="Toggle Music">M</button>
+        <span id="ambienceState" class="status-chip subtle-chip">Off</span>
       </div>
     </header>
 
     <section class="play-layout">
 
-      <aside class="gm-panel">
-        <div style="display:flex; justify-content:space-between; align-items:baseline; gap:8px;">
-          <p class="eyebrow">Game Master</p>
-          <button id="aiStatus" class="ai-status-btn" title="AI GM settings"></button>
+      <!-- LEFT: Character Sheet + Scene Context + Minimap -->
+      <aside class="char-sheet">
+        <div id="partyList"></div>
+
+        <div class="scene-context">
+          <p class="eyebrow">Current Scene</p>
+          <h3 id="sceneTitle" class="scene-h"></h3>
+          <p class="scene-type-label" id="sceneType"></p>
+          <div class="mood-card scene-mood-card" id="sceneMood"></div>
         </div>
-        <h2 id="sceneTitle" style="margin:6px 0 0;"></h2>
-        <div class="gm-brief" style="margin-top:14px;">
-          <p class="eyebrow" id="sceneType"></p>
-          <div class="mood-card" id="sceneMood"></div>
-        </div>
-        <div class="gm-actions" style="margin-top:14px;">
-          <p class="eyebrow">Available Actions</p>
-          <div id="choiceList"></div>
-        </div>
-        <div id="diceLog" class="hidden-rolls"></div>
-        <div class="gm-ask-row" id="gmAskRow" style="margin-top:14px;">
-          <input id="gmAskInput" type="text" placeholder="Examine the field, talk to an NPC…" class="gm-ask-input" autocomplete="off" />
-          <button id="gmAskBtn" class="compact-control gm-ask-btn">Ask</button>
+
+        <div class="map-miniature">
+          <p class="eyebrow">Battlefield</p>
+          <div class="storm-map-frame">
+            <svg id="worldMap" viewBox="0 0 1000 620" class="minimap-svg">
+              <defs>
+                <radialGradient id="parchGrad" cx="46%" cy="38%" r="78%">
+                  <stop offset="0%"   stop-color="#d8c082"/>
+                  <stop offset="55%"  stop-color="#c4a45e"/>
+                  <stop offset="100%" stop-color="#9a7030"/>
+                </radialGradient>
+                <radialGradient id="vigGrad" cx="50%" cy="50%" r="68%">
+                  <stop offset="48%" stop-color="transparent"/>
+                  <stop offset="100%" stop-color="rgba(32,12,2,0.48)"/>
+                </radialGradient>
+                <pattern id="hatchPat" patternUnits="userSpaceOnUse" width="6" height="6" patternTransform="rotate(45)">
+                  <line x1="0" y1="0" x2="0" y2="6" stroke="#8a6830" stroke-width="0.5" opacity="0.38"/>
+                </pattern>
+                <filter id="shadow">
+                  <feDropShadow dx="1" dy="2" stdDeviation="3" flood-color="#2a1408" flood-opacity="0.55"/>
+                </filter>
+                <filter id="shadowSm">
+                  <feDropShadow dx="1" dy="1" stdDeviation="1.5" flood-color="#2a1408" flood-opacity="0.45"/>
+                </filter>
+                <filter id="tokenShadow">
+                  <feDropShadow dx="2" dy="3" stdDeviation="4" flood-color="#100800" flood-opacity="0.75"/>
+                </filter>
+              </defs>
+              <rect width="1000" height="620" fill="url(#parchGrad)"/>
+              <g id="routeLayer"></g>
+              <g id="locationLayer"></g>
+              <g id="tokenLayer"></g>
+              <rect width="1000" height="620" fill="url(#vigGrad)" pointer-events="none"/>
+              <rect x="0" y="0" width="1000" height="620" fill="none" stroke="#4a2e08" stroke-width="10" pointer-events="none"/>
+              <rect x="5" y="5" width="990" height="610" fill="none" stroke="#8a6028" stroke-width="2" pointer-events="none"/>
+              <rect x="9" y="9" width="982" height="602" fill="none" stroke="#6a4818" stroke-width="1" stroke-dasharray="8 5" pointer-events="none"/>
+            </svg>
+          </div>
         </div>
       </aside>
 
-      <section class="centre-table">
-        <p class="eyebrow">Battlefield Tableau</p>
-        <div class="storm-map-frame map-frame">
-          <svg id="worldMap" viewBox="0 0 1000 620" style="display:block; width:100%; height:min(52vh,640px);">
-            <defs>
-              <radialGradient id="parchGrad" cx="46%" cy="38%" r="78%">
-                <stop offset="0%"   stop-color="#d8c082"/>
-                <stop offset="55%"  stop-color="#c4a45e"/>
-                <stop offset="100%" stop-color="#9a7030"/>
-              </radialGradient>
-              <radialGradient id="vigGrad" cx="50%" cy="50%" r="68%">
-                <stop offset="48%" stop-color="transparent"/>
-                <stop offset="100%" stop-color="rgba(32,12,2,0.48)"/>
-              </radialGradient>
-              <pattern id="hatchPat" patternUnits="userSpaceOnUse" width="6" height="6" patternTransform="rotate(45)">
-                <line x1="0" y1="0" x2="0" y2="6" stroke="#8a6830" stroke-width="0.5" opacity="0.38"/>
-              </pattern>
-              <filter id="shadow">
-                <feDropShadow dx="1" dy="2" stdDeviation="3" flood-color="#2a1408" flood-opacity="0.55"/>
-              </filter>
-              <filter id="shadowSm">
-                <feDropShadow dx="1" dy="1" stdDeviation="1.5" flood-color="#2a1408" flood-opacity="0.45"/>
-              </filter>
-              <filter id="tokenShadow">
-                <feDropShadow dx="2" dy="3" stdDeviation="4" flood-color="#100800" flood-opacity="0.75"/>
-              </filter>
-            </defs>
-            <!-- Parchment base — always visible, never cleared by JS -->
-            <rect width="1000" height="620" fill="url(#parchGrad)"/>
-            <!-- Dynamic layers — cleared and redrawn each render -->
-            <g id="routeLayer"></g>
-            <g id="locationLayer"></g>
-            <g id="tokenLayer"></g>
-            <!-- Vignette + border — sit above tokens, pointer-events:none -->
-            <rect width="1000" height="620" fill="url(#vigGrad)" pointer-events="none"/>
-            <rect x="0" y="0" width="1000" height="620" fill="none" stroke="#4a2e08" stroke-width="10" pointer-events="none"/>
-            <rect x="5" y="5" width="990" height="610" fill="none" stroke="#8a6028" stroke-width="2" pointer-events="none"/>
-            <rect x="9" y="9" width="982" height="602" fill="none" stroke="#6a4818" stroke-width="1" stroke-dasharray="8 5" pointer-events="none"/>
-          </svg>
-        </div>
-        <div class="scenario-panel" style="margin-top:14px;">
-          <p class="eyebrow">Scenario</p>
+      <!-- CENTER: Primary Play Area -->
+      <main class="play-area">
+        <div class="narration-zone">
           <div class="narration" id="narration"></div>
+          <div class="gm-response-panel" id="gmResponsePanel" hidden>
+            <p class="eyebrow gm-voice-label">The GM Speaks</p>
+            <div id="gmResponse" class="gm-stream"></div>
+          </div>
         </div>
-        <div class="gm-response-panel" id="gmResponsePanel" hidden>
-          <p class="eyebrow gm-voice-label">The GM Speaks</p>
-          <div id="gmResponse" class="gm-stream"></div>
+
+        <div id="diceLog" class="hidden-rolls"></div>
+
+        <div class="choice-zone">
+          <p class="eyebrow">Available Actions</p>
+          <div id="choiceList"></div>
         </div>
-        <div class="outcome-panel" style="margin-top:12px;">
+
+        <div class="ask-zone" id="gmAskRow">
+          <input id="gmAskInput" type="text" placeholder="Examine the field, talk to an NPC…" class="gm-ask-input" autocomplete="off" />
+          <button id="gmAskBtn" class="compact-control gm-ask-btn">Ask</button>
+        </div>
+
+        <div class="outcome-panel">
           <p class="outcome-label">What Changed</p>
           <div id="outcomeText"></div>
         </div>
-      </section>
+      </main>
 
-      <aside class="character-panel">
-        <p class="eyebrow">Kael Vorn</p>
-        <div id="partyList"></div>
-        <div style="margin-top:18px; border-top:1px solid rgba(216,189,132,0.14); padding-top:14px;">
-          <p class="eyebrow">The Account</p>
-          <div id="journalList"></div>
-        </div>
+      <!-- RIGHT: The Account -->
+      <aside class="account-panel">
+        <p class="eyebrow">The Account</p>
+        <div id="journalList"></div>
       </aside>
 
     </section>

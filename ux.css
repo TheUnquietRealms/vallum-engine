@@ -55,14 +55,14 @@
 
 .intro-beat {
   width: 100%;
-  max-height: 100vh;
-  overflow-y: auto;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 32px 20px;
   animation: intro-fade 0.45s ease-out;
+  box-sizing: border-box;
 }
 
 @keyframes intro-fade {
@@ -255,10 +255,35 @@
 
 .play-shell {
   width: min(1920px, calc(100vw - 28px));
+  margin: 0 auto;
+  padding: 20px 14px;
 }
 
 /* ── Top bar ─────────────────────────────────────────────── */
 
+.play-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.topbar-title {
+  margin: 0;
+  font-size: clamp(1.8rem, 2.5vw, 3.4rem);
+  letter-spacing: -0.04em;
+}
+
+.topbar-controls {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* keep legacy compact-topbar in case it's referenced elsewhere */
 .compact-topbar {
   align-items: flex-end;
   margin-bottom: 14px;
@@ -312,63 +337,133 @@
 
 .play-layout {
   display: grid;
-  grid-template-columns: minmax(270px, 0.68fr) minmax(660px, 1.55fr) minmax(300px, 0.78fr);
+  grid-template-columns: minmax(220px, 0.52fr) minmax(440px, 1.6fr) minmax(220px, 0.52fr);
   gap: 16px;
   align-items: start;
 }
 
-.gm-panel,
-.character-panel,
-.centre-table {
+.char-sheet,
+.play-area,
+.account-panel {
   border: 1px solid rgba(216, 189, 132, 0.16);
   border-radius: 24px;
   background: var(--panel);
   box-shadow: 0 20px 70px rgba(0, 0, 0, 0.45);
+  padding: 20px;
 }
 
-.gm-panel {
-  padding: 20px;
+.char-sheet {
   min-height: calc(100vh - 132px);
   background: linear-gradient(180deg, rgba(17, 22, 24, 0.99), rgba(15, 19, 21, 0.96));
   border-color: rgba(216, 189, 132, 0.20);
 }
 
-.character-panel {
-  padding: 20px;
+.account-panel {
   min-height: calc(100vh - 132px);
 }
 
-.centre-table {
-  padding: 18px;
+/* ── Character sheet — scene context ────────────────────── */
+
+.scene-context {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(216, 189, 132, 0.1);
 }
 
-.stacked-header {
-  align-items: flex-start;
+.scene-context > .eyebrow {
+  margin-bottom: 6px;
 }
 
-.gm-brief,
-.gm-actions,
-.scenario-panel,
-.kael-card,
-.account-card {
-  margin-top: 14px;
+.scene-h {
+  margin: 0 0 4px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--parchment);
 }
 
-.gm-brief .mood-card {
+.scene-type-label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(216, 189, 132, 0.48);
+  margin: 0 0 8px;
+}
+
+.scene-mood-card {
   display: block;
   width: 100%;
   min-height: 0;
   line-height: 1.55;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   border-color: rgba(216, 189, 132, 0.10);
   background: rgba(255, 255, 255, 0.025);
   padding: 10px 12px;
 }
 
-.gm-actions > .eyebrow {
-  color: rgba(216, 189, 132, 0.65);
+/* ── Character sheet — minimap ───────────────────────────── */
+
+.map-miniature {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(216, 189, 132, 0.1);
+}
+
+.map-miniature > .eyebrow {
+  margin-bottom: 8px;
+}
+
+.minimap-svg {
+  display: block;
+  width: 100%;
+  height: 160px;
+}
+
+/* ── Play area — narration ───────────────────────────────── */
+
+.narration-zone .narration {
+  font-size: clamp(0.95rem, 1vw, 1.1rem);
+  line-height: 1.72;
+  color: rgba(242, 234, 220, 0.88);
+}
+
+/* ── Play area — choices ─────────────────────────────────── */
+
+.choice-zone {
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(216, 189, 132, 0.12);
+}
+
+.choice-zone > .eyebrow {
+  color: rgba(216, 189, 132, 0.6);
   margin-bottom: 10px;
 }
+
+/* ── Play area — ask GM ──────────────────────────────────── */
+
+.ask-zone {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(216, 189, 132, 0.08);
+}
+
+/* ── Legacy selectors (kept so old CSS rules still apply) ── */
+
+.stacked-header { align-items: flex-start; }
+
+.gm-brief, .gm-actions, .scenario-panel, .kael-card, .account-card { margin-top: 14px; }
+
+.gm-brief .mood-card {
+  display: block; width: 100%; min-height: 0; line-height: 1.55;
+  font-size: 0.9rem; border-color: rgba(216, 189, 132, 0.10);
+  background: rgba(255, 255, 255, 0.025); padding: 10px 12px;
+}
+
+.gm-actions > .eyebrow { color: rgba(216, 189, 132, 0.65); margin-bottom: 10px; }
 
 /* ── Map frame — physical table surface ──────────────────── */
 
@@ -1020,13 +1115,35 @@
 
 /* ── Responsive ──────────────────────────────────────────── */
 
-@media (max-width: 1300px) {
+@media (max-width: 1100px) {
   .play-layout {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(200px, 0.55fr) minmax(360px, 1.45fr);
+    grid-template-rows: auto auto;
   }
+  .account-panel {
+    grid-column: 1 / -1;
+    min-height: auto;
+  }
+  .char-sheet,
   .gm-panel,
   .character-panel {
     min-height: auto;
+  }
+}
+
+@media (max-width: 700px) {
+  .play-layout {
+    grid-template-columns: 1fr;
+  }
+  .play-area {
+    order: -1;
+  }
+  .char-sheet,
+  .account-panel {
+    min-height: auto;
+  }
+  .minimap-svg {
+    height: 120px;
   }
 }
 
