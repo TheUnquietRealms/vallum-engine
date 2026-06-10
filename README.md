@@ -114,4 +114,4 @@ Key files:
 - A release is not final until internal UAT and founder live signoff pass.
 
 ---
-© 2026 ZenCloud Global Consultants. All rights reserved. Proprietary and confidential.
+© 2026 Zencloud Advisory. All rights reserved. Proprietary and confidential.
