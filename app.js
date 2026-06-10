@@ -977,19 +977,26 @@ function resolveRoll(roll) {
 function showDiceResult(roll, raw, bonus, total, success) {
   if (!dom.diceLog) return;
   const sign = bonus >= 0 ? `+${bonus}` : `${bonus}`;
-  dom.diceLog.innerHTML = `
-    <div class="dice-result ${success ? "dice-success" : "dice-failure"}">
-      <span class="dice-label">d20</span>
-      <span class="dice-rolled">${raw}</span>
-      <span class="dice-op">+</span>
-      <span class="dice-stat-name">${roll.stat}</span>
-      <span class="dice-bonus">(${sign})</span>
-      <span class="dice-op">=</span>
-      <span class="dice-total">${total}</span>
-      <span class="dice-vs">vs ${roll.target}</span>
-      <span class="dice-verdict">${success ? "✓ Success" : "✗ Failure"}</span>
-    </div>`;
+
+  dom.diceLog.innerHTML = `<div class="dice-result dice-rolling"><span class="dice-label">d20</span><span class="dice-rolled">—</span></div>`;
   dom.diceLog.classList.remove("hidden-rolls");
+
+  const face = dom.diceLog.querySelector('.dice-rolled');
+  const box  = dom.diceLog.querySelector('.dice-result');
+  const delays = [40, 50, 62, 78, 98, 122, 148, 178, 210];
+  let s = 0;
+
+  function tick() {
+    if (s < delays.length) {
+      face.textContent = Math.floor(Math.random() * 20) + 1;
+      setTimeout(tick, delays[s++]);
+    } else {
+      box.classList.remove('dice-rolling');
+      box.classList.add(success ? 'dice-success' : 'dice-failure');
+      box.innerHTML = `<span class="dice-label">d20</span><span class="dice-rolled dice-land">${raw}</span><span class="dice-op">+</span><span class="dice-stat-name">${roll.stat}</span><span class="dice-bonus">(${sign})</span><span class="dice-op">=</span><span class="dice-total">${total}</span><span class="dice-vs">vs ${roll.target}</span><span class="dice-verdict">${success ? "✓ Success" : "✗ Failure"}</span>`;
+    }
+  }
+  tick();
 }
 
 function clearDiceResult() {

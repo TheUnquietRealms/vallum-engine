@@ -301,6 +301,36 @@
 .dice-success { border-color: rgba(100, 160, 100, 0.22); }
 .dice-failure { border-color: rgba(160, 80, 80, 0.22); }
 
+.dice-rolling {
+  justify-content: center;
+  padding: 14px 13px;
+}
+
+.dice-rolling .dice-label {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 2px;
+}
+
+.dice-rolling .dice-rolled {
+  font-size: 2rem;
+  animation: dice-tumble 0.12s ease-in-out infinite alternate;
+}
+
+@keyframes dice-tumble {
+  from { transform: scale(0.9); opacity: 0.65; }
+  to   { transform: scale(1.1); opacity: 1; }
+}
+
+.dice-land {
+  animation: dice-land 0.18s ease-out;
+}
+
+@keyframes dice-land {
+  from { transform: scale(1.35); }
+  to   { transform: scale(1); }
+}
+
 /* ── Cover screen — character + rules ───────────────────── */
 
 .cover-sections {
