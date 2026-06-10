@@ -120,6 +120,7 @@ const PROLOGUE_TEXT = [
   "This is the account of how he learned the difference."
 ].join("\n\n");
 
+wireControls();
 boot();
 
 async function boot() {
@@ -131,7 +132,6 @@ async function boot() {
     const hasSave = !!localStorage.getItem(STORAGE_KEY);
     setText(dom.coverStatus, hasSave ? "A saved session was found on this browser." : "");
     if (dom.continueBtn) dom.continueBtn.hidden = !hasSave;
-    wireControls();
     render();
   } catch (error) {
     showFatalError(error);
@@ -275,6 +275,7 @@ function wireControls() {
 }
 
 function closeCover() {
+  if (!campaign) return;
   if (dom.campaignCover) dom.campaignCover.hidden = true;
   document.body.classList.remove("cover-open");
   render();
@@ -300,6 +301,7 @@ async function gmOpenScene() {
 }
 
 function startNewSession() {
+  if (!campaign) return;
   const hasSave = !!localStorage.getItem(STORAGE_KEY);
   if (hasSave && !confirm("Begin a new session? Your current progress will be lost.")) return;
   localStorage.removeItem(STORAGE_KEY);
