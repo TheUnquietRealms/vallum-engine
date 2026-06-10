@@ -1,0 +1,5 @@
+# Source books — proprietary IP, local only
+docs/source/
+
+# Claude Code / Superpowers plugin cache
+.superpowers/
