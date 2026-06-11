@@ -32,25 +32,13 @@
         <!-- Leaf 4 · How it works -->
         <div class="leaf" data-leaf="3">
           <div class="leaf-front">
-            <div class="page-inner" id="introBeat5" data-screen-label="Page 4 How it works">
-              <p class="page-eyebrow">How the table works</p>
-              <div class="page-body">
-                <div class="book-mech">
-                  <strong>Choose an action</strong>
-                  <p>Each choice tests a quality — not skill, character. Force breaks through. Restraint holds back. Witness reads clearly. Reputation commands.</p>
-                </div>
-                <div class="book-mech">
-                  <strong>Roll d20 + moral state</strong>
-                  <p>The dice show the result. Your moral state shapes the odds. Who you are changes what you can do.</p>
-                </div>
-                <div class="book-mech">
-                  <strong>The Hollow grows</strong>
-                  <p>Some choices cost Kael something he cannot name. At seven it begins to change him. At ten the account is closed.</p>
-                </div>
-                <div class="book-mech">
-                  <strong>Ask the Game Master</strong>
-                  <p>Type a question at any point — examine the field, speak to a character. A live GM answers from within the world.</p>
-                </div>
+            <div class="page-inner" id="introBeat5" data-screen-label="Page 4 The unwritten page">
+              <p class="page-eyebrow">The Compiler's note, on the final leaf</p>
+              <div class="page-body page-prose">
+                <p>Here my hand stops. I have given you everything the Archive holds — the road, the rain, the man riding into both.</p>
+                <p>The pages that remain are not written in ink. They wait. What the Iron Captain does next was never recorded, because it has not happened yet — it happens when you decide it.</p>
+                <p>Reader: the story knows you are here. When you turn this page you will not be reading it any longer. You will be in it.</p>
+                <p class="page-rule-line">The table keeps its own rules, and the Game Master keeps them for you. Choose, and the dice answer. Everything else, you may ask.</p>
               </div>
               <div class="page-actions">
                 <button id="introBack4" class="page-turn-btn page-back-btn">&lsaquo; Back</button>
@@ -170,15 +158,8 @@
 
     <section class="game-room" data-screen-label="The game room">
 
-      <!-- ACROSS THE TABLE · the Game Master's seat -->
-      <section class="dm-side" data-screen-label="Game Master side">
-        <div class="dm-placard">
-          <div class="dm-chair" aria-hidden="true"><span class="dm-mark">✦</span></div>
-          <p class="eyebrow">The Game Master</p>
-          <h3 id="sceneTitle" class="scene-h"></h3>
-          <p class="scene-type-label" id="sceneType"></p>
-          <div class="mood-card scene-mood-card" id="sceneMood"></div>
-        </div>
+      <!-- THE PLAY · the conversation with the GM — read down, choose at the bottom -->
+      <section class="play-col" data-screen-label="The conversation">
         <div class="dm-speech">
           <div class="narration-zone">
             <div class="narration" id="narration"></div>
@@ -193,17 +174,34 @@
             <div id="outcomeText"></div>
           </div>
         </div>
+        <div class="your-hand">
+          <p class="eyebrow">Your hand</p>
+          <p class="hand-hint" id="handHint" hidden>The Game Master keeps the rules. Each action tests a quality of the man — choose, and the dice answer.</p>
+          <div id="choiceList"></div>
+          <div class="ask-zone" id="gmAskRow">
+            <input id="gmAskInput" type="text" placeholder="Ask the Game Master — examine the field, talk to someone…" class="gm-ask-input" autocomplete="off" />
+            <button id="gmAskBtn" class="compact-control gm-ask-btn">Ask</button>
+          </div>
+        </div>
       </section>
 
-      <!-- THE TABLE · chairs around the world map -->
-      <section class="table-band" data-screen-label="The table">
-        <div class="seat-col seat-col-left" id="npcSeatsLeft" aria-label="Seats on your left"></div>
-        <div class="table-surface">
-          <div class="map-mini-head">
-            <p class="eyebrow">The World</p>
-            <button id="mapExpandBtn" class="compact-control map-expand-btn" type="button">Expand</button>
-          </div>
-          <div class="storm-map-frame" id="stormMapFrame" title="Open the table map">
+      <!-- THE TABLE · GM at the far end, chairs at the sides, you at the near edge -->
+      <aside class="table-col" data-screen-label="The table">
+        <div class="dm-placard">
+          <div class="dm-chair" aria-hidden="true"><span class="dm-mark">✦</span></div>
+          <p class="eyebrow">The Game Master</p>
+          <h3 id="sceneTitle" class="scene-h"></h3>
+          <p class="scene-type-label" id="sceneType"></p>
+          <div class="mood-card scene-mood-card" id="sceneMood"></div>
+        </div>
+        <div class="table-band">
+          <div class="seat-col seat-col-left" id="npcSeatsLeft" aria-label="Seats on your left"></div>
+          <div class="table-surface">
+            <div class="map-mini-head">
+              <p class="eyebrow">The World</p>
+              <button id="mapExpandBtn" class="compact-control map-expand-btn" type="button">Expand</button>
+            </div>
+            <div class="storm-map-frame" id="stormMapFrame" title="Open the table map">
             <svg id="worldMap" viewBox="0 0 1000 620" class="minimap-svg">
               <defs>
                 <radialGradient id="parchGrad" cx="46%" cy="38%" r="78%">
@@ -238,31 +236,24 @@
               <rect x="9" y="9" width="982" height="602" fill="none" stroke="#6a4818" stroke-width="1" stroke-dasharray="8 5" pointer-events="none"/>
             </svg>
           </div>
+          </div>
+          <div class="seat-col seat-col-right" id="npcSeatsRight" aria-label="Seats on your right"></div>
         </div>
-        <div class="seat-col seat-col-right" id="npcSeatsRight" aria-label="Seats on your right"></div>
-      </section>
 
-      <!-- YOUR SEAT · sheet, hand, compendium -->
-      <section class="your-seat" data-screen-label="Your seat">
-        <div class="your-sheet">
-          <p class="eyebrow">Your character</p>
-          <div id="partyList"></div>
-        </div>
-        <div class="your-hand">
-          <p class="eyebrow">Your hand</p>
-          <div id="choiceList"></div>
-          <div class="ask-zone" id="gmAskRow">
-            <input id="gmAskInput" type="text" placeholder="Ask the Game Master — examine the field, talk to someone…" class="gm-ask-input" autocomplete="off" />
-            <button id="gmAskBtn" class="compact-control gm-ask-btn">Ask</button>
+        <!-- The near edge — your place at the table -->
+        <div class="near-edge">
+          <div class="your-sheet">
+            <p class="eyebrow">Your character</p>
+            <div id="partyList"></div>
+          </div>
+          <div class="your-compendium">
+            <button class="compendium-book" id="compendiumBtn" type="button" title="Open the Account and compendium">
+              <span class="comp-title">The Account</span>
+              <span class="comp-sub">&amp; compendium</span>
+            </button>
           </div>
         </div>
-        <div class="your-compendium">
-          <button class="compendium-book" id="compendiumBtn" type="button" title="Open the Account and compendium">
-            <span class="comp-title">The Account</span>
-            <span class="comp-sub">&amp; compendium</span>
-          </button>
-        </div>
-      </section>
+      </aside>
 
     </section>
   </div>

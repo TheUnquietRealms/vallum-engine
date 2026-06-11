@@ -177,7 +177,8 @@ button.choice {
 #worldMap {
   display: block;
   width: 100%;
-  height: min(62vh, 780px);
+  height: auto;
+  aspect-ratio: 1000 / 620;
 }
 
 /* ── Info chips ──────────────────────────────────────────── */
@@ -348,10 +349,6 @@ button.choice {
   .table-panel,
   .story-panel {
     min-height: auto;
-  }
-
-  #worldMap {
-    height: 56vh;
   }
 }
 

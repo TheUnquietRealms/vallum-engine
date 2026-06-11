@@ -1918,13 +1918,61 @@ body.cover-open .play-shell { display: none; }
 
 .game-room {
   display: grid;
-  grid-template-rows: auto auto auto;
-  align-content: start;
-  gap: 18px;
-  padding: 18px 22px 26px;
+  grid-template-columns: minmax(0, 1.12fr) clamp(360px, 36vw, 500px);
+  gap: 20px;
+  padding: 16px 22px 18px;
   max-width: 1480px;
+  width: 100%;
   margin: 0 auto;
+  flex: 1 1 auto;
+  min-height: 0;
   box-sizing: border-box;
+}
+
+/* ── The play column: read down, choose at the bottom ────── */
+
+.play-col {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-height: 0;
+  min-width: 0;
+}
+
+.play-col .dm-speech {
+  flex: 1;
+  min-height: clamp(170px, 36vh, 400px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(216, 189, 132, 0.35) transparent;
+}
+
+.play-col .your-hand {
+  flex-shrink: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+.play-col .your-hand > .eyebrow,
+.play-col .your-hand .ask-zone { flex-shrink: 0; }
+.play-col .your-hand #choiceList {
+  overflow-y: auto;
+  min-height: 0;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(216, 189, 132, 0.35) transparent;
+}
+
+/* ── The table column: GM at the far end, you at the near edge ─ */
+
+.table-col {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(216, 189, 132, 0.3) transparent;
+  padding-top: 12px;
 }
 
 .stormwright-theme .play-shell {
@@ -1940,10 +1988,7 @@ body.cover-open .play-shell { display: none; }
 /* ── Across the table: the Game Master ───────────────────── */
 
 .dm-side {
-  display: grid;
-  grid-template-columns: 280px 1fr;
-  gap: 16px;
-  align-items: start;
+  display: block;
 }
 
 .dm-placard {
@@ -1988,27 +2033,27 @@ body.cover-open .play-shell { display: none; }
 }
 
 .dm-speech .narration-zone {
-  max-height: 30vh;
-  overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(216, 189, 132, 0.35) transparent;
+  max-height: none;
+  overflow: visible;
 }
 
 .dm-speech .outcome-panel { margin-top: 8px; }
 
 /* ── The table band: chairs flank the world map ──────────── */
 
+/* Chairs around the far side of the table; the map fills the column */
 .table-band {
   display: grid;
-  grid-template-columns: 138px minmax(0, 1fr) 138px;
-  gap: 18px;
-  align-items: center;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px 10px;
+  align-items: start;
   min-height: 0;
+  flex-shrink: 0;
 }
 
 .table-surface {
+  grid-column: 1 / -1;
   min-width: 0;
-  max-width: clamp(540px, calc((100vh - 430px) * 1.61), 1020px);
   margin: 0 auto;
   width: 100%;
 }
@@ -2018,14 +2063,17 @@ body.cover-open .play-shell { display: none; }
 
 .seat-col {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
-  gap: 22px;
+  align-items: flex-start;
+  gap: 8px;
 }
 
 .npc-seat {
+  flex: 1;
+  max-width: 132px;
   text-align: center;
-  padding: 10px 8px 12px;
+  padding: 6px 6px 8px;
   border-radius: 12px;
   border: 1px solid transparent;
   transition: border-color 0.2s ease, background 0.2s ease;
@@ -2039,9 +2087,9 @@ body.cover-open .play-shell { display: none; }
 }
 
 .seat-chair {
-  width: 46px;
-  height: 34px;
-  margin: 0 auto 8px;
+  width: 38px;
+  height: 28px;
+  margin: 0 auto 5px;
   border-radius: 10px 10px 3px 3px;
   background: linear-gradient(180deg, #3c2410, #1f1105);
   border: 1px solid rgba(216, 189, 132, 0.25);
@@ -2226,11 +2274,12 @@ body.cover-open .play-shell { display: none; }
 
 /* ── Your seat ───────────────────────────────────────────── */
 
-.your-seat {
+.near-edge {
   display: grid;
-  grid-template-columns: 300px minmax(0, 1fr) 168px;
-  gap: 16px;
+  grid-template-columns: minmax(0, 1fr) 128px;
+  gap: 12px;
   align-items: stretch;
+  flex-shrink: 0;
 }
 
 .your-sheet,
@@ -2248,7 +2297,7 @@ body.cover-open .play-shell { display: none; }
 .your-hand > .eyebrow { margin-bottom: 8px; }
 
 .your-sheet {
-  max-height: 320px;
+  max-height: 230px;
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: rgba(216, 189, 132, 0.35) transparent;
@@ -2390,21 +2439,82 @@ body.cover-open .play-shell { display: none; }
 
 /* ── Game-room responsive ────────────────────────────────── */
 
-@media (max-width: 1080px) {
-  .dm-side { grid-template-columns: 1fr; }
-  .table-band { grid-template-columns: 96px minmax(0, 1fr) 96px; gap: 10px; }
-  .your-seat { grid-template-columns: minmax(220px, 0.8fr) minmax(0, 1.2fr); }
-  .your-compendium { grid-column: 1 / -1; }
-  .compendium-book { flex-direction: row; gap: 10px; padding: 12px; border-radius: 10px; }
+@media (max-width: 920px) {
+  .game-room {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    flex: none;
+    height: auto;
+    min-height: 0;
+  }
+  .play-col { min-height: auto; }
+  .play-col .dm-speech {
+    overflow: visible;
+    flex: none;
+    min-height: auto;
+    height: auto;
+  }
+  .play-col .your-hand { flex: none; }
+  .play-col .your-hand #choiceList { overflow: visible; }
+  .table-col { overflow: visible; order: 1; padding-top: 16px; flex: none; }
+  .table-band { grid-template-columns: 1fr 1fr; gap: 4px 10px; }
+  .near-edge { grid-template-columns: minmax(0, 1fr) 128px; }
+  .compendium-book { padding: 12px; }
 }
 
 @media (max-width: 720px) {
   .game-room { padding: 12px 12px 20px; gap: 12px; }
-  .table-band { grid-template-columns: 1fr; }
-  .seat-col { flex-direction: row; justify-content: center; gap: 12px; }
-  .seat-col-left { order: -1; }
   .npc-seat { padding: 6px 8px; }
-  .your-seat { grid-template-columns: 1fr; }
+  .near-edge { grid-template-columns: 1fr; }
   .your-sheet { max-height: 240px; }
   .compendium-card { grid-template-columns: 1fr; }
 }
+
+
+/* ═══ Immersion — the reader becomes the story ═══ */
+
+.page-rule-line {
+  margin-top: 1.4em !important;
+  padding-top: 0.9em;
+  border-top: 1px solid rgba(138, 109, 47, 0.3);
+  font-style: italic;
+  color: #6b5638 !important;
+}
+
+/* First-turn whisper — fades away once the story is moving */
+.hand-hint {
+  margin: 0 0 10px;
+  font-family: "EB Garamond", Georgia, serif;
+  font-style: italic;
+  font-size: 0.95rem;
+  color: rgba(216, 189, 132, 0.62);
+}
+
+/* Fresh ink — each new scene is written, not loaded */
+.narration.ink-in {
+  animation: ink-in 1.4s ease both;
+}
+@keyframes ink-in {
+  from { opacity: 0; filter: blur(1.5px); transform: translateY(4px); }
+  to   { opacity: 1; filter: blur(0);     transform: translateY(0); }
+}
+
+/* Riding East — the reader is pulled through the page into the story */
+.campaign-cover { transition: opacity 1.15s ease; }
+.campaign-cover .book-scene {
+  transition: transform 1.25s cubic-bezier(0.5, 0, 0.8, 0.4), filter 1.25s ease;
+}
+.campaign-cover.cover-leaving .book-scene {
+  transform: scale(7);
+  filter: blur(3px) brightness(1.5);
+}
+.campaign-cover.cover-leaving .book-hint { opacity: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .narration.ink-in { animation: none; }
+  .campaign-cover.cover-leaving .book-scene { transform: none; filter: none; }
+}
+
+/* Choices never collapse below one card; the hand scrolls instead */
+.play-col .your-hand #choiceList { min-height: 84px; }

@@ -1,5 +1,5 @@
 const CAMPAIGN_PATH = "data/campaigns/noise-of-purpose.json";
-const STORAGE_KEY = "vallum.engine.session.noise-of-purpose.v0.4.0";
+const STORAGE_KEY = "vallum.engine.session.noise-of-purpose.v0.4.2";
 
 // ── Token visual identity ─────────────────────────────────────────
 
@@ -533,7 +533,7 @@ function closeCover() {
     setTimeout(() => {
       dom.campaignCover.hidden = true;
       dom.campaignCover.classList.remove("cover-leaving");
-    }, 750);
+    }, 1250);
   }
   document.body.classList.remove("cover-open");
   render();
@@ -586,6 +586,20 @@ function render() {
   try {
     if (state.sessionComplete) { renderSessionComplete(); return; }
     const scene = getScene();
+    // A new scene begins at the top of the GM's speech, written in fresh ink
+    if (render._lastScene !== state.currentScene) {
+      render._lastScene = state.currentScene;
+      const speech = document.querySelector(".play-col .dm-speech");
+      if (speech) speech.scrollTop = 0;
+      const shell = document.querySelector(".play-shell");
+      if (shell) shell.scrollTop = 0;
+      if (dom.narration && !document.body.classList.contains("cover-open")) {
+        dom.narration.classList.remove("ink-in");
+        void dom.narration.offsetWidth;
+        dom.narration.classList.add("ink-in");
+        dom.narration.addEventListener("animationend", () => dom.narration.classList.remove("ink-in"), { once: true });
+      }
+    }
     if (scene.locations) { state.activeLocations = scene.locations; state.activeRoutes = scene.routes || null; }
     setText(dom.regionTitle, `${campaign.region} · ${campaign.series || "Vallum"}`);
     setText(dom.timeBox, `Day ${state.time.day} · ${state.time.phase}`);
@@ -594,6 +608,8 @@ function render() {
     setText(dom.sceneMood, scene.stakes ? `Stakes: ${scene.stakes}` : `Mood: ${scene.mood || "Uncertain"}`);
     renderNarration(scene);
     renderChoices(scene);
+    const hint = $("handHint");
+    if (hint) hint.hidden = (state.journal || []).length > 1;
     renderCharacterPanel();
     renderJournal();
     renderMap(scene);
