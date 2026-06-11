@@ -1,20 +1,19 @@
-# The Iron Captain — release 0.4.0
+# The Iron Captain — release 0.4.2 (the Neverending Story pass)
 
-Deploy to zencloudau/vallum-engine (GitHub Pages serves from main):
+Copy the four files over the repo root and push:
 
-1. Copy these four files over the repo root:
-   index.html, app.js, ux.css, styles.css
-   (gm-engine.js, assets/, and data/ are unchanged — leave them as they are.)
+  git add index.html app.js ux.css styles.css
+  git commit -m "v0.4.2 — reader becomes the story: page-iv rewrite, ride-east zoom, fresh-ink narration"
+  git push origin main
 
-2. Commit and push:
-   git add index.html app.js ux.css styles.css
-   git commit -m "v0.4.0 — The Iron Captain: book intro, game-room table, map overlay, invites"
-   git push origin main
-
-3. Wait ~1 minute for Pages to rebuild, then smoke-test in a private window:
-   cover -> open book -> page back -> Ride East -> one choice -> Expand map -> reload -> Resume.
-
-Notes:
-- Save key bumped to v0.4.0: existing visitors start fresh at launch.
-- The fonts (Marcellus, EB Garamond) load from Google Fonts with Georgia fallback.
-- Campaign JSON is fetched from data/campaigns/noise-of-purpose.json as before.
+What changed since 0.4.1:
+- Page iv is no longer a rules dump. It is the Compiler's final note: the
+  remaining pages are unwritten, and the story knows the reader is here.
+  One italic line carries the only rule you need before play.
+- "Ride East" now pulls the reader THROUGH the page — the book zooms past
+  the camera as the table fades in (respects prefers-reduced-motion).
+- Each new scene's narration arrives like fresh ink (soft blur-in).
+- The full rules whisper appears in Your Hand on the first turn only and
+  disappears once the first choice resolves (detail lives in the compendium).
+- Choice list keeps a minimum height; narration keeps its guaranteed space.
+- Save key bumped to v0.4.2.
