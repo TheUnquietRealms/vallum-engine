@@ -12,7 +12,7 @@
   var PACK_PATH = "canon/public-runtime-bundle.json";
   var PROMPT_PATH = "canon/ai-gm-system-prompt.md";
   var MODEL = "claude-opus-4-8";   // route cheaper models for routine turns once hosted
-  var BUILD = "v4";                 // shown in the on-screen badge so we can confirm the live build
+  var BUILD = "v5";                 // shown in the on-screen badge so we can confirm the live build
 
   var WRAPPER = [
     "You are the Game Master of a solo tabletop RPG. ONE player, playing their OWN ORIGINAL character — NOT Kael Vorn (Kael and the rest are canon NPCs in the world). You are their Dungeon Master: reactive, fair, vivid, never railroading.",
@@ -28,6 +28,21 @@
   var FALLBACK_CANON = '{"meta":{"world":"The Unquiet Marches"},"note":"canon bundle failed to load — run on Book One public tone: dark feudal fantasy, terse present tense, HP/Surge/Hollow/d20, the world remembers."}';
   var SYSTEM = WRAPPER, PACK = null, PROMPT_TEXT = null;
   function buildSystem() { SYSTEM = (PROMPT_TEXT || WRAPPER) + "\n\nCANON BUNDLE — your source of truth; treat C0 as immutable, C3 as rumour, never reveal restricted material:\n" + (PACK ? JSON.stringify(PACK) : FALLBACK_CANON); }
+
+  // The book opens before the table — Foreword + Prologue (author's manuscript), then a hand-off into open play.
+  var SPREADS = [
+    { eye: "The Northern Archive", head: "Foreword",
+      left: "What follows is not a chronicle in the conventional sense. Chronicles concern themselves with events that governments have agreed were important. The man who came to be called the Iron Captain belongs uneasily to every category. He held no title that endured. He founded no house. His name appears in military accounts and disappears from them without explanation.",
+      right: "What remained were fragments — a rain-damaged garrison register, a cartographer's private maps, a letter never sent, parchments found beneath fallen shelving in a northern chamber. He wrote, it seems, not to be forgiven. He wrote to understand what he had chosen.\n\n— Aldric Vane, Keeper of the Northern Archive" },
+    { eye: "Before the Road", head: "Prologue · The Stone Chamber",
+      left: "The storm had been building since dusk. From the narrow eastern window, the valley lay beneath a sky the colour of bruised iron. He stood with one hand resting on the oak desk and watched the weather assemble. The chamber had been built for another purpose; its western wall had collapsed long before he found it.",
+      right: "The sword rested against the far wall — sheathed, cleaned, oiled. He had not cast it away; to destroy it would not destroy what his hand had learned. So he kept it. Any soldier of sufficient skill can become the storm. To stand in a stone chamber while one passes — and feel no obligation to draw — requires a different order of strength." },
+    { eye: "Before you begin", head: "How the Open Table plays", last: true,
+      left: "You do not play the Iron Captain. You come to the Marches as your own — a name of your choosing, a reason of your own. The book is the world; what you do inside it is yours, and the world remembers it.\n\nThe Game Master is the AI across the table. Speak plainly — do anything. It answers with probability and consequence, never a fixed menu.",
+      right: "Health is what you can take. The Surge is the power you reach for when skill alone will not serve — and the Hollow is what it costs you. The d20 rolls behind the screen.\n\nClose the book. Step into the rain." }
+  ];
+  var spreadIx = 0;
+  function paras(t) { return String(t || "").split("\n\n").map(function (p) { return "<p>" + p + "</p>"; }).join(""); }
 
   var REGIONS = [
     ["greywatch",72,8],["north",55,12],["grey pike",76,26],["harren",92,40],["pass",88,32],
@@ -212,6 +227,19 @@
     else takeTurn("Begin. The player is an original newcomer arriving in the Eastern Marches at dusk. Establish who they are (let them declare it), then open the world.");
   }
 
+  function openBook() { $("bookCover").style.display = "none"; $("bookSpread").style.display = ""; spreadIx = 0; renderSpread(); }
+  function renderSpread() {
+    var s = SPREADS[spreadIx];
+    $("spreadEye").textContent = s.eye; $("spreadHead").textContent = s.head;
+    $("pageLeft").innerHTML = paras(s.left); $("pageRight").innerHTML = paras(s.right);
+    $("backBtn").style.visibility = spreadIx === 0 ? "hidden" : "visible";
+    $("turnBtn").textContent = s.last ? "Take the table ›" : "Turn the page ›";
+    var sp = $("bookSpread"); sp.classList.remove("turning"); void sp.offsetWidth; sp.classList.add("turning");
+  }
+  function turnPage() { if (SPREADS[spreadIx].last) { takeTable(); return; } spreadIx = Math.min(spreadIx + 1, SPREADS.length - 1); renderSpread(); }
+  function backPage() { if (spreadIx > 0) { spreadIx--; renderSpread(); } }
+  function takeTable() { if (!isMock() && !getKey()) { showKeyModal(); return; } wipe(); startGame(false); }
+
   function showKeyModal(msg) {
     var inp = $("keyInput"); if (inp && !inp.value) inp.value = getKey() || "";
     var el = $("keyError"); if (el) { if (msg) { el.textContent = msg; el.style.display = ""; } else { el.style.display = "none"; } }
@@ -260,7 +288,9 @@
       fetch(PACK_PATH, { cache: "no-store" }).then(function (r) { return r.json(); }).catch(function () { return null; })
     ]).then(function (res) { PROMPT_TEXT = res[0]; PACK = res[1]; buildSystem(); });
     if (load()) { $("continueBtn").style.display = ""; $("continueBtn").addEventListener("click", function () { startGame(true); }); }
-    $("beginBtn").addEventListener("click", function () { if (!mock && !getKey()) { showKeyModal(); return; } wipe(); startGame(false); });
+    $("openBtn").addEventListener("click", openBook);
+    $("turnBtn").addEventListener("click", turnPage);
+    $("backBtn").addEventListener("click", backPage);
     $("keySave").addEventListener("click", function () {
       var v = ($("keyInput").value || "").replace(/\s+/g, "");
       if (!v) { showKeyModal("Paste your Anthropic API key to begin."); return; }

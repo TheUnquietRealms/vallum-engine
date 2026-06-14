@@ -13,14 +13,33 @@
 
   <!-- Cover / entry -->
   <section id="cover" class="book">
-    <div class="book-cover-stage">
+    <div id="bookCover" class="book-cover-stage">
       <div class="bookcover-frame"><img class="bookcover-img" src="assets/cover.png" alt="The Unquiet Marches" /></div>
       <p class="cover-eye" style="margin-top:22px">The Open Table · an AI Game Master runs your world</p>
       <div class="book-cover-cta">
-        <button id="beginBtn" class="big-btn">Take the table</button>
+        <button id="openBtn" class="big-btn">Open the book</button>
         <button id="continueBtn" class="big-btn ghost" style="display:none">Continue the session</button>
       </div>
-      <p class="hud-foot" style="margin-top:14px">You play Kael. The GM is the AI. Go anywhere — the world is the only edge.</p>
+      <p class="hud-foot" style="margin-top:14px">You play your own character. The AI is your Game Master. Go anywhere — the world is the only edge.</p>
+    </div>
+
+    <!-- Foreword → Prologue → into the world (Bilbo's-book open) -->
+    <div id="bookSpread" class="book-spread" style="display:none">
+      <div class="spread-inner">
+        <header class="spread-head">
+          <p class="spread-eye" id="spreadEye"></p>
+          <h2 class="spread-h" id="spreadHead"></h2>
+        </header>
+        <div class="spread-pages">
+          <div class="page" id="pageLeft"></div>
+          <div class="page-gutter" aria-hidden="true"></div>
+          <div class="page" id="pageRight"></div>
+        </div>
+        <div class="spread-controls">
+          <button id="backBtn" class="mini-btn">&lsaquo; Back</button>
+          <button id="turnBtn" class="big-btn">Turn the page &rsaquo;</button>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -103,6 +122,6 @@
 
   <div id="buildBadge" aria-hidden="true" style="position:fixed; right:8px; bottom:6px; z-index:60; font:600 11px/1 system-ui,sans-serif; letter-spacing:.04em; color:rgba(95,74,34,.62); background:rgba(236,224,194,.72); border:1px solid rgba(154,123,58,.35); border-radius:5px; padding:3px 7px; pointer-events:none"></div>
 
-  <script src="gm-play.js?v=4"></script>
+  <script src="gm-play.js?v=5"></script>
 </body>
 </html>
