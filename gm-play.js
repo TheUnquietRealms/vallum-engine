@@ -52,14 +52,26 @@
   async function callGM(messages) {
     if (isMock()) return mockGM();
     var k = getKey(); if (!k) throw new Error("No API key set.");
-    var res = await fetch("https://api.anthropic.com/v1/messages", {
-      method: "POST",
-      headers: { "content-type": "application/json", "x-api-key": k, "anthropic-version": "2023-06-01", "anthropic-dangerous-direct-browser-access": "true" },
-      body: JSON.stringify({ model: MODEL, max_tokens: 1000, system: [{ type: "text", text: SYSTEM, cache_control: { type: "ephemeral" } }], messages: messages })
-    });
+    var ctrl = new AbortController(); var timer = setTimeout(function () { ctrl.abort(); }, 90000);
+    var res;
+    try {
+      res = await fetch("https://api.anthropic.com/v1/messages", {
+        method: "POST",
+        headers: { "content-type": "application/json", "x-api-key": k, "anthropic-version": "2023-06-01", "anthropic-dangerous-direct-browser-access": "true" },
+        body: JSON.stringify({ model: MODEL, max_tokens: 1600, system: [{ type: "text", text: SYSTEM, cache_control: { type: "ephemeral" } }], messages: messages }),
+        signal: ctrl.signal
+      });
+    } catch (netErr) {
+      clearTimeout(timer);
+      throw new Error(netErr && netErr.name === "AbortError" ? "the Game Master took too long to answer (timed out)" : "could not reach Anthropic — check the connection");
+    }
+    clearTimeout(timer);
     if (!res.ok) { var e = {}; try { e = await res.json(); } catch (x) {} var er = new Error((e.error && e.error.message) || ("API error " + res.status)); er.status = res.status; throw er; }
     var data = await res.json();
-    return (data.content && data.content[0] && data.content[0].text) || "";
+    var blocks = (data && data.content) || [];
+    for (var i = 0; i < blocks.length; i++) if (blocks[i] && blocks[i].type === "text" && blocks[i].text) return blocks[i].text;   // skip any leading thinking block
+    for (var j = 0; j < blocks.length; j++) if (blocks[j] && blocks[j].text) return blocks[j].text;
+    return "";
   }
   function mockGM() {
     return Promise.resolve(JSON.stringify({
@@ -70,8 +82,10 @@
     }));
   }
   function parseGM(text) {
-    try { return JSON.parse(text); } catch (e) {}
-    var m = text.match(/\{[\s\S]*\}/); if (m) { try { return JSON.parse(m[0]); } catch (e) {} }
+    if (!text) return null;
+    var t = String(text).trim().replace(/^```(?:json)?\s*/i, "").replace(/\s*```$/i, "");
+    try { return JSON.parse(t); } catch (e) {}
+    var m = t.match(/\{[\s\S]*\}/); if (m) { try { return JSON.parse(m[0]); } catch (e) {} }
     return null;
   }
 
@@ -99,15 +113,23 @@
 
   async function runGM() {
     $("gmText").innerHTML = '<p class="thinking">The Game Master considers…</p>';
-    var obj;
+    var raw = "", obj;
     try {
-      obj = parseGM(await callGM(history));
+      raw = await callGM(history);
+      obj = parseGM(raw);
       if (!obj || !obj.narration) {  // validator: bad shape → one corrective retry
         history.push({ role: "user", content: "Your last reply was not valid JSON in the required schema. Resend the same turn as a single valid JSON object only." });
-        obj = parseGM(await callGM(history));
+        raw = await callGM(history);
+        obj = parseGM(raw);
       }
     } catch (err) { gmError(err); return false; }
-    if (!obj || !obj.narration) { $("gmText").innerHTML = "<p>The Game Master lost the thread.</p>"; setActions(["Try again"]); return false; }
+    if (!obj || !obj.narration) {
+      if (raw && raw.trim()) {   // the GM spoke but not as clean JSON — show its words rather than a blank table
+        obj = { narration: raw.trim(), actions: ["Continue"] };
+      } else {
+        $("gmText").innerHTML = "<p>The Game Master lost the thread.</p>"; setActions(["Try again"]); return false;
+      }
+    }
     history.push({ role: "assistant", content: JSON.stringify(obj) });
     applyTurn(obj); save(); return true;
   }
@@ -183,7 +205,9 @@
     history = (sv && sv.history) || [];
     $("cover").style.display = "none"; $("complete").style.display = "none"; $("hud").style.display = "";
     renderMeters(); var p = locToPos(state.location); var tk = $("tokKael"); tk.style.left = p[0] + "%"; tk.style.top = p[1] + "%";
-    if (history.length) applyTurn(parseGM(history[history.length - 1].content) || { narration: "The session resumes.", actions: ["Continue"] });
+    var lastA = null;
+    for (var i = history.length - 1; i >= 0; i--) { if (history[i].role === "assistant") { lastA = parseGM(history[i].content); if (lastA) break; } }
+    if (lastA) applyTurn(lastA);
     else takeTurn("Begin. The player is an original newcomer arriving in the Eastern Marches at dusk. Establish who they are (let them declare it), then open the world.");
   }
 
