@@ -27,7 +27,7 @@ The opening must establish immersion before presenting a decision.
 
 The landing page introduces:
 
-- The Stormwright Cycle;
+- The Unquiet Marches;
 - the Compact Lands and Eastern Marches;
 - the central moral question;
 - Kael Vorn and the meaning of the Iron Captain name;
@@ -154,7 +154,7 @@ The emotional target is party presence without pretending a human group exists w
 
 ```mermaid
 flowchart TD
-    A[World landing] --> B[Introduce Stormwright and Kael]
+    A[World landing] --> B[Introduce the world and Kael]
     B --> C[Begin the journey]
     C --> D[You sit down at the table]
     D --> E[Game Master opens the account]

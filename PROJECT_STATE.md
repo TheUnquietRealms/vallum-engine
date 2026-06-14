@@ -6,17 +6,21 @@ Vallum Engine is live as a GitHub Pages static app.
 
 Live path:
 
-https://zencloudau.github.io/vallum-engine/
+https://theunquietrealms.github.io/vallum-engine/
 
-Current release posture: **v0.3.4 release candidate — static verification passed; founder live UAT remains required for visual load, comprehension and Stormwright tone.**
+Current release posture: **v0.3.4 release candidate — static verification passed; founder live UAT remains required for visual load, comprehension and the series' tone.**
 
 The v0.3.x line restored the full runtime, formalised the module loop, removed pre-choice moral deltas, decoupled moral state from dice bonuses, added session complete and introduced UX identity improvements.
+
+## Naming (2026-06-14)
+
+The world line previously labelled "The Stormwright Cycle" is renamed **The Unquiet Marches** to match the finished manuscript (*The Noise of Purpose*, Book One). "Stormwright" appears nowhere in the manuscript and is retired as the world/series name; the far-future mythology that used it (the Aethers, the Turning, the Ven Codex, the Stormwright pattern) is moved to the private content repo as not-yet-canon. Dated release-history entries below keep their original names. The internal CSS theme class `.stormwright-theme` is unchanged for now (cosmetic only).
 
 ## Product direction
 
 Vallum is now governed by the digital kitchen-table metaphor:
 
-- the player enters the Stormwright world before the first decision;
+- the player enters the world of The Unquiet Marches before the first decision;
 - the player is invited to sit down at a virtual table;
 - a VTT board becomes the centre of play;
 - the Game Master sits behind a screen and hides resolution machinery;
@@ -35,12 +39,12 @@ Canonical design documents:
 
 ## Master world guide
 
-The Stormwright Cycle series bible is the master canon source for Vallum's first original world line.
+The *The Unquiet Marches* manuscript (Book One: *The Noise of Purpose*) is the master canon source for Vallum's first original world line. It is held local-only in the private content repo, not in this public repo.
 
 Canon and adaptation:
 
-- `docs/world/STORMWRIGHT_CANON.md`;
-- `docs/world/STORMWRIGHT_VALLUM_ADAPTATION.md`.
+- `docs/world/UNQUIET_MARCHES_CANON.md`;
+- `docs/world/UNQUIET_MARCHES_ADAPTATION.md`.
 
 The first module is `The Noise of Purpose`, adapted from Book I Chapter 1: the ridge, burning caravan, civilians, raider captain, surge and aftermath.
 
@@ -49,7 +53,7 @@ The first module is `The Noise of Purpose`, adapted from Book I Chapter 1: the r
 The repository currently provides:
 
 - GitHub Pages static deployment;
-- Stormwright landing and module loading;
+- world landing and module loading;
 - Game Master narration;
 - bounded decision cards;
 - hidden d20 resolution;
@@ -63,7 +67,7 @@ The repository currently provides:
 - session-complete overlay;
 - final moral portrait and forward hook;
 - internal UAT and release signoff standards;
-- favicon and Stormwright palette.
+- favicon and series palette.
 
 The current board remains a symbolic coded map. It proves state and movement but does not yet meet the accepted tabletop immersion target.
 
@@ -114,7 +118,7 @@ Formalised `ESTABLISH → DECIDE → PEAK → LAND → CLOSE`, added session com
 
 ## MVP
 
-The MVP is one complete, stable Stormwright tabletop session with:
+The MVP is one complete, stable Unquiet Marches tabletop session with:
 
 - world landing;
 - sit-down-at-the-table transition;
@@ -127,7 +131,7 @@ The MVP is one complete, stable Stormwright tabletop session with:
 
 ## MLP
 
-The MLP is a three-module Stormwright arc with:
+The MLP is a three-module Unquiet Marches arc with:
 
 - cross-module state;
 - meaningful irreversible consequence;
@@ -143,7 +147,7 @@ The MLP is a three-module Stormwright arc with:
 
 Required outcome:
 
-- landing page introduces the Stormwright world and Kael clearly;
+- landing page introduces the world of The Unquiet Marches and Kael clearly;
 - transition explicitly brings the player to the table;
 - Game Master, board and character positions are staged coherently;
 - first-time player understands identity, place, pressure and role before the first choice;

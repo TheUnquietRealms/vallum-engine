@@ -6,7 +6,7 @@ Vallum is designed to recreate the emotional structure of sitting around a kitch
 
 Live app:
 
-https://zencloudau.github.io/vallum-engine/
+https://theunquietrealms.github.io/vallum-engine/
 
 ## Product intent
 
@@ -14,7 +14,7 @@ Vallum is an original tabletop engine for Phil's own worlds and stories. It is n
 
 The engine is separated from campaign content. Stories become modules. Boards, tokens, state and the Account make those modules playable.
 
-The first canonical world line is The Stormwright Cycle. The first module is `The Noise of Purpose`, centred on Kael Vorn at the ridge above the burning caravan.
+The first canonical world line is The Unquiet Marches, drawn from the finished manuscript *The Noise of Purpose* (Book One). The first module is `The Noise of Purpose`, centred on Kael Vorn at the ridge above the burning caravan.
 
 ## Experience promise
 
@@ -29,11 +29,11 @@ A first-time player should:
 
 ## Current release state
 
-The current v0.3.x line has restored the full runtime, formalised the module loop and added a session-complete state. Static verification has passed; founder live UAT remains the release gate for visual load, comprehension and Stormwright tone.
+The current v0.3.x line has restored the full runtime, formalised the module loop and added a session-complete state. Static verification has passed; founder live UAT remains the release gate for visual load, comprehension and the series' tone.
 
 Current capabilities include:
 
-- Stormwright landing and campaign module;
+- world landing and campaign module;
 - Game Master narration and bounded decision cards;
 - hidden resolution with post-choice consequence;
 - moral state: Force, Restraint, Witness, Hollow and Reputation;
@@ -54,12 +54,12 @@ The current symbolic board remains an engine proof. The next design phase introd
 - `docs/DESIGN_WORKSHOP.md` — full design workshop plan and required decisions
 - `docs/VTT_BOARD_AND_TOKEN_STANDARD.md` — reusable board, zone, overlay and token contract
 - `docs/LOOP.md` — module structure: Establish → Decide → Peak → Land → Close
-- `docs/world/STORMWRIGHT_CANON.md` — game-design canon extraction
-- `docs/world/STORMWRIGHT_VALLUM_ADAPTATION.md` — adaptation boundary and first module
+- `docs/world/UNQUIET_MARCHES_CANON.md` — game-design canon extraction
+- `docs/world/UNQUIET_MARCHES_ADAPTATION.md` — adaptation boundary and first module
 
 ## MVP
 
-The MVP is one complete and stable Stormwright tabletop session with:
+The MVP is one complete and stable Unquiet Marches tabletop session with:
 
 - world landing;
 - sit-down-at-the-table transition;
@@ -72,7 +72,7 @@ The MVP is one complete and stable Stormwright tabletop session with:
 
 ## MLP
 
-The Minimum Lovable Product is a three-module Stormwright arc with:
+The Minimum Lovable Product is a three-module Unquiet Marches arc with:
 
 - cross-module state;
 - meaningful irreversible consequence;
@@ -97,7 +97,7 @@ Key files:
 - `styles.css` and `ux.css` — design system and tabletop layout
 - `app.js` — runtime engine, choices, state, ambience, save and session complete
 - `gm-engine.js` — Game Master narration and decision logic
-- `data/campaigns/noise-of-purpose.json` — first Stormwright module
+- `data/campaigns/noise-of-purpose.json` — first Unquiet Marches module
 - `PROJECT_STATE.md` — current delivery state
 - `CHANGELOG.md` — release history
 - `docs/UAT_GAME_TESTER_MATRIX.md` — internal acceptance tests

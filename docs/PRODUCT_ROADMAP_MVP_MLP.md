@@ -2,7 +2,7 @@
 
 ## Product definition
 
-Vallum is a solo-first digital tabletop story engine that presents original worlds as playable sessions around a virtual table. The initial content line is The Stormwright Cycle.
+Vallum is a solo-first digital tabletop story engine that presents original worlds as playable sessions around a virtual table. The initial content line is The Unquiet Marches.
 
 The roadmap distinguishes technical viability from emotional product quality.
 
@@ -15,7 +15,7 @@ The Minimum Viable Product is not merely a page that loads or a choice that chan
 
 ### MVP promise
 
-A player can enter the Stormwright world, sit down at the virtual table, understand Kael and the immediate situation, make meaningful decisions, see consequences, complete the session and retain a persistent account.
+A player can enter the world of The Unquiet Marches, sit down at the virtual table, understand Kael and the immediate situation, make meaningful decisions, see consequences, complete the session and retain a persistent account.
 
 ### MVP required capabilities
 
@@ -45,7 +45,7 @@ A player can enter the Stormwright world, sit down at the virtual table, underst
 | v0.8 | Persistence and Resume | Save, continue, reset and account continuity hardened | ✅ Complete |
 | v0.9 | Narrative Quality + Story Book | Full Act I–VII prose rewrite, story book AI feature, founder UAT | 🔄 In Progress |
 | v1.0 | MVP UAT Candidate | Full internal UAT, accessibility, visual hierarchy and defect correction | ⬜ Upcoming |
-| v1.0 | MVP Release | One complete Stormwright tabletop session, stable and publicly playable | ⬜ Upcoming |
+| v1.0 | MVP Release | One complete Unquiet Marches tabletop session, stable and publicly playable | ⬜ Upcoming |
 
 ### v0.9 current state
 
@@ -57,7 +57,7 @@ The Minimum Lovable Product must produce presence, attachment and anticipation. 
 
 ### MLP promise
 
-A player completes a short connected Stormwright arc, develops a distinct version of Kael, experiences companions as persistent personalities, sees the world remember prior choices and wants to return for the next session.
+A player completes a short connected Unquiet Marches arc, develops a distinct version of Kael, experiences companions as persistent personalities, sees the world remember prior choices and wants to return for the next session.
 
 ### MLP required capabilities
 
@@ -85,7 +85,7 @@ A player completes a short connected Stormwright arc, develops a distinct versio
 | v1.5 | World Memory | Cross-module account, NPC acknowledgement and persistent obligations | ⬜ Upcoming |
 | v1.6 | Authoring Kit | Story-to-module guide, board schema, validation and canon controls | ⬜ Upcoming |
 | v1.7 | MLP UAT Candidate | Full arc testing, pacing, replay, companion presence and retention review | ⬜ Upcoming |
-| v2.0 | MLP Release | Lovable three-module Stormwright tabletop arc | ⬜ Upcoming |
+| v2.0 | MLP Release | Lovable three-module Unquiet Marches tabletop arc | ⬜ Upcoming |
 
 ## Later platform horizon
 

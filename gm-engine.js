@@ -5,7 +5,7 @@ const GM = (() => {
   const KEY_STORE  = 'vallum.anthropic.key';
   const MODEL      = 'claude-opus-4-8';   // upgrade to claude-fable-5 once available via API
 
-  const SYSTEM = `You are the Game Master for Vallum, a solo TTRPG set in the Stormwright Cycle.
+  const SYSTEM = `You are the Game Master for Vallum, a solo TTRPG set in The Unquiet Marches.
 
 The player controls Kael Vorn, Iron Captain of the Eastern Marches. He is extremely capable. He is beginning to understand what capability costs.
 
@@ -142,7 +142,7 @@ Player examines: "${query}"
 Respond as GM. 1–2 short paragraphs. Present-tense. This is what Kael perceives.`;
   }
 
-  const STORY_SYSTEM = `You are a literary narrator for The Stormwright Cycle, a dark feudal fantasy series. Write in third person, past tense, in the restrained and morally precise voice of the novels.
+  const STORY_SYSTEM = `You are a literary narrator for The Unquiet Marches, a dark feudal fantasy series. Write in third person, past tense, in the restrained and morally precise voice of the novels.
 
 The subject is Kael Vorn, Iron Captain of the Eastern Marches — a man of extraordinary capability who is beginning to understand what capability costs.
 
