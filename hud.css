@@ -74,10 +74,12 @@ body{
 .board .vig{position:absolute; inset:0; pointer-events:none;
   box-shadow:inset 0 0 120px 30px rgba(20,12,4,.5)}
 .tok{position:absolute; transform:translate(-50%,-50%); text-align:center; pointer-events:none}
-.tok .dot{width:clamp(16px,1.8vw,24px); height:clamp(16px,1.8vw,24px); border-radius:50%;
-  background:#1a1611; border:2.5px solid var(--gold); margin:0 auto;
-  box-shadow:0 0 12px rgba(205,170,89,.6)}
-.tok.foe .dot{border-color:#c0453a; box-shadow:0 0 12px rgba(192,69,58,.6)}
+.tok .chip{width:clamp(28px,3.2vw,44px); height:clamp(28px,3.2vw,44px); border-radius:50%;
+  background:rgba(18,14,8,.9); border:2.5px solid var(--gold); margin:0 auto;
+  display:flex; align-items:center; justify-content:center;
+  box-shadow:0 0 14px rgba(205,170,89,.55)}
+.tok .chip img{width:62%; height:62%; object-fit:contain}
+.tok.foe .chip{border-color:#c0453a; box-shadow:0 0 14px rgba(192,69,58,.55)}
 .tok .lbl{font-family:var(--cz); font-size:clamp(9px,1vw,12px); color:#fff;
   text-shadow:0 1px 3px #000; margin-top:3px; letter-spacing:.05em}
 
