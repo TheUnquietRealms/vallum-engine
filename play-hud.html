@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Unquiet Marches · HUD prototype</title>
+  <meta name="theme-color" content="#100e0a" />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="hud.css" />
+</head>
+<body>
+  <div class="hud">
+
+    <header class="hud-top">
+      <span class="brandmark">THE UNQUIET MARCHES</span>
+      <span class="brandsub">Book One · The Noise of Purpose — The Ridge</span>
+      <span style="color:#7a6a44; font-size:20px;">&#9776;</span>
+    </header>
+
+    <div class="hud-band">
+
+      <div class="card foe">
+        <div class="port"><span class="artnote">portrait art</span><span class="silh"></span></div>
+        <div class="plate">RAIDER CAPTAIN</div>
+        <div class="meta">
+          <div class="role">THREAT · MOUNTED</div>
+          <div class="stat"><span>Pressure</span><b style="color:#e0928a">6</b></div>
+          <div class="stat"><span>Threat</span><b style="color:#e0928a">8</b></div>
+        </div>
+      </div>
+
+      <div class="gm">
+        <div class="flourish"><span class="ln"></span>&#10070;<span class="ln"></span></div>
+        <p class="eyebrow">THE GAME MASTER</p>
+        <p id="gmText">The caravan burns below the ridge. Smoke folds into the rain and makes the road look smaller than it is. The raiders move badly — except near their captain, where they move with shape. You see the whole field before you decide what any of it means.</p>
+      </div>
+
+      <div class="card">
+        <div class="port"><span class="artnote">portrait art</span><span class="silh"></span></div>
+        <div class="plate">KAEL VORN</div>
+        <div class="meta">
+          <div class="role">THE IRON CAPTAIN</div>
+          <p class="quote">&ldquo;I serve no crown. Only the road ahead.&rdquo;</p>
+          <div class="stat"><span>Force</span><b>4</b></div>
+          <div class="stat"><span>Restraint</span><b>2</b></div>
+          <div class="stat"><span>Witness</span><b>2</b></div>
+          <div class="stat hollow"><span>Hollow</span><b>0</b></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="board-stage">
+      <div class="board">
+        <img src="assets/map/core-map.png" alt="The Stormwright Cycle — Core Regions map" />
+        <div class="vig"></div>
+        <div class="tok" style="left:56%; top:43%;"><div class="dot"></div><div class="lbl">Kael</div></div>
+        <div class="tok foe" style="left:64%; top:40%;"><div class="dot"></div><div class="lbl">caravan</div></div>
+      </div>
+    </div>
+
+    <div class="hud-actions" id="actions">
+      <button class="abtn" data-r="Kael descends like the decision has already been made. The captain's line buckles — but behind him, the field answers in screams."><span class="rune">I</span> Cut the head</button>
+      <button class="abtn" data-r="He turns from the cleanest target. The road lengthens in the time it takes to reach them — but he reaches them first. The captain holds the road."><span class="rune">II</span> Protect the civilians</button>
+      <button class="abtn" data-r="The men hear the name before the orders. For once the name is useful rather than simply large. The field answers to him — imperfectly."><span class="rune">III</span> Command the men</button>
+      <button class="abtn" data-r="He holds one breath and reads the field. The captain has been moving the civilians into the road deliberately — they are the bait, not the objective. Seeing does not make the choice cleaner."><span class="rune">IV</span> Read the field</button>
+    </div>
+
+    <p class="hud-foot"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#7a6a44" stroke-width="1.6"><path d="M12 2 21 7v10l-9 5-9-5V7z"/><path d="M12 12 21 7M12 12v10M12 12 3 7"/></svg> the dice roll behind the screen</p>
+
+  </div>
+
+  <script>
+    (function(){
+      var gm = document.getElementById('gmText');
+      var base = gm.textContent;
+      document.getElementById('actions').addEventListener('click', function(e){
+        var b = e.target.closest('.abtn'); if(!b) return;
+        gm.style.opacity = 0;
+        setTimeout(function(){ gm.textContent = b.getAttribute('data-r'); gm.style.transition='opacity .4s'; gm.style.opacity = 1; }, 160);
+      });
+    })();
+  </script>
+</body>
+</html>

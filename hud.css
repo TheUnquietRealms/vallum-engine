@@ -1,0 +1,103 @@
+/* ════════════════════════════════════════════════════════════
+   The Unquiet Marches — Game HUD prototype theme
+   Brand: near-black + luminous gold · Cinzel titles · EB Garamond body
+   Standalone (play-hud.html). Does not touch the live engine.
+   ════════════════════════════════════════════════════════════ */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap');
+
+:root{
+  --black:#14120e; --black2:#1b1813; --panel:#1d1b15; --panelline:#3a3018;
+  --gold:#cdaa59; --gold2:#b08a3e; --golddim:#8a6f30;
+  --parch:#ece3d0; --ink:#cdbf9f; --muted:#8d7c5a;
+  --threat:#8a4a3a; --threat2:#c07a5a;
+  --cz:'Cinzel',serif; --gr:'EB Garamond',Georgia,serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{
+  background:
+    radial-gradient(ellipse at 50% -10%, rgba(205,170,89,0.10), transparent 60%),
+    radial-gradient(ellipse at 50% 120%, rgba(120,80,30,0.10), transparent 60%),
+    #100e0a;
+  color:var(--parch); font-family:var(--gr);
+  min-height:100%;
+}
+
+.hud{max-width:1500px; margin:0 auto; padding:16px clamp(12px,3vw,40px) 28px}
+
+/* Top bar */
+.hud-top{display:flex; align-items:center; justify-content:space-between; gap:12px;
+  padding:6px 4px 14px; border-bottom:1px solid #2a2316}
+.brandmark{font-family:var(--cz); font-weight:600; color:var(--gold);
+  letter-spacing:.24em; font-size:clamp(13px,1.5vw,18px)}
+.brandsub{font-family:var(--gr); font-style:italic; color:var(--muted); font-size:clamp(12px,1.2vw,15px)}
+
+/* Top band: foe card · GM box · hero card */
+.hud-band{display:grid; grid-template-columns:minmax(120px,160px) 1fr minmax(120px,160px);
+  gap:clamp(10px,1.6vw,20px); align-items:start; padding:16px 0}
+
+.gm{background:linear-gradient(180deg, rgba(205,170,89,0.05), transparent 34%), var(--panel);
+  border:1px solid var(--panelline); border-radius:10px; padding:14px clamp(14px,2.5vw,30px) 18px}
+.gm .flourish{display:flex; align-items:center; justify-content:center; gap:10px; color:var(--golddim); margin-bottom:8px}
+.gm .flourish .ln{height:1px; width:clamp(40px,8vw,90px); background:var(--golddim); opacity:.6}
+.gm .eyebrow{font-family:var(--cz); color:var(--gold); font-size:11px; letter-spacing:.2em; text-align:center; margin:0 0 10px}
+.gm p{margin:0; font-size:clamp(15px,1.5vw,20px); line-height:1.7; color:var(--parch); text-align:center}
+
+/* Cards — Magic-style */
+.card{background:#0f0d09; border:2px solid var(--gold); border-radius:9px; overflow:hidden;
+  box-shadow:0 10px 26px rgba(0,0,0,.5)}
+.card.foe{border-color:var(--threat)}
+.card .port{height:clamp(90px,11vw,150px); background:#22293a; position:relative; overflow:hidden;
+  display:flex; align-items:flex-end; justify-content:center}
+.card.foe .port{background:#34211b}
+.card .port .silh{width:60%; height:86%; background:#161b27; clip-path:polygon(50% 6%,66% 22%,60% 40%,72% 100%,28% 100%,40% 40%,34% 22%)}
+.card.foe .port .silh{background:#1c100d}
+.card .port .artnote{position:absolute; top:6px; left:0; right:0; text-align:center; color:#5a6577; font-size:9px; font-style:italic}
+.card.foe .port .artnote{color:#6e4a3f}
+.card .plate{font-family:var(--cz); font-weight:500; background:var(--gold); color:#2a1e06; font-size:clamp(10px,1.1vw,13px); padding:4px 8px; letter-spacing:.03em}
+.card.foe .plate{background:var(--threat); color:#2a0f0a}
+.card .meta{padding:7px 9px 9px}
+.card .role{font-family:var(--cz); color:var(--gold2); font-size:9px; letter-spacing:.12em; margin-bottom:5px}
+.card.foe .role{color:var(--threat2)}
+.card .quote{font-style:italic; color:var(--ink); font-size:clamp(10px,1vw,12px); line-height:1.4; margin:0 0 7px}
+.card .stat{display:flex; justify-content:space-between; font-size:clamp(10px,1vw,12px); color:var(--muted); padding:1px 0}
+.card .stat b{color:var(--gold); font-weight:500}
+.card .stat.hollow b{color:#9b86a6}
+
+/* The board — your real map, tilted as if looked down upon */
+.board-stage{perspective:1700px; display:flex; justify-content:center; padding:6px 0 34px}
+.board{position:relative; width:min(1080px,94vw); transform:rotateX(33deg); transform-origin:center 78%;
+  border:4px solid var(--gold2); border-radius:8px; overflow:hidden;
+  box-shadow:0 40px 70px -20px rgba(0,0,0,.85), 0 0 0 1px rgba(205,170,89,.25)}
+.board img{display:block; width:100%; height:auto}
+.board .vig{position:absolute; inset:0; pointer-events:none;
+  box-shadow:inset 0 0 120px 30px rgba(20,12,4,.5)}
+.tok{position:absolute; transform:translate(-50%,-50%); text-align:center; pointer-events:none}
+.tok .dot{width:clamp(16px,1.8vw,24px); height:clamp(16px,1.8vw,24px); border-radius:50%;
+  background:#1a1611; border:2.5px solid var(--gold); margin:0 auto;
+  box-shadow:0 0 12px rgba(205,170,89,.6)}
+.tok.foe .dot{border-color:#c0453a; box-shadow:0 0 12px rgba(192,69,58,.6)}
+.tok .lbl{font-family:var(--cz); font-size:clamp(9px,1vw,12px); color:#fff;
+  text-shadow:0 1px 3px #000; margin-top:3px; letter-spacing:.05em}
+
+/* Action bar — rune buttons */
+.hud-actions{display:flex; gap:clamp(8px,1.4vw,16px); justify-content:center; flex-wrap:wrap; padding:2px 0 10px}
+.abtn{display:flex; align-items:center; gap:10px; min-width:170px; flex:0 1 220px;
+  background:linear-gradient(180deg, rgba(205,170,89,.06), transparent), var(--black2);
+  border:1.5px solid var(--gold2); border-radius:9px; padding:10px 14px; cursor:pointer;
+  color:var(--parch); font-family:var(--gr); font-size:clamp(13px,1.3vw,16px); text-align:left;
+  transition:border-color .15s, background .15s, transform .1s}
+.abtn:hover{border-color:var(--gold); background:#241c12; transform:translateY(-1px)}
+.abtn .rune{flex:none; width:clamp(28px,3vw,38px); height:clamp(28px,3vw,38px); border:1px solid var(--gold2);
+  border-radius:7px; color:var(--gold); font-family:var(--cz); font-size:clamp(12px,1.3vw,15px);
+  display:flex; align-items:center; justify-content:center}
+.hud-foot{text-align:center; color:#5f5640; font-style:italic; font-size:13px; padding:8px 0 0}
+.hud-foot svg{vertical-align:-2px; margin-right:5px}
+
+/* iPad / narrow — stack so nothing overlaps */
+@media (max-width:860px){
+  .hud-band{grid-template-columns:1fr 1fr; grid-template-areas:"foe hero" "gm gm"}
+  .card.foe{grid-area:foe} .card:not(.foe){grid-area:hero} .gm{grid-area:gm}
+  .board{transform:rotateX(26deg); width:96vw}
+  .abtn{flex:1 1 44%; min-width:0}
+}
