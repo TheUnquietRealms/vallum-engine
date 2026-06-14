@@ -11,3 +11,5 @@ docs/source/
 node_modules/
 dist/
 build/
+
+.claude/

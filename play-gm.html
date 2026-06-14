@@ -91,6 +91,7 @@
       <p class="cover-eye">The Game Master needs a key</p>
       <h2 class="rules-title" style="margin-bottom:12px">Enable the AI Game Master</h2>
       <p style="font-family:var(--gr); color:var(--ink); line-height:1.6; margin:0 0 14px">Paste an Anthropic API key. It is stored in this browser only and sent straight to Anthropic — never to any other server. Get one at <b>console.anthropic.com</b>.</p>
+      <p id="keyError" style="display:none; font-family:var(--gr); color:#a23a2a; background:rgba(162,58,42,.10); border:1px solid rgba(162,58,42,.45); border-radius:6px; padding:9px 12px; line-height:1.5; margin:0 0 14px"></p>
       <input id="keyInput" type="password" class="free-input" placeholder="sk-ant-api03-…" autocomplete="off" spellcheck="false" style="width:100%; margin-bottom:14px" />
       <div style="display:flex; gap:12px; flex-wrap:wrap">
         <button id="keySave" class="big-btn">Seat the GM</button>
@@ -99,6 +100,6 @@
     </div>
   </section>
 
-  <script src="gm-play.js"></script>
+  <script src="gm-play.js?v=2"></script>
 </body>
 </html>
