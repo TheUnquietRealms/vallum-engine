@@ -12,7 +12,7 @@
   var PACK_PATH = "canon/public-runtime-bundle.json";
   var PROMPT_PATH = "canon/ai-gm-system-prompt.md";
   var MODEL = "claude-opus-4-8";   // route cheaper models for routine turns once hosted
-  var BUILD = "v5";                 // shown in the on-screen badge so we can confirm the live build
+  var BUILD = "v6";                 // shown in the on-screen badge so we can confirm the live build
 
   var WRAPPER = [
     "You are the Game Master of a solo tabletop RPG. ONE player, playing their OWN ORIGINAL character — NOT Kael Vorn (Kael and the rest are canon NPCs in the world). You are their Dungeon Master: reactive, fair, vivid, never railroading.",
@@ -61,6 +61,7 @@
   function load() { try { var r = localStorage.getItem(SAVE); return r ? JSON.parse(r) : null; } catch (e) { return null; } }
   function wipe() { try { localStorage.removeItem(SAVE); } catch (e) {} }
   function mechMax(which, dflt) { try { var m = PACK.mechanics; return (which === "hp" ? m.hp.default_max : which === "surge" ? m.surge.maximum : m.hollow.maximum) || dflt; } catch (e) { return dflt; } }
+  function hollowMax() { return state && state.hollowMax ? state.hollowMax : mechMax("hollow", 6); }
   function freshState() { var hpM = mechMax("hp", 10), suM = mechMax("surge", 6), hoM = mechMax("hollow", 6); return { hp: hpM, hpMax: hpM, surge: Math.min(2, suM), surgeMax: suM, hollow: 0, hollowMax: hoM, location: "The Eastern Marches", world: { time: "dusk", facts: [], hooks: [], rel: {}, fac: {} } }; }
 
   function isMock() { return location.search.indexOf("mock=1") > -1; }
@@ -152,7 +153,7 @@
 
   async function takeTurn(playerText) {
     if (busy) return; busy = true; setActions([]);
-    var tag = " [State — HP " + state.hp + "/" + state.hpMax + ", Surge " + state.surge + "/" + state.surgeMax + ", Hollow " + state.hollow + "/10, Location " + state.location + ", Time " + state.world.time + ". World memory: " + (worldSummary() || "fresh") + "]";
+    var tag = " [State — HP " + state.hp + "/" + state.hpMax + ", Surge " + state.surge + "/" + state.surgeMax + ", Hollow " + state.hollow + "/" + hollowMax() + ", Location " + state.location + ", Time " + state.world.time + ". World memory: " + (worldSummary() || "fresh") + "]";
     history.push({ role: "user", content: playerText + tag });
     if (history.length > 16) history = history.slice(-16);
     await runGM(); busy = false;
@@ -167,7 +168,7 @@
     if (obj.delta) {
       if (typeof obj.delta.hp === "number") state.hp = clampN(state.hp + obj.delta.hp, 0, state.hpMax);
       if (typeof obj.delta.surge === "number") state.surge = clampN(state.surge + obj.delta.surge, 0, state.surgeMax);
-      if (typeof obj.delta.hollow === "number") state.hollow = clampN(state.hollow + obj.delta.hollow, 0, 10);
+      if (typeof obj.delta.hollow === "number") state.hollow = clampN(state.hollow + obj.delta.hollow, 0, hollowMax());
     }
     if (obj.location) state.location = obj.location;
     if (obj.time) state.world.time = obj.time;
@@ -181,8 +182,8 @@
     $("gmTitle").textContent = state.location || "The Marches";
     $("gmText").innerHTML = String(obj.narration || "").split("\n\n").map(function (p) { return "<p>" + p + "</p>"; }).join("");
     renderDice(obj.dice); renderMeters();
-    var p = locToPos(state.location); var tk = $("tokKael"); tk.style.left = p[0] + "%"; tk.style.top = p[1] + "%";
-    if (state.hollow >= (state.hollowMax || 6)) return ending("The Hollow has taken them. The account closes.");
+    var p = locToPos(state.location); var tk = $("tokPlayer"); if (tk) { tk.style.left = p[0] + "%"; tk.style.top = p[1] + "%"; }
+    if (state.hollow >= hollowMax()) return ending("The Hollow has taken them. The account closes.");
     if (state.hp <= 0) return ending("They fall on the road. The Marches keep no record of it — but the world remembers what they did to get here.");
     setActions(Array.isArray(obj.actions) && obj.actions.length ? obj.actions : ["Press on"]);
   }
@@ -196,10 +197,10 @@
   }
   function renderMeters() {
     function bar(name, v, max, cls) { var pct = Math.round((v / max) * 100); return '<div class="meter ' + cls + '"><div class="m-top"><span>' + name + "</span><b>" + v + "/" + max + '</b></div><div class="m-track"><div class="m-fill" style="width:' + pct + '%"></div></div></div>'; }
-    var h = state.hollow, hm = state.hollowMax || 6, warn = hm - 1, pips = "";
+    var h = state.hollow, hm = hollowMax(), warn = hm - 1, pips = "";
     for (var i = 1; i <= hm; i++) pips += '<span class="pip' + (i <= h ? " on" : "") + (i >= warn ? " warn" : "") + '"></span>';
-    var cue = h >= hm ? "it breaks him" : h >= warn ? "rest will not ease it" : "held";
-    $("kaelStats").innerHTML = bar("Health", state.hp, state.hpMax, "hp") + bar("Surge", state.surge, state.surgeMax, "surge") +
+    var cue = h >= hm ? "it breaks them" : h >= warn ? "rest will not ease it" : "held";
+    $("playerStats").innerHTML = bar("Health", state.hp, state.hpMax, "hp") + bar("Surge", state.surge, state.surgeMax, "surge") +
       '<div class="meter hollow"><div class="m-top"><span>The Hollow</span><b>' + h + "/" + hm + '</b></div><div class="hm-pips">' + pips + '</div><div class="hm-cue">' + cue + "</div></div>";
   }
   function setActions(list) {
@@ -208,8 +209,9 @@
   }
   function ending(line) {
     $("completeAccount").innerHTML = "<p>" + line + "</p>" + (state.world.hooks.length ? "<p><em>Left unresolved: " + state.world.hooks.slice(-4).join("; ") + ".</em></p>" : "");
-    $("completePortrait").innerHTML = "<p>Health " + state.hp + "/" + state.hpMax + " · Surge " + state.surge + "/" + state.surgeMax + " · Hollow " + state.hollow + "/10.</p>" +
-      "<p>" + (state.hollow >= 7 ? "They spent their power freely, and it spent them." : "They found the power, and held some part of themselves back from it.") + "</p>";
+    var hm = hollowMax();
+    $("completePortrait").innerHTML = "<p>Health " + state.hp + "/" + state.hpMax + " · Surge " + state.surge + "/" + state.surgeMax + " · Hollow " + state.hollow + "/" + hm + ".</p>" +
+      "<p>" + (state.hollow >= hm - 1 ? "They spent their power freely, and it spent them." : "They found the power, and held some part of themselves back from it.") + "</p>";
     $("hud").style.display = "none"; $("complete").style.display = ""; wipe();
   }
 
@@ -220,7 +222,7 @@
     if (!state.hollowMax) state.hollowMax = mechMax("hollow", 6);
     history = (sv && sv.history) || [];
     $("cover").style.display = "none"; $("complete").style.display = "none"; $("hud").style.display = "";
-    renderMeters(); var p = locToPos(state.location); var tk = $("tokKael"); tk.style.left = p[0] + "%"; tk.style.top = p[1] + "%";
+    renderMeters(); var p = locToPos(state.location); var tk = $("tokPlayer"); if (tk) { tk.style.left = p[0] + "%"; tk.style.top = p[1] + "%"; }
     var lastA = null;
     for (var i = history.length - 1; i >= 0; i--) { if (history[i].role === "assistant") { lastA = parseGM(history[i].content); if (lastA) break; } }
     if (lastA) applyTurn(lastA);
