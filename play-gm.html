@@ -24,7 +24,7 @@
   </section>
 
   <!-- The table -->
-  <div class="hud" id="hud" style="display:none">
+  <div class="hud hud-table" id="hud" style="display:none">
     <header class="hud-top">
       <span class="brandmark">THE UNQUIET MARCHES</span>
       <span class="brandsub">The Open Table</span>
@@ -34,42 +34,41 @@
       </span>
     </header>
 
-    <div class="hud-band two">
-      <div class="gm">
-        <div class="flourish"><span class="ln"></span>&#10070;<span class="ln"></span></div>
-        <p class="eyebrow" id="gmTitle">The Ridge Road</p>
-        <div id="gmText"></div>
-        <div id="diceTray" class="dice-tray" style="display:none"></div>
-      </div>
-      <div class="card">
-        <div class="port"><img src="assets/favicon.svg" alt="" style="object-fit:contain; padding:22px; opacity:.85" /></div>
-        <div class="plate">YOU</div>
-        <div class="meta">
-          <div class="role">A NEWCOMER TO THE MARCHES</div>
-          <div id="kaelStats"></div>
+    <div class="table-grid">
+      <div class="table-map">
+        <div class="board">
+          <img src="assets/map/core-map.jpg" alt="The Stormwright Cycle — Core Regions map" />
+          <div class="vig"></div>
+          <div class="tok" id="tokKael" style="left:57%; top:43%;">
+            <div class="chip"><img src="assets/icons/purpose.png" alt="" /></div>
+            <div class="lbl">Kael</div>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="board-stage">
-      <div class="board">
-        <img src="assets/map/core-map.jpg" alt="The Stormwright Cycle — Core Regions map" />
-        <div class="vig"></div>
-        <div class="tok" id="tokKael" style="left:57%; top:43%;">
-          <div class="chip"><img src="assets/icons/purpose.png" alt="" /></div>
-          <div class="lbl">Kael</div>
+      <aside class="table-rail">
+        <div class="gm">
+          <div class="flourish"><span class="ln"></span>&#10070;<span class="ln"></span></div>
+          <p class="eyebrow" id="gmTitle">The Eastern Marches</p>
+          <div id="gmText"></div>
+          <div id="diceTray" class="dice-tray" style="display:none"></div>
         </div>
-      </div>
+        <div class="card rail-card">
+          <div class="port"><img src="assets/favicon.svg" alt="" style="object-fit:contain; padding:14px; opacity:.85" /></div>
+          <div class="meta">
+            <div class="plate-inline">YOU <span class="role">· a newcomer to the Marches</span></div>
+            <div id="kaelStats"></div>
+          </div>
+        </div>
+        <div class="hud-actions" id="actions"></div>
+        <div class="gm-controls">
+          <button id="surgeBtn" class="surge-btn"><img src="assets/icons/force.png" alt="" /> Surge</button>
+          <input id="freeInput" type="text" class="free-input" placeholder="Do anything — say it…" autocomplete="off" />
+          <button id="sendBtn" class="mini-btn send">Act</button>
+        </div>
+        <p class="hud-foot"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7a6a44" stroke-width="1.6"><path d="M12 2 21 7v10l-9 5-9-5V7z"/><path d="M12 12 21 7M12 12v10M12 12 3 7"/></svg> the GM rolls behind the screen</p>
+      </aside>
     </div>
-
-    <div class="hud-actions" id="actions"></div>
-
-    <div class="gm-controls">
-      <button id="surgeBtn" class="surge-btn"><img src="assets/icons/force.png" alt="" /> Surge</button>
-      <input id="freeInput" type="text" class="free-input" placeholder="Do anything — say it, and the table answers…" autocomplete="off" />
-      <button id="sendBtn" class="mini-btn send">Act</button>
-    </div>
-    <p class="hud-foot"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#7a6a44" stroke-width="1.6"><path d="M12 2 21 7v10l-9 5-9-5V7z"/><path d="M12 12 21 7M12 12v10M12 12 3 7"/></svg> the Game Master rolls behind the screen</p>
   </div>
 
   <!-- Ending -->
