@@ -105,3 +105,39 @@ body{
   .board{transform:rotateX(26deg); width:96vw}
   .abtn{flex:1 1 44%; min-width:0}
 }
+
+/* ── Cover splash ─────────────────────────────────────────── */
+.cover-splash{position:fixed; inset:0; overflow:hidden; display:flex; align-items:center; justify-content:center}
+.cover-art{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 28%}
+.cover-veil{position:absolute; inset:0; background:linear-gradient(180deg, rgba(8,6,4,.5), rgba(8,6,4,.85))}
+.cover-inner{position:relative; text-align:center; padding:24px; max-width:700px}
+.cover-eye{font-family:var(--cz); color:var(--gold); letter-spacing:.22em; font-size:clamp(11px,1.4vw,14px); margin:0 0 12px}
+.cover-h1{font-family:var(--cz); font-weight:600; color:#f3e7c8; font-size:clamp(34px,6vw,64px); line-height:1.05; margin:0 0 14px; text-shadow:0 4px 24px rgba(0,0,0,.8)}
+.cover-tag{font-family:var(--gr); font-style:italic; color:var(--ink); font-size:clamp(14px,1.6vw,19px); margin:0 0 28px}
+.cover-btns{display:flex; gap:14px; justify-content:center; flex-wrap:wrap}
+.big-btn{font-family:var(--cz); letter-spacing:.06em; font-size:clamp(14px,1.5vw,17px); color:#1c1407;
+  background:linear-gradient(180deg,#e6c074,#b08a3e); border:1px solid #e6c074; border-radius:8px;
+  padding:13px 28px; cursor:pointer; transition:transform .12s, filter .15s}
+.big-btn:hover{transform:translateY(-2px); filter:brightness(1.08)}
+.big-btn.ghost{background:transparent; color:var(--gold); border-color:var(--gold2)}
+.mini-btn{font-family:var(--gr); color:var(--ink); background:transparent; border:1px solid var(--panelline);
+  border-radius:7px; padding:6px 14px; cursor:pointer; font-size:13px}
+.mini-btn:hover{border-color:var(--gold2); color:var(--parch)}
+
+/* GM body text + shared eyebrow */
+.gm #gmText p{margin:0 0 .7em; font-size:clamp(15px,1.5vw,20px); line-height:1.7; color:var(--parch); text-align:center}
+.gm #gmText p:last-child{margin-bottom:0}
+.eyebrow{font-family:var(--cz); color:var(--gold); font-size:11px; letter-spacing:.2em; text-align:center; margin:0 0 10px}
+
+/* Continue / terminal action button spans full width, centred */
+.abtn.continue{flex:0 1 320px; justify-content:center}
+
+/* Session complete */
+.complete{position:fixed; inset:0; overflow:auto; background:#100e0a; display:flex; align-items:flex-start; justify-content:center; padding:clamp(24px,5vh,56px) 16px}
+.complete-card{max-width:1000px; width:100%; text-align:center}
+.complete-grid{display:grid; grid-template-columns:1.3fr 1fr; gap:28px; text-align:left; margin:24px 0 28px}
+.complete-account{max-height:52vh; overflow:auto; padding-right:8px}
+.complete-account p{font-family:var(--gr); color:var(--ink); font-size:14.5px; line-height:1.55; margin:0 0 .7em; padding-bottom:.6em; border-bottom:1px solid #241d10}
+.complete-portrait p{font-family:var(--gr); color:var(--parch); font-style:italic; font-size:16px; line-height:1.6; margin:0 0 .8em}
+@media (max-width:760px){ .complete-grid{grid-template-columns:1fr} }
+
