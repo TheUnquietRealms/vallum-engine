@@ -40,7 +40,7 @@
   var state, history, busy = false, $ = function (id) { return document.getElementById(id); };
   function clampN(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
   function getKey() { try { return localStorage.getItem(KEY_STORE); } catch (e) { return null; } }
-  function setKey(k) { try { localStorage.setItem(KEY_STORE, k.trim()); } catch (e) {} }
+  function setKey(k) { try { localStorage.setItem(KEY_STORE, String(k).replace(/\s+/g, "")); return !!getKey(); } catch (e) { return false; } }
   function save() { try { localStorage.setItem(SAVE, JSON.stringify({ state: state, history: history.slice(-16) })); } catch (e) {} }
   function load() { try { var r = localStorage.getItem(SAVE); return r ? JSON.parse(r) : null; } catch (e) { return null; } }
   function wipe() { try { localStorage.removeItem(SAVE); } catch (e) {} }
@@ -57,7 +57,7 @@
       headers: { "content-type": "application/json", "x-api-key": k, "anthropic-version": "2023-06-01", "anthropic-dangerous-direct-browser-access": "true" },
       body: JSON.stringify({ model: MODEL, max_tokens: 1000, system: [{ type: "text", text: SYSTEM, cache_control: { type: "ephemeral" } }], messages: messages })
     });
-    if (!res.ok) { var e = {}; try { e = await res.json(); } catch (x) {} throw new Error((e.error && e.error.message) || ("API error " + res.status)); }
+    if (!res.ok) { var e = {}; try { e = await res.json(); } catch (x) {} var er = new Error((e.error && e.error.message) || ("API error " + res.status)); er.status = res.status; throw er; }
     var data = await res.json();
     return (data.content && data.content[0] && data.content[0].text) || "";
   }
@@ -83,12 +83,22 @@
     return parts.join(" | ");
   }
 
-  async function takeTurn(playerText) {
-    if (busy) return; busy = true; setActions([]);
+  function gmError(err) {
+    var status = err && err.status, msg = (err && err.message) || "the connection was lost";
+    var auth = status === 401 || status === 403 || /\b(api[-_ ]?key|x-api-key|authentication|unauthor)/i.test(msg);
+    var billing = status === 402 || /\b(credit|billing|quota|insufficient|balance)/i.test(msg);
+    if (auth) {
+      showKeyModal("Anthropic rejected this key (" + msg + "). Use an API key from console.anthropic.com → API Keys — not your Claude.ai login — and paste the whole key, starting “sk-ant-”.");
+    } else if (billing) {
+      showKeyModal("The key works, but the account can't be billed (" + msg + "). Add credit at console.anthropic.com → Billing, then take the table again.");
+    } else {
+      $("gmText").innerHTML = '<p>The table goes quiet — ' + msg + '.</p>';
+      setActions(["Try again"]);
+    }
+  }
+
+  async function runGM() {
     $("gmText").innerHTML = '<p class="thinking">The Game Master considers…</p>';
-    var tag = " [State — HP " + state.hp + "/" + state.hpMax + ", Surge " + state.surge + "/" + state.surgeMax + ", Hollow " + state.hollow + "/10, Location " + state.location + ", Time " + state.world.time + ". World memory: " + (worldSummary() || "fresh") + "]";
-    history.push({ role: "user", content: playerText + tag });
-    if (history.length > 16) history = history.slice(-16);
     var obj;
     try {
       obj = parseGM(await callGM(history));
@@ -96,14 +106,23 @@
         history.push({ role: "user", content: "Your last reply was not valid JSON in the required schema. Resend the same turn as a single valid JSON object only." });
         obj = parseGM(await callGM(history));
       }
-    } catch (err) {
-      $("gmText").innerHTML = '<p>The connection to the table is lost: ' + err.message + "</p>";
-      if (/key/i.test(err.message)) showKeyModal();
-      busy = false; return;
-    }
-    if (!obj || !obj.narration) { $("gmText").innerHTML = "<p>The Game Master lost the thread. Try again.</p>"; setActions(["Continue"]); busy = false; return; }
+    } catch (err) { gmError(err); return false; }
+    if (!obj || !obj.narration) { $("gmText").innerHTML = "<p>The Game Master lost the thread.</p>"; setActions(["Try again"]); return false; }
     history.push({ role: "assistant", content: JSON.stringify(obj) });
-    applyTurn(obj); busy = false; save();
+    applyTurn(obj); save(); return true;
+  }
+
+  async function takeTurn(playerText) {
+    if (busy) return; busy = true; setActions([]);
+    var tag = " [State — HP " + state.hp + "/" + state.hpMax + ", Surge " + state.surge + "/" + state.surgeMax + ", Hollow " + state.hollow + "/10, Location " + state.location + ", Time " + state.world.time + ". World memory: " + (worldSummary() || "fresh") + "]";
+    history.push({ role: "user", content: playerText + tag });
+    if (history.length > 16) history = history.slice(-16);
+    await runGM(); busy = false;
+  }
+
+  async function retryTurn() {
+    if (busy) return; busy = true; setActions([]);
+    await runGM(); busy = false;
   }
 
   function applyTurn(obj) {
@@ -147,7 +166,7 @@
   }
   function setActions(list) {
     var ab = $("actions"); ab.innerHTML = "";
-    (list || []).forEach(function (label) { var b = document.createElement("button"); b.className = "abtn"; b.innerHTML = '<span class="abtn-label">' + label + "</span>"; b.addEventListener("click", function () { takeTurn(label); }); ab.appendChild(b); });
+    (list || []).forEach(function (label) { var b = document.createElement("button"); b.className = "abtn"; b.innerHTML = '<span class="abtn-label">' + label + "</span>"; b.addEventListener("click", function () { if (label === "Try again") retryTurn(); else takeTurn(label); }); ab.appendChild(b); });
   }
   function ending(line) {
     $("completeAccount").innerHTML = "<p>" + line + "</p>" + (state.world.hooks.length ? "<p><em>Left unresolved: " + state.world.hooks.slice(-4).join("; ") + ".</em></p>" : "");
@@ -168,7 +187,11 @@
     else takeTurn("Begin. The player is an original newcomer arriving in the Eastern Marches at dusk. Establish who they are (let them declare it), then open the world.");
   }
 
-  function showKeyModal() { $("keyModal").style.display = ""; }
+  function showKeyModal(msg) {
+    var inp = $("keyInput"); if (inp && !inp.value) inp.value = getKey() || "";
+    var el = $("keyError"); if (el) { if (msg) { el.textContent = msg; el.style.display = ""; } else { el.style.display = "none"; } }
+    $("keyModal").style.display = "";
+  }
   function hideKeyModal() { $("keyModal").style.display = "none"; }
   function sendFree() { var v = $("freeInput").value.trim(); if (v) { $("freeInput").value = ""; takeTurn(v); } }
 
@@ -180,7 +203,13 @@
     ]).then(function (res) { PROMPT_TEXT = res[0]; PACK = res[1]; buildSystem(); });
     if (load()) { $("continueBtn").style.display = ""; $("continueBtn").addEventListener("click", function () { startGame(true); }); }
     $("beginBtn").addEventListener("click", function () { if (!mock && !getKey()) { showKeyModal(); return; } wipe(); startGame(false); });
-    $("keySave").addEventListener("click", function () { var v = $("keyInput").value; if (v) { setKey(v); hideKeyModal(); wipe(); startGame(false); } });
+    $("keySave").addEventListener("click", function () {
+      var v = ($("keyInput").value || "").replace(/\s+/g, "");
+      if (!v) { showKeyModal("Paste your Anthropic API key to begin."); return; }
+      if (v.indexOf("sk-ant-") !== 0) { showKeyModal("That does not look like an Anthropic API key — it should start with “sk-ant-”. Copy the whole key from console.anthropic.com → API Keys."); return; }
+      if (!setKey(v)) { showKeyModal("This browser is blocking local storage, so the key can't be saved. Turn off private/incognito mode for this site (or allow storage), then paste again."); return; }
+      hideKeyModal(); wipe(); startGame(false);
+    });
     $("keyMock").addEventListener("click", function () { hideKeyModal(); location.search = "?mock=1"; });
     $("newBtn").addEventListener("click", function () { wipe(); location.search = mock ? "?mock=1" : ""; });
     $("restartBtn").addEventListener("click", function () { wipe(); location.search = mock ? "?mock=1" : ""; });
