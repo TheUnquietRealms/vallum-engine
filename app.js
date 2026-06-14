@@ -1,6 +1,11 @@
 const CAMPAIGN_PATH = "data/campaigns/noise-of-purpose.json";
 const STORAGE_KEY = "vallum.engine.session.noise-of-purpose.v0.4.2";
 
+// AI Game Master was a browser-side test scaffold requiring the player's own
+// Anthropic API key. It is disabled: the experience is fully authored and never
+// requests a key. Code is retained (not deleted) so AI can return server-side later.
+const AI_ENABLED = false;
+
 // ── Token visual identity ─────────────────────────────────────────
 
 const ROLE_PALETTE = {
@@ -539,7 +544,7 @@ function closeCover() {
   render();
   renderAIStatus();
   // GM setup never interrupts entry — it is offered on the cover and on first Ask.
-  if (GM.hasKey()) {
+  if (AI_ENABLED && typeof GM !== "undefined" && GM.hasKey()) {
     gmOpenScene();
   }
 }
@@ -1433,6 +1438,7 @@ function closeCharacterSheet() {
 // ── AI GM ─────────────────────────────────────────────────────────
 
 function showApiModal() {
+  if (!AI_ENABLED) return; // key entry disabled — no API key is ever requested
   if (dom.apiKeyInput && GM.hasKey()) dom.apiKeyInput.value = '';
   if (dom.apiModal) dom.apiModal.hidden = false;
 }
@@ -1449,6 +1455,7 @@ function saveApiKey() {
 
 function renderAIStatus() {
   if (!dom.aiStatus) return;
+  if (!AI_ENABLED) { dom.aiStatus.hidden = true; return; }
   setText(dom.aiStatus, GM.hasKey() ? "AI ✦ On" : "AI · Off");
   dom.aiStatus.classList.toggle("ai-status-on", GM.hasKey());
 }

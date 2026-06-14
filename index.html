@@ -123,7 +123,7 @@
               <button id="continueBtn" class="cover-resume-btn" hidden>Resume the session</button>
             </div>
             <p class="cover-status" id="coverStatus"></p>
-            <button id="seatGmLink" class="cover-gm-link" type="button">Want a live Game Master? Seat one</button>
+            <button id="seatGmLink" class="cover-gm-link" type="button" hidden>Want a live Game Master? Seat one</button>
             <div class="cover-rule cover-rule-btm" aria-hidden="true"></div>
           </div>
           <div class="cover-inside">
@@ -147,7 +147,7 @@
       </div>
       <div class="topbar-controls">
         <span id="timeBox" class="status-chip"></span>
-        <button id="aiStatus" class="ai-status-btn" title="AI GM settings"></button>
+        <button id="aiStatus" class="ai-status-btn" title="AI GM settings" hidden></button>
         <span id="saveStatus" class="status-chip"></span>
         <button id="saveBtn" class="compact-control">Save</button>
         <button id="newGameBtn" class="compact-control">New</button>
@@ -178,7 +178,7 @@
           <p class="eyebrow">Your hand</p>
           <p class="hand-hint" id="handHint" hidden>The Game Master keeps the rules. Each action tests a quality of the man — choose, and the dice answer.</p>
           <div id="choiceList"></div>
-          <div class="ask-zone" id="gmAskRow">
+          <div class="ask-zone" id="gmAskRow" hidden>
             <input id="gmAskInput" type="text" placeholder="Ask the Game Master — examine the field, talk to someone…" class="gm-ask-input" autocomplete="off" />
             <button id="gmAskBtn" class="compact-control gm-ask-btn">Ask</button>
           </div>
@@ -310,7 +310,7 @@
         </div>
       </div>
       <div class="complete-actions">
-        <button id="storyGenBtn" class="compact-control">Generate your story</button>
+        <button id="storyGenBtn" class="compact-control" hidden>Generate your story</button>
         <button id="completeRestartBtn" class="primary">Ride East again</button>
       </div>
     </div>
