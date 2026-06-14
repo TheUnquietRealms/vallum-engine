@@ -1382,7 +1382,7 @@ body.cover-open .play-shell { display: none; }
   width: 460px;
   height: 620px;
   transform-style: preserve-3d;
-  transition: transform 1.35s cubic-bezier(0.45, 0.05, 0.2, 1);
+  transition: transform 0.55s cubic-bezier(0.45, 0.05, 0.2, 1);
 }
 .book.open { transform: translateX(230px); }
 
@@ -1422,7 +1422,7 @@ body.cover-open .play-shell { display: none; }
   inset: 0;
   transform-style: preserve-3d;
   transform-origin: left center;
-  transition: transform 1.05s cubic-bezier(0.5, 0.06, 0.18, 1);
+  transition: transform 0.45s cubic-bezier(0.5, 0.06, 0.18, 1);
 }
 .leaf[data-leaf="0"] { --i: 0; }
 .leaf[data-leaf="1"] { --i: 1; }
@@ -1446,9 +1446,9 @@ body.cover-open .play-shell { display: none; }
 }
 /* Face-swap fallback — guarantees the correct face shows even where
    backface-visibility is unreliable; swaps at the rotation midpoint */
-.leaf .leaf-front { visibility: visible; transition: visibility 0s 0.5s; }
+.leaf .leaf-front { visibility: visible; transition: visibility 0s 0.22s; }
 .leaf.turned .leaf-front { visibility: hidden; }
-.leaf .leaf-back { visibility: hidden; transition: visibility 0s 0.5s; }
+.leaf .leaf-back { visibility: hidden; transition: visibility 0s 0.22s; }
 .leaf.turned .leaf-back { visibility: visible; }
 .leaf-back {
   transform: rotateY(180deg);
@@ -1648,7 +1648,7 @@ body.cover-open .play-shell { display: none; }
   transform-style: preserve-3d;
   transform-origin: left center;
   transform: translateZ(9px);
-  transition: transform 1.35s cubic-bezier(0.45, 0.05, 0.2, 1);
+  transition: transform 0.55s cubic-bezier(0.45, 0.05, 0.2, 1);
   z-index: 40;
   cursor: pointer;
 }
@@ -1666,9 +1666,9 @@ body.cover-open .play-shell { display: none; }
   -webkit-backface-visibility: hidden;
   border-radius: 5px 14px 14px 5px;
 }
-.book-cover .cover-front { visibility: visible; transition: visibility 0s 0.65s; }
+.book-cover .cover-front { visibility: visible; transition: visibility 0s 0.28s; }
 .book.open .book-cover .cover-front { visibility: hidden; }
-.book-cover .cover-inside { visibility: hidden; transition: visibility 0s 0.65s; }
+.book-cover .cover-inside { visibility: hidden; transition: visibility 0s 0.28s; }
 .book.open .book-cover .cover-inside { visibility: visible; }
 
 .cover-front {
