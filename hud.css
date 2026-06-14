@@ -141,3 +141,34 @@ body{
 .complete-portrait p{font-family:var(--gr); color:var(--parch); font-style:italic; font-size:16px; line-height:1.6; margin:0 0 .8em}
 @media (max-width:760px){ .complete-grid{grid-template-columns:1fr} }
 
+/* ── The book intro ───────────────────────────────────────── */
+.book{position:fixed; inset:0; overflow:auto; display:flex; align-items:center; justify-content:center; padding:24px 16px;
+  background:radial-gradient(ellipse at 50% 18%, rgba(205,170,89,.08), transparent 60%), #0d0b08}
+/* Cover stage — the closed book, contained (not full-bleed) */
+.book-cover-stage{text-align:center; max-width:560px}
+.bookcover-frame{display:inline-block; border-radius:6px; overflow:hidden;
+  box-shadow:0 30px 70px -18px rgba(0,0,0,.9), 0 0 0 1px rgba(205,170,89,.28);
+  transform:perspective(1500px) rotateY(-6deg)}
+.bookcover-img{display:block; max-height:74vh; width:auto; max-width:88vw}
+.book-cover-cta{margin-top:26px; display:flex; gap:14px; justify-content:center; flex-wrap:wrap}
+/* Open two-page spread */
+.book-spread{width:100%; max-width:1100px}
+.spread-inner{position:relative; background:linear-gradient(180deg,#efe5cd,#e7dabc);
+  border:1px solid #b08a3e; border-radius:10px; box-shadow:0 30px 70px -20px rgba(0,0,0,.85);
+  padding:clamp(20px,3vw,42px)}
+.spread-inner::before{content:""; position:absolute; left:50%; top:16px; bottom:60px; width:2px; transform:translateX(-50%);
+  background:linear-gradient(180deg,transparent,rgba(90,60,20,.32),transparent)}
+.spread-head{text-align:center; margin-bottom:18px}
+.spread-eye{font-family:var(--cz); color:#8a5e16; letter-spacing:.2em; font-size:11px; margin:0 0 6px}
+.spread-h{font-family:var(--cz); color:#2a1d08; font-weight:600; font-size:clamp(20px,2.6vw,30px); margin:0}
+.spread-pages{display:grid; grid-template-columns:1fr 1fr; gap:clamp(20px,4vw,54px)}
+.book-spread .page{font-family:var(--gr); color:#2c2415; font-size:clamp(14px,1.45vw,17px); line-height:1.74}
+.book-spread .page p{margin:0 0 .9em}
+.book-spread #pageLeft p:first-child::first-letter{font-family:var(--cz); font-size:3.1em; line-height:.78; float:left; padding:4px 9px 0 0; color:#7a5212}
+.spread-controls{display:flex; align-items:center; justify-content:space-between; margin-top:22px; padding-top:14px; border-top:1px solid rgba(90,60,20,.25)}
+.spread-controls .mini-btn{color:#5a4a2a; border-color:#b08a3e}
+.spread-controls .mini-btn:hover{color:#2a1d08; border-color:#8a5e16}
+.book-spread.turning .spread-pages{animation:pageturn .42s ease both}
+@keyframes pageturn{from{opacity:0; transform:translateX(16px)} to{opacity:1; transform:none}}
+@media (max-width:760px){ .spread-pages{grid-template-columns:1fr; gap:8px} .spread-inner::before{display:none} }
+
