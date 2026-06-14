@@ -1,0 +1,96 @@
+/* ════════════════════════════════════════════════════════════
+   Theme: Aged Vellum — the illuminated tome
+   "Like Bilbo's book" — warm vellum pages, sepia ink, gilt
+   drop-caps and ornament. Light reskin over hud.css.
+   Activated by body.vellum.
+   ════════════════════════════════════════════════════════════ */
+body.vellum{
+  --v-desk:#cdb682; --v-page:#ece0c2; --v-page2:#f4ecd6;
+  --v-ink:#33291a; --v-ink-soft:#6a5836; --v-head:#5f4a22;
+  --v-gilt:#9a7b3a; --v-gilt2:#b8902f; --v-rule:#c2a86a;
+  --v-crimson:#9c4a3a; --v-violet:#7a6a86;
+  color:var(--v-ink);
+  background:
+    radial-gradient(ellipse at 22% 18%, rgba(255,250,235,.55), transparent 42%),
+    radial-gradient(ellipse at 80% 86%, rgba(150,120,60,.18), transparent 46%),
+    radial-gradient(ellipse at 60% 40%, rgba(120,90,40,.10), transparent 60%),
+    #d8c8a0;
+}
+
+/* Top bar */
+.vellum .hud-top{border-bottom:1px solid var(--v-rule)}
+.vellum .brandmark{color:var(--v-head)}
+.vellum .brandsub{color:var(--v-ink-soft)}
+.vellum .mini-btn{color:var(--v-ink-soft); border-color:var(--v-gilt); background:rgba(255,250,235,.35)}
+.vellum .mini-btn:hover{color:var(--v-ink); border-color:var(--v-gilt2); background:rgba(255,250,235,.6)}
+
+/* The GM narration — the open page */
+.vellum .gm{
+  background:linear-gradient(180deg, var(--v-page2), var(--v-page));
+  border:1px solid var(--v-gilt); border-radius:8px;
+  box-shadow:inset 0 0 0 1px rgba(255,250,235,.4), inset 0 0 40px rgba(140,110,55,.10);
+}
+.vellum .gm .flourish{color:var(--v-gilt2)}
+.vellum .gm .flourish .ln{background:var(--v-gilt2)}
+.vellum .gm .eyebrow, .vellum .eyebrow{color:var(--v-head)}
+.vellum .gm #gmText p{color:var(--v-ink)}
+.vellum .gm #gmText .thinking{color:var(--v-ink-soft)}
+.vellum .gm #gmText p:first-child::first-letter{
+  font-family:'Cinzel',serif; font-weight:600; font-size:3.4em; line-height:.74;
+  float:left; padding:6px 10px 0 0; color:var(--v-gilt2);
+}
+
+/* Character card */
+.vellum .rail-card, .vellum .card{background:var(--v-page2); border:1px solid var(--v-gilt); box-shadow:none}
+.vellum .rail-card .port{background:var(--v-page)}
+.vellum .plate-inline{color:var(--v-head)} .vellum .plate-inline .role{color:var(--v-ink-soft)}
+.vellum .card .plate{background:var(--v-gilt); color:#2a1e06}
+.vellum .card .role{color:var(--v-ink-soft)}
+
+/* Meters */
+.vellum .meter .m-top span{color:var(--v-ink-soft)} .vellum .meter .m-top b{color:var(--v-ink)}
+.vellum .meter .m-track{background:#d4c194}
+.vellum .meter.hp .m-fill{background:linear-gradient(90deg,#7a2f28,#9c4a3a)} .vellum .meter.hp .m-top b{color:#8a3a2e}
+.vellum .meter.surge .m-fill{background:linear-gradient(90deg,#9a7b3a,#c69a30); box-shadow:none} .vellum .meter.surge .m-top b{color:#9a6f12}
+.vellum .meter.hollow .m-top span{color:#6a5a78} .vellum .meter.hollow .m-top b{color:#574862}
+.vellum .meter.hollow .hm-pips .pip{background:#d4c194}
+.vellum .meter.hollow .hm-pips .pip.on{background:var(--v-violet)}
+.vellum .meter.hollow .hm-pips .pip.on.warn{background:var(--v-crimson)}
+.vellum .meter.hollow .hm-cue{color:var(--v-ink-soft)}
+
+/* Action buttons */
+.vellum .abtn{background:rgba(255,250,235,.4); border:1px solid var(--v-gilt); color:var(--v-ink)}
+.vellum .abtn:hover{border-color:var(--v-gilt2); background:rgba(255,250,235,.7)}
+.vellum .abtn .abtn-label{color:var(--v-ink)}
+
+/* Surge button + free input + dice */
+.vellum .surge-btn{background:linear-gradient(180deg,#d9b25a,#a87f2c); border-color:#d9b25a; color:#2a1e06; box-shadow:none}
+.vellum .free-input{background:var(--v-page2); border:1px solid var(--v-gilt); color:var(--v-ink)}
+.vellum .free-input::placeholder{color:var(--v-ink-soft)}
+.vellum .free-input:focus{border-color:var(--v-gilt2)}
+.vellum .dice-tray{background:rgba(255,250,235,.4); border:1px solid var(--v-gilt)}
+.vellum .dice-tray .die{color:var(--v-gilt2)} .vellum .dice-tray .die-meta{color:var(--v-ink)}
+.vellum .dice-tray .die-meta b.succ{color:#5a7a3a} .vellum .dice-tray .die-meta b.fail{color:var(--v-crimson)}
+.vellum .hud-foot{color:var(--v-ink-soft)} .vellum .hud-foot svg{stroke:var(--v-gilt2)}
+
+/* The map plate — framed like an illustration in the book */
+.vellum .board{border-color:var(--v-gilt2); box-shadow:0 14px 30px -14px rgba(80,55,20,.5), 0 0 0 1px rgba(255,250,235,.4)}
+.vellum .board .vig{box-shadow:inset 0 0 90px 24px rgba(90,60,25,.35)}
+.vellum .tok .lbl{color:#3a2a12; text-shadow:0 1px 2px rgba(255,250,235,.7)}
+.vellum .tok .chip{background:var(--v-page2)}
+
+/* Cover + intro spread + complete + key modal on vellum */
+.vellum.book, .vellum #cover, .vellum .complete{background:
+  radial-gradient(ellipse at 50% 18%, rgba(255,250,235,.5), transparent 50%), #d8c8a0}
+.vellum .cover-eye{color:var(--v-head)}
+.vellum .cover-h1, .vellum .rules-title, .vellum .complete .cover-h1{color:var(--v-head); text-shadow:none}
+.vellum .cover-tag{color:var(--v-ink-soft)}
+.vellum .complete-account p{color:var(--v-ink); border-bottom-color:var(--v-rule)}
+.vellum .complete-portrait p{color:var(--v-ink-soft)}
+.vellum .rules-card, .vellum .rules-overlay .rules-card{background:var(--v-page2); border-color:var(--v-gilt)}
+.vellum .rules-overlay{background:rgba(60,45,20,.6)}
+.vellum .rules-overlay .qrow, .vellum .rules-overlay #rulesRight p{color:var(--v-ink)}
+.vellum .rules-overlay .qrow b, .vellum .rules-overlay #rulesRight b{color:var(--v-head)}
+.vellum .rules-overlay .rules-h{color:var(--v-head)}
+.vellum .big-btn{background:linear-gradient(180deg,#d9b25a,#a87f2c); border-color:#d9b25a; color:#2a1e06}
+.vellum .big-btn.ghost{background:transparent; color:var(--v-head); border-color:var(--v-gilt)}
