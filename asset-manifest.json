@@ -1,0 +1,165 @@
+{
+  "style": {
+    "genre": "epic dark fantasy",
+    "rendering": "painterly classic fantasy book-cover illustration",
+    "icon_colour": "#CDAA59"
+  },
+  "map": {
+    "path": "assets/map/core-map.jpg",
+    "dimensions": [
+      1600,
+      1200
+    ],
+    "aspect_ratio": "4:3"
+  },
+  "cards": {
+    "kael.png": {
+      "path": "assets/cards/kael.png",
+      "dimensions": [
+        1024,
+        1280
+      ],
+      "aspect_ratio": "4:5"
+    },
+    "caeden.png": {
+      "path": "assets/cards/caeden.png",
+      "dimensions": [
+        1024,
+        1280
+      ],
+      "aspect_ratio": "4:5"
+    },
+    "sera.png": {
+      "path": "assets/cards/sera.png",
+      "dimensions": [
+        1024,
+        1280
+      ],
+      "aspect_ratio": "4:5"
+    },
+    "mael.png": {
+      "path": "assets/cards/mael.png",
+      "dimensions": [
+        1024,
+        1280
+      ],
+      "aspect_ratio": "4:5"
+    },
+    "edric.png": {
+      "path": "assets/cards/edric.png",
+      "dimensions": [
+        1024,
+        1280
+      ],
+      "aspect_ratio": "4:5"
+    },
+    "davan.png": {
+      "path": "assets/cards/davan.png",
+      "dimensions": [
+        1024,
+        1280
+      ],
+      "aspect_ratio": "4:5"
+    },
+    "raider-captain.png": {
+      "path": "assets/cards/raider-captain.png",
+      "dimensions": [
+        1024,
+        1280
+      ],
+      "aspect_ratio": "4:5"
+    }
+  },
+  "icons": {
+    "force.png": {
+      "path": "assets/icons/force.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "background": "transparent",
+      "colour": "#CDAA59"
+    },
+    "restraint.png": {
+      "path": "assets/icons/restraint.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "background": "transparent",
+      "colour": "#CDAA59"
+    },
+    "witness.png": {
+      "path": "assets/icons/witness.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "background": "transparent",
+      "colour": "#CDAA59"
+    },
+    "hollow.png": {
+      "path": "assets/icons/hollow.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "background": "transparent",
+      "colour": "#CDAA59"
+    },
+    "reputation.png": {
+      "path": "assets/icons/reputation.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "background": "transparent",
+      "colour": "#CDAA59"
+    },
+    "honour.png": {
+      "path": "assets/icons/honour.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "background": "transparent",
+      "colour": "#CDAA59"
+    },
+    "purpose.png": {
+      "path": "assets/icons/purpose.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "background": "transparent",
+      "colour": "#CDAA59"
+    },
+    "loyalty.png": {
+      "path": "assets/icons/loyalty.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "background": "transparent",
+      "colour": "#CDAA59"
+    },
+    "sacrifice.png": {
+      "path": "assets/icons/sacrifice.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "background": "transparent",
+      "colour": "#CDAA59"
+    },
+    "legacy.png": {
+      "path": "assets/icons/legacy.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "background": "transparent",
+      "colour": "#CDAA59"
+    }
+  }
+}
