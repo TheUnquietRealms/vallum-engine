@@ -14,7 +14,7 @@ The v0.3.x line restored the full runtime, formalised the module loop, removed p
 
 ## Naming (2026-06-14)
 
-The world line previously labelled "The Stormwright Cycle" is renamed **The Unquiet Marches** to match the finished manuscript (*The Noise of Purpose*, Book One). "Stormwright" appears nowhere in the manuscript and is retired as the world/series name; the far-future mythology that used it (the Aethers, the Turning, the Ven Codex, the Stormwright pattern) is moved to the private content repo as not-yet-canon. Dated release-history entries below keep their original names. The internal CSS theme class `.stormwright-theme` is unchanged for now (cosmetic only).
+The world line previously labelled "The Stormwright Cycle" is renamed **The Unquiet Marches** to match the finished manuscript (*The Noise of Purpose*, Book One). "Stormwright" appears nowhere in the manuscript and is retired as the world/series name; the far-future mythology that used it (the Aethers, the Turning, the Ven Codex, the Stormwright pattern) is moved to the private content repo as not-yet-canon. Dated release-history entries below keep their original names. The internal CSS theme class is `.unquiet-theme`.
 
 ## Product direction
 

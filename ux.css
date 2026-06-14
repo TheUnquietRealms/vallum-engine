@@ -10,7 +10,7 @@
   background: #06080A;
 }
 
-.stormwright-theme .campaign-cover {
+.unquiet-theme .campaign-cover {
   background:
     radial-gradient(ellipse at 48% 32%, rgba(216, 189, 132, 0.11), transparent 28rem),
     radial-gradient(ellipse at 70% 80%, rgba(65, 86, 93, 0.10), transparent 22rem),
@@ -1363,7 +1363,7 @@ body.cover-open .play-shell { display: none; }
   pointer-events: none;
 }
 
-.stormwright-theme .campaign-cover {
+.unquiet-theme .campaign-cover {
   background:
     radial-gradient(ellipse 620px 460px at 50% 40%, rgba(214, 158, 60, 0.13), transparent 70%),
     linear-gradient(168deg, #2a1b0d 0%, #1b1007 45%, #0d0804 100%);
@@ -1975,7 +1975,7 @@ body.cover-open .play-shell { display: none; }
   padding-top: 12px;
 }
 
-.stormwright-theme .play-shell {
+.unquiet-theme .play-shell {
   background:
     radial-gradient(ellipse 1100px 700px at 50% 38%, rgba(214, 158, 60, 0.07), transparent 70%),
     linear-gradient(172deg, #221408 0%, #170e05 50%, #0d0803 100%);
@@ -2188,7 +2188,7 @@ body.cover-open .play-shell { display: none; }
    SESSION COMPLETE — the account closes on parchment
    ═══════════════════════════════════════════════════════════ */
 
-.stormwright-theme .session-complete {
+.unquiet-theme .session-complete {
   background:
     radial-gradient(ellipse 760px 540px at 50% 40%, rgba(214, 158, 60, 0.10), transparent 70%),
     linear-gradient(170deg, #221408 0%, #150d05 55%, #0c0703 100%);
@@ -2196,7 +2196,7 @@ body.cover-open .play-shell { display: none; }
   padding: 40px 18px;
 }
 
-.stormwright-theme .session-complete .complete-card {
+.unquiet-theme .session-complete .complete-card {
   background: radial-gradient(ellipse at 32% 12%, #f5ecda, #e9daba 80%, #ddc596 100%);
   border: none;
   border-radius: 4px;
@@ -2204,16 +2204,16 @@ body.cover-open .play-shell { display: none; }
   color: #2b2118;
 }
 
-.stormwright-theme .complete-card .eyebrow { color: #8a6d2f; }
+.unquiet-theme .complete-card .eyebrow { color: #8a6d2f; }
 
-.stormwright-theme .complete-card h1 {
+.unquiet-theme .complete-card h1 {
   font-family: Marcellus, Georgia, serif;
   font-weight: 400;
   color: #2b2118;
   letter-spacing: 0.01em;
 }
 
-.stormwright-theme .complete-journal-entry {
+.unquiet-theme .complete-journal-entry {
   font-family: "EB Garamond", Georgia, serif;
   font-style: italic;
   font-size: 1rem;
@@ -2221,16 +2221,16 @@ body.cover-open .play-shell { display: none; }
   color: #3d2f1d;
   border-top: 1px solid rgba(138, 109, 47, 0.25);
 }
-.stormwright-theme .complete-journal-entry:first-child { border-top: 0; }
+.unquiet-theme .complete-journal-entry:first-child { border-top: 0; }
 
-.stormwright-theme .complete-portrait-line {
+.unquiet-theme .complete-portrait-line {
   color: #4a3b26;
   font-family: "EB Garamond", Georgia, serif;
   font-size: 1rem;
   line-height: 1.5;
   border-top: 1px solid rgba(138, 109, 47, 0.25);
 }
-.stormwright-theme .complete-portrait-line em {
+.unquiet-theme .complete-portrait-line em {
   font-family: Marcellus, Georgia, serif;
   font-style: normal;
   font-size: 0.78rem;
@@ -2239,31 +2239,31 @@ body.cover-open .play-shell { display: none; }
   color: #8a6d2f;
 }
 
-.stormwright-theme .complete-hook {
+.unquiet-theme .complete-hook {
   color: #3d2f1d;
   font-family: "EB Garamond", Georgia, serif;
   font-size: 1.05rem;
   line-height: 1.6;
 }
-.stormwright-theme .complete-hook .outcome-label,
-.stormwright-theme .complete-card .outcome-label { color: #8a6d2f; }
+.unquiet-theme .complete-hook .outcome-label,
+.unquiet-theme .complete-card .outcome-label { color: #8a6d2f; }
 
-.stormwright-theme .complete-card .story-output {
+.unquiet-theme .complete-card .story-output {
   color: #3d2f1d;
   font-family: "EB Garamond", Georgia, serif;
 }
 
-.stormwright-theme .complete-card .compact-control {
+.unquiet-theme .complete-card .compact-control {
   color: #6b5638;
   border-color: rgba(138, 109, 47, 0.45);
   background: rgba(255, 252, 244, 0.4);
 }
-.stormwright-theme .complete-card .compact-control:hover {
+.unquiet-theme .complete-card .compact-control:hover {
   color: #2b2118;
   border-color: #8a6d2f;
 }
 
-.stormwright-theme .complete-card .primary {
+.unquiet-theme .complete-card .primary {
   font-family: Marcellus, Georgia, serif;
   letter-spacing: 0.05em;
   color: #f2d9b8;

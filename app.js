@@ -127,7 +127,7 @@ async function boot() {
   try {
     campaign = await loadCampaign();
     state = loadState() || createInitialState(campaign);
-    document.body.classList.add("cover-open", "stormwright-theme");
+    document.body.classList.add("cover-open", "unquiet-theme");
     setText(dom.campaignTitle, campaign.title);
     const hasSave = !!localStorage.getItem(STORAGE_KEY);
     setText(dom.coverStatus, hasSave ? "A saved session was found on this browser." : "");
