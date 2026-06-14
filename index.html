@@ -11,6 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="ux.css" />
+  <link rel="stylesheet" href="theme-focus.css" />
   <style>
     /* SVG token text — inherits page font, keeps tokens readable at all sizes */
     .vtt-token text {
@@ -20,7 +21,7 @@
     }
   </style>
 </head>
-<body>
+<body class="theme-focus">
 
   <section class="campaign-cover" id="campaignCover">
     <div class="book-scene">
@@ -153,6 +154,7 @@
         <button id="newGameBtn" class="compact-control">New</button>
         <button id="ambienceBtn" class="compact-control music-toggle" title="Toggle ambient sound">♪ Ambience · Off</button>
         <span id="ambienceState" class="status-chip subtle-chip" hidden>Off</span>
+        <button id="themeToggle" class="compact-control" title="Switch theme">☾ Candlelight</button>
       </div>
     </header>
 
@@ -370,5 +372,24 @@
 
   <script src="gm-engine.js"></script>
   <script src="app.js"></script>
+  <script>
+    /* Theme toggle — Candlelight Focus (default) ↔ Original. Engine-independent. */
+    (function () {
+      var KEY = 'vallum.theme';
+      var saved = null;
+      try { saved = localStorage.getItem(KEY); } catch (e) {}
+      if (saved === 'original') document.body.classList.remove('theme-focus');
+      var btn = document.getElementById('themeToggle');
+      function label() {
+        if (btn) btn.textContent = document.body.classList.contains('theme-focus') ? '☾ Candlelight' : '☼ Original';
+      }
+      label();
+      if (btn) btn.addEventListener('click', function () {
+        var on = document.body.classList.toggle('theme-focus');
+        try { localStorage.setItem(KEY, on ? 'focus' : 'original'); } catch (e) {}
+        label();
+      });
+    })();
+  </script>
 </body>
 </html>
