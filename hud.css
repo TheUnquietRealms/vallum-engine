@@ -50,6 +50,7 @@ body{
 .card .port{height:clamp(90px,11vw,150px); background:#22293a; position:relative; overflow:hidden;
   display:flex; align-items:flex-end; justify-content:center}
 .card.foe .port{background:#34211b}
+.card .port img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:50% 12%}
 .card .port .silh{width:60%; height:86%; background:#161b27; clip-path:polygon(50% 6%,66% 22%,60% 40%,72% 100%,28% 100%,40% 40%,34% 22%)}
 .card.foe .port .silh{background:#1c100d}
 .card .port .artnote{position:absolute; top:6px; left:0; right:0; text-align:center; color:#5a6577; font-size:9px; font-style:italic}
@@ -91,6 +92,7 @@ body{
 .abtn .rune{flex:none; width:clamp(28px,3vw,38px); height:clamp(28px,3vw,38px); border:1px solid var(--gold2);
   border-radius:7px; color:var(--gold); font-family:var(--cz); font-size:clamp(12px,1.3vw,15px);
   display:flex; align-items:center; justify-content:center}
+.abtn .rune img{width:74%; height:74%; object-fit:contain}
 .hud-foot{text-align:center; color:#5f5640; font-style:italic; font-size:13px; padding:8px 0 0}
 .hud-foot svg{vertical-align:-2px; margin-right:5px}
 
