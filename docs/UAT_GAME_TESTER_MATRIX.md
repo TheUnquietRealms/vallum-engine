@@ -14,14 +14,14 @@ A release is not complete because code is committed. A release is complete only 
 | Runtime Check | Implementation Lead | Confirm buttons, state changes, scene transitions, and account updates work. | Yes |
 | UX Check | UX Lead | Confirm layout hierarchy, readability, spacing, and visual load. | Yes |
 | Game Design Check | Game Designer | Confirm the player understands role, situation, stakes, and consequence. | Yes |
-| Lore Check | World Designer | Confirm Stormwright tone, character, and canon are not flattened into generic fantasy. | Yes |
+| Lore Check | World Designer | Confirm The Unquiet Marches tone, character, and canon are not flattened into generic fantasy. | Yes |
 | Founder UAT | Phil | Confirm the experience feels playable, comprehensible, and worth continuing. | Yes |
 
 ## Current UAT target
 
 | Release | UAT Target | Status |
 |---|---|---|
-| v0.9 Story Book | Complete session. Click 'Generate your story'. Prose streams into panel. Copy and Download work. Output is literary, past-tense, Stormwright voice. | Pending founder live test |
+| v0.9 Story Book | Complete session. Click 'Generate your story'. Prose streams into panel. Copy and Download work. Output is literary, past-tense, The Unquiet Marches voice. | Pending founder live test |
 | v0.9 Narrative Quality | Play Act I (ridge through aftermath). Prose feels connected, not standalone scenes. Captain watching/smiling. Trap revealed on breath choice. Aftermath routes to commission. | Pending founder read |
 | v0.8 Mobile Stability | Load on iOS Safari and Android Chrome. Begin on the Ridge. Make 3 choices. No crash. localStorage errors silently handled. | Pending founder mobile test |
 | v0.8 Save / Resume | Play 5+ scenes. Save. Close tab. Reopen. Continue Session resumes correctly. State intact. | Pending founder live test |
@@ -47,7 +47,7 @@ A release is not complete because code is committed. A release is complete only 
 | UAT-011 | Restart | Click New or reload the page. | User can return to a clean starting state or reload without crash. | Static PASS — startNewSession() clears STORAGE_KEY and re-initialises | Requires founder live test. |
 | UAT-012 | Visual Load | Review full screen at normal distance. | Player can immediately identify map, action choices, Kael, and outcome without overload. | Pending founder review | Cannot verify statically. Requires large screen review. |
 | UAT-013 | Comprehension | Read landing and first table screen. | Player understands who Kael is, where he is, what is happening, and what the decision pressure is. | Pending founder review | Cannot verify statically. Requires first-read test. |
-| UAT-014 | Stormwright Tone | Review copy and outcome language. | Tone feels restrained, severe, moral, and Stormwright-specific. | Pending founder review | Cannot verify statically. Requires world designer read. |
+| UAT-014 | World Tone | Review copy and outcome language. | Tone feels restrained, severe, moral, and specific to The Unquiet Marches. | Pending founder review | Cannot verify statically. Requires world designer read. |
 | UAT-015 | Regression | Confirm no external runtime crash path remains. | Page continues to function after refresh and action click. | Static PASS — setStatus() defined; all DOM IDs present; no uncaught reference paths in choose() | Requires founder live regression run. |
 | UAT-016 | Favicon | Open site in browser tab. | Favicon appears as a small gold shield sigil in the browser tab. | Pending founder live test | SVG favicon; may not display in older browsers — acceptable. |
 | UAT-017 | Button Hierarchy | Review landing and play table buttons. | Primary button (Begin / Continue) is visually distinct from utility buttons (Save, New, M). | Static PASS — `.primary` has stronger gradient, border, weight vs `.compact-control` | Requires founder visual review. |
@@ -67,7 +67,7 @@ A release is not complete because code is committed. A release is complete only 
 | UAT-031 | Mobile Load | Open site on iOS Safari and Android Chrome. Tap Begin on the Ridge. | Page loads. Cover screen visible. Tap works. No crash on first render. | Pending mobile test | localStorage and SVG filter fixes applied 2026-06-10. |
 | UAT-032 | AI GM Scene Open | Enter API key. Begin session. | GM opens the ridge scene with narration within 5 seconds. Streaming text appears. | Pending founder live test | Requires valid Anthropic API key. |
 | UAT-033 | AI GM Ask | Type a question in Ask box. Press Ask or Enter. | GM responds in character within 10 seconds. Response is under 200 words. | Pending founder live test | |
-| UAT-034 | Story Book — Generate | Complete session. Click 'Generate your story'. | Prose streams into panel. 3–4 paragraphs. Third person, past tense. Stormwright voice. No generic fantasy language. | Pending founder live test | Requires valid Anthropic API key. |
+| UAT-034 | Story Book — Generate | Complete session. Click 'Generate your story'. | Prose streams into panel. 3–4 paragraphs. Third person, past tense. The Unquiet Marches voice. No generic fantasy language. | Pending founder live test | Requires valid Anthropic API key. |
 | UAT-035 | Story Book — Export | Story generated. Click Copy then Download. | Clipboard receives plain text. .txt file downloads as kael-vorn-YYYY-MM-DD.txt. | Pending founder live test | |
 
 ## Game tester matrix
@@ -77,7 +77,7 @@ A release is not complete because code is committed. A release is complete only 
 | Player Tester | First-time comprehension | Can I understand what is happening without explanation? | Can explain Kael, the ridge, the civilians, and the captain after one minute. |
 | UX Tester | Layout and cognitive load | Is the screen readable and comfortable? | No confusion about where to look or what to press. |
 | Game Designer | Loop quality | Does the loop feel like a game rather than a page? | Choice creates consequence, consequence changes state, state affects the account. |
-| World Designer | Stormwright fidelity | Does the scene preserve Kael's tone and moral pressure? | No generic fantasy drift. |
+| World Designer | World fidelity | Does the scene preserve Kael's tone and moral pressure? | No generic fantasy drift. |
 | Technical Tester | Runtime stability | Does the page crash, freeze, or fail to respond? | No crash during start, action selection, scene transition, or reload. |
 | Founder Tester | Product instinct | Is this worth continuing? | Phil wants to play one more scene. |
 

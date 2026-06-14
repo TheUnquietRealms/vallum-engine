@@ -8,7 +8,7 @@ The workshop must produce accepted decisions, not merely ideas. Its outputs beco
 
 ## Core question
 
-What must the player see, understand, feel and do from the moment they open Vallum until they finish their first Stormwright session?
+What must the player see, understand, feel and do from the moment they open Vallum until they finish their first Unquiet Marches session?
 
 ## Participants and roles
 
@@ -58,7 +58,7 @@ Outputs:
 
 Decide:
 
-- how much of the Stormwright world is introduced;
+- how much of the world is introduced;
 - what is said about the Compact Lands and Eastern Marches;
 - how Kael is introduced;
 - what the player is told about the Iron Captain name;

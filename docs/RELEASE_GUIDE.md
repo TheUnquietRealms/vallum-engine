@@ -36,7 +36,7 @@ v0.8 — persistence and resume hardening (localStorage, mobile, save/continue).
 
 v0.9 — MVP UAT candidate: full founder live test, mobile sign-off. ⬜ Upcoming.
 
-v1.0 — MVP release: one complete Stormwright session, publicly playable. ⬜ Upcoming.
+v1.0 — MVP release: one complete Unquiet Marches session, publicly playable. ⬜ Upcoming.
 
 ## Product roles
 

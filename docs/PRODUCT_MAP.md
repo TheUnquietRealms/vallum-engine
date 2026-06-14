@@ -4,7 +4,7 @@
 
 Vallum Engine is a solo tabletop story engine for turning original worlds, characters, campaign notes, and lore packs into playable browser sessions.
 
-The first official world line is The Stormwright Cycle, using the uploaded series bible as the master canon source.
+The first official world line is The Unquiet Marches, using the manuscript as the master canon source (held local-only in the private content repo).
 
 The product is not a clone of any commercial tabletop or video game property. It is an original engine with its own module format, runtime, presentation model, and release path.
 
@@ -12,7 +12,7 @@ The product is not a clone of any commercial tabletop or video game property. It
 
 The engine should let a creator feed in a story world and then experience that world as a playable solo tabletop campaign: map, party, narration, choices, dice, consequences, character state, ambience, and saved progress.
 
-For Stormwright, the playable experience must prioritise moral pressure, restraint, violence, reputation, witness, and consequence over generic fantasy progression.
+For The Unquiet Marches, the playable experience must prioritise moral pressure, restraint, violence, reputation, witness, and consequence over generic fantasy progression.
 
 ## Current release line
 
@@ -122,7 +122,7 @@ Delivered:
 - Act VI: Calla's petition, Edric returns with folio, Fen named
 - Act VII: Caeden dead, village fire, bucket chain, chamber return, the account
 - Each act-opener scene carries its own locations array for map context
-- STORMWRIGHT_INGESTION.md canon reference committed to repo
+- Book I–II canon ingestion captured in the private world bible (kept out of the public repo)
 - reshenCost and accountLines added to objective state
 
 ## Delivered releases (continued)
@@ -174,7 +174,7 @@ Success condition: Phil plays from the ridge to The Account and signs off.
 
 ### v1.0 — MVP Release
 
-Goal: one complete Stormwright tabletop session, stable and publicly playable.
+Goal: one complete Unquiet Marches tabletop session, stable and publicly playable.
 
 Success condition: a first-time player can sit at the table, play through The Noise of Purpose, and finish with a complete account of what Kael did and what it cost.
 
