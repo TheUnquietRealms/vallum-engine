@@ -10,17 +10,32 @@
 </head>
 <body>
 
-  <!-- Cover splash -->
-  <section id="cover" class="cover-splash">
-    <img class="cover-art" src="assets/cover.png" alt="The Noise of Purpose" />
-    <div class="cover-veil"></div>
-    <div class="cover-inner">
-      <p class="cover-eye">The Unquiet Marches · Book One</p>
-      <h1 class="cover-h1">The Noise of Purpose</h1>
-      <p class="cover-tag">A captain is forged not in victory, but in the choices no one sees.</p>
-      <div class="cover-btns">
-        <button id="beginBtn" class="big-btn">Begin on the Ridge</button>
+  <!-- The book: cover → open two-page spread → into the game -->
+  <section id="book" class="book">
+    <div id="bookCover" class="book-cover-stage">
+      <div class="bookcover-frame">
+        <img class="bookcover-img" src="assets/cover.png" alt="The Unquiet Marches — The Noise of Purpose" />
+      </div>
+      <div class="book-cover-cta">
+        <button id="openBtn" class="big-btn">Open the book</button>
         <button id="continueBtn" class="big-btn ghost" style="display:none">Continue the session</button>
+      </div>
+    </div>
+    <div id="bookSpread" class="book-spread" style="display:none">
+      <div class="spread-inner">
+        <header class="spread-head">
+          <p class="spread-eye" id="spreadEye"></p>
+          <h2 class="spread-h" id="spreadHead"></h2>
+        </header>
+        <div class="spread-pages">
+          <div class="page" id="pageLeft"></div>
+          <div class="page-gutter" aria-hidden="true"></div>
+          <div class="page" id="pageRight"></div>
+        </div>
+        <div class="spread-controls">
+          <button id="backBtn" class="mini-btn">&lsaquo; Back</button>
+          <button id="turnBtn" class="big-btn">Turn the page &rsaquo;</button>
+        </div>
       </div>
     </div>
   </section>
