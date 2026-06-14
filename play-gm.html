@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Unquiet Marches · The Open Table</title>
+  <meta name="theme-color" content="#100e0a" />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="hud.css" />
+</head>
+<body>
+
+  <!-- Cover / entry -->
+  <section id="cover" class="book">
+    <div class="book-cover-stage">
+      <div class="bookcover-frame"><img class="bookcover-img" src="assets/cover.png" alt="The Unquiet Marches" /></div>
+      <p class="cover-eye" style="margin-top:22px">The Open Table · an AI Game Master runs your world</p>
+      <div class="book-cover-cta">
+        <button id="beginBtn" class="big-btn">Take the table</button>
+        <button id="continueBtn" class="big-btn ghost" style="display:none">Continue the session</button>
+      </div>
+      <p class="hud-foot" style="margin-top:14px">You play Kael. The GM is the AI. Go anywhere — the world is the only edge.</p>
+    </div>
+  </section>
+
+  <!-- The table -->
+  <div class="hud" id="hud" style="display:none">
+    <header class="hud-top">
+      <span class="brandmark">THE UNQUIET MARCHES</span>
+      <span class="brandsub">The Open Table</span>
+      <span class="top-btns">
+        <button id="keyBtn" class="mini-btn">API key</button>
+        <button id="newBtn" class="mini-btn">New</button>
+      </span>
+    </header>
+
+    <div class="hud-band two">
+      <div class="gm">
+        <div class="flourish"><span class="ln"></span>&#10070;<span class="ln"></span></div>
+        <p class="eyebrow" id="gmTitle">The Ridge Road</p>
+        <div id="gmText"></div>
+        <div id="diceTray" class="dice-tray" style="display:none"></div>
+      </div>
+      <div class="card">
+        <div class="port"><img src="assets/cards/kael.png" alt="Kael Vorn, the Iron Captain" /></div>
+        <div class="plate">KAEL VORN</div>
+        <div class="meta">
+          <div class="role">THE IRON CAPTAIN</div>
+          <div id="kaelStats"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="board-stage">
+      <div class="board">
+        <img src="assets/map/core-map.jpg" alt="The Stormwright Cycle — Core Regions map" />
+        <div class="vig"></div>
+        <div class="tok" id="tokKael" style="left:57%; top:43%;">
+          <div class="chip"><img src="assets/icons/purpose.png" alt="" /></div>
+          <div class="lbl">Kael</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hud-actions" id="actions"></div>
+
+    <div class="gm-controls">
+      <button id="surgeBtn" class="surge-btn"><img src="assets/icons/force.png" alt="" /> Surge</button>
+      <input id="freeInput" type="text" class="free-input" placeholder="Do anything — say it, and the table answers…" autocomplete="off" />
+      <button id="sendBtn" class="mini-btn send">Act</button>
+    </div>
+    <p class="hud-foot"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#7a6a44" stroke-width="1.6"><path d="M12 2 21 7v10l-9 5-9-5V7z"/><path d="M12 12 21 7M12 12v10M12 12 3 7"/></svg> the Game Master rolls behind the screen</p>
+  </div>
+
+  <!-- Ending -->
+  <section id="complete" class="complete" style="display:none">
+    <div class="complete-card">
+      <p class="cover-eye">The Open Table</p>
+      <h1 class="cover-h1">The account closes</h1>
+      <div class="complete-grid">
+        <div><p class="eyebrow">How it ended</p><div id="completeAccount" class="complete-account"></div></div>
+        <div><p class="eyebrow">Kael Vorn</p><div id="completePortrait" class="complete-portrait"></div></div>
+      </div>
+      <button id="restartBtn" class="big-btn">Take the table again</button>
+    </div>
+  </section>
+
+  <!-- API key -->
+  <section id="keyModal" class="rules-overlay" style="display:none">
+    <div class="rules-card" style="max-width:520px; text-align:left">
+      <p class="cover-eye">The Game Master needs a key</p>
+      <h2 class="rules-title" style="margin-bottom:12px">Enable the AI Game Master</h2>
+      <p style="font-family:var(--gr); color:var(--ink); line-height:1.6; margin:0 0 14px">Paste an Anthropic API key. It is stored in this browser only and sent straight to Anthropic — never to any other server. Get one at <b>console.anthropic.com</b>.</p>
+      <input id="keyInput" type="password" class="free-input" placeholder="sk-ant-api03-…" autocomplete="off" spellcheck="false" style="width:100%; margin-bottom:14px" />
+      <div style="display:flex; gap:12px; flex-wrap:wrap">
+        <button id="keySave" class="big-btn">Seat the GM</button>
+        <button id="keyMock" class="mini-btn">Try a demo turn (no key)</button>
+      </div>
+    </div>
+  </section>
+
+  <script src="gm-play.js"></script>
+</body>
+</html>

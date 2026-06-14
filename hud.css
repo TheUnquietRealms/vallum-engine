@@ -210,3 +210,47 @@ body{
 .rules-overlay #rulesRight b{color:var(--parch)}
 .rules-close{position:absolute; top:10px; right:12px; background:transparent; border:none; color:var(--muted); font-size:18px; cursor:pointer}
 @media (max-width:760px){ .rules-cols{grid-template-columns:1fr} }
+
+/* ── The Open Table (AI Game Master) ──────────────────────── */
+.hud-band.two{grid-template-columns:1fr clamp(220px,24vw,300px)}
+@media (max-width:860px){ .hud-band.two{grid-template-columns:1fr} }
+.gm #gmText .thinking{color:var(--muted); font-style:italic}
+
+.meter{margin:8px 0}
+.meter .m-top{display:flex; justify-content:space-between; font-size:11px; font-family:var(--cz); letter-spacing:.06em}
+.meter .m-top span{color:var(--ink)} .meter .m-top b{color:var(--parch)}
+.meter .m-track{height:8px; border-radius:4px; background:#241f17; overflow:hidden; margin-top:4px}
+.meter .m-fill{height:100%; border-radius:4px}
+.meter.hp .m-fill{background:linear-gradient(90deg,#7a2f28,#c0453a)}
+.meter.hp .m-top b{color:#e0928a}
+.meter.surge .m-fill{background:linear-gradient(90deg,#b08a3e,#f0d27a); box-shadow:0 0 10px rgba(230,192,116,.6)}
+.meter.surge .m-top b{color:#f0d27a}
+.meter.hollow{margin-top:12px}
+.meter.hollow .hm-pips{display:flex; gap:3px; margin:5px 0 3px}
+.meter.hollow .pip{flex:1; height:7px; border-radius:2px; background:#2a2730}
+.meter.hollow .pip.on{background:#8a78a0}
+.meter.hollow .pip.on.warn{background:#c0453a}
+.meter.hollow .hm-cue{font-family:var(--gr); font-style:italic; font-size:11px; color:#8d7c5a; text-align:right}
+.meter.hollow .m-top span{color:#b9a6c6} .meter.hollow .m-top b{color:#cdbfe0}
+
+.dice-tray{display:flex; align-items:center; gap:12px; margin-top:14px; padding:10px 14px; border:1px solid var(--gold2); border-radius:9px; background:rgba(205,170,89,.06)}
+.dice-tray .die{font-family:var(--cz); font-size:26px; color:var(--gold); min-width:38px; text-align:center}
+.dice-tray .die-meta{font-family:var(--gr); color:var(--ink); font-size:14px}
+.dice-tray .die-meta b.succ{color:#8aa179} .dice-tray .die-meta b.fail{color:#c0453a}
+
+.gm-controls{display:flex; gap:10px; align-items:center; max-width:900px; margin:6px auto 0; padding:0 8px}
+.surge-btn{display:inline-flex; align-items:center; gap:7px; flex:none; font-family:var(--cz); letter-spacing:.06em;
+  color:#1c1407; background:linear-gradient(180deg,#f0d27a,#b08a3e); border:1px solid #f0d27a; border-radius:9px;
+  padding:10px 16px; cursor:pointer; box-shadow:0 0 14px rgba(230,192,116,.4); transition:transform .1s, filter .15s}
+.surge-btn:hover{transform:translateY(-1px); filter:brightness(1.08)}
+.surge-btn img{width:18px; height:18px; object-fit:contain}
+.free-input{flex:1; min-width:0; background:#14110c; border:1px solid var(--gold2); border-radius:9px; color:var(--parch);
+  font-family:var(--gr); font-size:15px; padding:11px 14px}
+.free-input:focus{outline:none; border-color:var(--gold)}
+.free-input::placeholder{color:#6f6244}
+.mini-btn.send{padding:11px 18px; border-color:var(--gold2); color:var(--parch)}
+@media (max-width:600px){ .gm-controls{flex-wrap:wrap} .free-input{order:3; flex:1 1 100%} }
+
+/* a11y: visible focus */
+.abtn:focus-visible, .big-btn:focus-visible, .mini-btn:focus-visible, .surge-btn:focus-visible,
+.free-input:focus-visible, .rules-close:focus-visible{outline:2px solid var(--gold); outline-offset:2px}
