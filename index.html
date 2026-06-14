@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>The Iron Captain · The Unquiet Marches</title>
+  <title>The Unquiet Marches</title>
   <meta name="theme-color" content="#06080A" />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -138,11 +138,25 @@
     <span id="campaignTitle" hidden></span>
   </section>
 
+  <!-- Character creation — you are an ORIGINAL character in The Marches, never Kael -->
+  <div class="create-screen" id="createScreen" hidden>
+    <div class="create-card">
+      <p class="create-eyebrow">The Unquiet Marches</p>
+      <h2 class="create-title">Who comes to the ash country?</h2>
+      <p class="create-lead">You are not the Iron Captain. He is a rumour on this road &mdash; a man others speak of, half warning, half prayer. You arrive as your own: your own name, your own reason. The world will remember what you do with them.</p>
+      <label class="create-label" for="createNameInput">Your name</label>
+      <input id="createNameInput" class="create-name" type="text" maxlength="32" placeholder="Name yourself" autocomplete="off" spellcheck="false" />
+      <p class="create-label">What brought you here</p>
+      <div class="create-backgrounds" id="createBackgrounds"></div>
+      <button id="createBeginBtn" class="create-begin" type="button">Ride into the ash country</button>
+    </div>
+  </div>
+
   <div class="play-shell">
 
     <header class="play-topbar">
       <div class="topbar-brand">
-        <p class="eyebrow">The Iron Captain</p>
+        <p class="eyebrow" id="topbarEyebrow">The Unquiet Marches</p>
         <h1 id="regionTitle" class="topbar-title"></h1>
       </div>
       <div class="topbar-controls">

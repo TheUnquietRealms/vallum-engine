@@ -1,10 +1,40 @@
-const CAMPAIGN_PATH = "data/campaigns/noise-of-purpose.json";
-const STORAGE_KEY = "vallum.engine.session.noise-of-purpose.v0.4.2";
+const CAMPAIGN_PATH = "data/campaigns/reshen-ashes.json";
+const STORAGE_KEY = "vallum.engine.session.reshen-ashes.v0.5.0";
 
 // AI Game Master was a browser-side test scaffold requiring the player's own
 // Anthropic API key. It is disabled: the experience is fully authored and never
 // requests a key. Code is retained (not deleted) so AI can return server-side later.
 const AI_ENABLED = false;
+
+// ── Player character ──────────────────────────────────────────────
+// Per Book One Canon (GAME_CANON_CONTRACT): the player is an ORIGINAL
+// character in The Marches, never Kael. The player names themselves and
+// chooses a background at the start of a session; that becomes the hero token.
+const BACKGROUNDS = [
+  {
+    id: "warden",
+    role: "Road Warden",
+    title: "Road Warden",
+    drive: "You kept order on the toll roads once. You read tracks, and you read people, and you have stopped trusting the difference.",
+    lean: { witness: 1 }
+  },
+  {
+    id: "scholar",
+    role: "Ash Scholar",
+    title: "Ash Scholar",
+    drive: "You read ledgers and seals for a living. You know exactly how a record lies, because you were taught to make it.",
+    lean: { restraint: 1 }
+  },
+  {
+    id: "blade",
+    role: "Wardblade",
+    title: "Wardblade",
+    drive: "You sold your sword to companies that did not ask hard questions. Lately you have started asking them yourself.",
+    lean: { force: 1 }
+  }
+];
+
+let pendingBackground = BACKGROUNDS[0];
 
 // ── Token visual identity ─────────────────────────────────────────
 
@@ -292,6 +322,8 @@ function wireControls() {
     });
   });
   on(dom.startBtn, "click", () => startNewSession(true));
+  on($("createBeginBtn"), "click", finalizeCharacter);
+  on($("createNameInput"), "keydown", (e) => { if (e.key === "Enter") finalizeCharacter(); });
   on(dom.saveBtn, "click", saveState);
   on(dom.newGameBtn, "click", startNewSession);
   on(dom.ambienceBtn, "click", toggleAmbience);
@@ -574,8 +606,57 @@ function startNewSession(fromBook) {
   if (dom.storyOutput) dom.storyOutput.textContent = "";
   if (dom.storyControls) dom.storyControls.hidden = true;
   if (dom.storyGenBtn) { dom.storyGenBtn.disabled = false; dom.storyGenBtn.textContent = "Generate your story"; }
+  showCharacterCreation();
+}
+
+// ── Character creation ────────────────────────────────────────────
+// You are not Kael. Name yourself and choose what brought you to The Marches.
+
+function showCharacterCreation() {
+  const screen = $("createScreen");
+  if (!screen) { finalizeCharacter(); return; }
+  pendingBackground = BACKGROUNDS[0];
+  renderBackgroundChoices();
+  const nameInput = $("createNameInput");
+  if (nameInput) nameInput.value = "";
+  document.body.classList.remove("cover-open");
+  screen.hidden = false;
+  if (nameInput) setTimeout(() => nameInput.focus(), 50);
+}
+
+function renderBackgroundChoices() {
+  const wrap = $("createBackgrounds");
+  if (!wrap) return;
+  wrap.innerHTML = "";
+  BACKGROUNDS.forEach((bg) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "create-bg" + (bg.id === pendingBackground.id ? " selected" : "");
+    b.innerHTML = `<span class="create-bg-title">${escapeHtml(bg.title)}</span><span class="create-bg-drive">${escapeHtml(bg.drive)}</span>`;
+    b.addEventListener("click", () => { pendingBackground = bg; renderBackgroundChoices(); });
+    wrap.appendChild(b);
+  });
+}
+
+function finalizeCharacter() {
+  const nameInput = $("createNameInput");
+  const raw = ((nameInput && nameInput.value) || "").trim();
+  const name = raw || "the Traveller";
+  const bg = pendingBackground || BACKGROUNDS[0];
+  state.player = { name, background: bg.id, role: bg.role };
+  state.party = [{
+    id: "player",
+    name,
+    role: bg.role,
+    drive: bg.drive,
+    hp: 10, maxHp: 10, defence: 12, attack: 3
+  }];
+  if (bg.lean) applyDelta(state.moralState, bg.lean);
+  state.journal = [`You came into the ash country as ${name}, ${bg.title}.`];
+  const screen = $("createScreen");
+  if (screen) screen.hidden = true;
   closeCover();
-  setStatus("New session started.");
+  setStatus("The session begins.");
 }
 
 function saveState() {
@@ -606,6 +687,8 @@ function render() {
       }
     }
     if (scene.locations) { state.activeLocations = scene.locations; state.activeRoutes = scene.routes || null; }
+    const tbEyebrow = $("topbarEyebrow");
+    if (tbEyebrow) setText(tbEyebrow, campaign.title || campaign.brand || "The Unquiet Marches");
     setText(dom.regionTitle, `${campaign.region} · ${campaign.series || "Vallum"}`);
     setText(dom.timeBox, `Day ${state.time.day} · ${state.time.phase}`);
     setText(dom.sceneTitle, scene.title);
@@ -701,9 +784,7 @@ function renderCharacterPanel() {
     ${stateLine("Hollow", state.moralState.hollow, hollowLabel)}
     ${stateLine("Reputation", state.moralState.reputation, reputationLabel)}
     <div class="section-title objective-title">The Field</div>
-    ${stateLine("Civilians", state.objectives.civilians, civilianLabel, true)}
-    ${stateLine("Raider Threat", state.objectives.raiderThreat, threatLabel, true)}
-    ${stateLine("Captain", state.objectives.captainPressure, pressureLabel, true)}
+    ${fieldLines()}
   `;
   dom.partyList.appendChild(panel);
 }
@@ -1161,7 +1242,7 @@ function renderSessionComplete() {
   if (!dom.sessionComplete) return;
   dom.sessionComplete.hidden = false;
   setText(dom.completeTitle, campaign.title);
-  setText(dom.completeEyebrow, "The Iron Captain · Book One closes");
+  setText(dom.completeEyebrow, (campaign.close && campaign.close.eyebrow) || "Book One closes");
   if (dom.completeJournal) {
     dom.completeJournal.innerHTML = "";
     state.journal.forEach((entry) => {
@@ -1186,6 +1267,7 @@ function renderSessionComplete() {
 }
 
 function buildPortraitLines() {
+  if (campaign.protagonistMode === "player") return buildPlayerPortraitLines();
   const m = state.moralState;
   const o = state.objectives;
   const lines = [];
@@ -1210,7 +1292,31 @@ function buildPortraitLines() {
   return lines;
 }
 
+// Second-person moral portrait for an original player character (not Kael).
+function buildPlayerPortraitLines() {
+  const m = state.moralState;
+  const lines = [];
+  if (m.force >= 6) lines.push({ label: "Force", text: "Force came easily to you here. You reached for it more than once, and not always when there was no other reach." });
+  else if (m.force >= 3) lines.push({ label: "Force", text: "You used force when you judged it earned, and held it when you did not. The judgement was yours to make." });
+  else lines.push({ label: "Force", text: "You kept your hands off the easy answer. Whether that was restraint or fear, only you know." });
+  if (m.restraint >= 5) lines.push({ label: "Restraint", text: "You held back when holding back cost you something. The ash country noticed." });
+  else if (m.restraint >= 3) lines.push({ label: "Restraint", text: "Restraint was available to you. You found it when you looked for it." });
+  else lines.push({ label: "Restraint", text: "You moved before you hesitated. The road remembers people who do." });
+  if (m.witness >= 5) lines.push({ label: "Witness", text: "You saw clearly — the marks, the lie in the ledger, the cost in an old woman's face. Seeing is the start of it." });
+  else lines.push({ label: "Witness", text: "You saw enough to act, and let the rest blur. There was a great deal to see." });
+  if (m.hollow >= 4) lines.push({ label: "Hollow", text: "Something narrowed in you out there. You carried more away than marks on paper." });
+  else if (m.hollow >= 2) lines.push({ label: "Hollow", text: "A small hollow opened. You know it is there. That is not nothing." });
+  else lines.push({ label: "Hollow", text: "You came through with the cost still contained. It does not always stay that way." });
+  if (m.reputation >= 4) lines.push({ label: "Reputation", text: "You have a name in this district now. Caeden's people and the Vethrics will not mean the same thing by it." });
+  else lines.push({ label: "Reputation", text: "You stayed mostly unknown — a stranger who did a thing on a road. There is still time to decide what kind." });
+  const names = state.objectives.names || 0;
+  const trust = state.objectives.householdTrust || 0;
+  lines.push({ label: "The Account", text: `${names >= 6 ? "The Vethric marks were recovered, clear enough for a magistrate to hear." : names >= 4 ? "Part of the record was saved — enough to prove a family existed." : "Little of the record survived. The fire and the surveyor between them nearly won."} ${trust >= 6 ? "The household trusts you." : trust >= 3 ? "The household is unsure of you." : "The household owes you nothing, and knows it."}` });
+  return lines;
+}
+
 function buildForwardHook() {
+  if (campaign.close && campaign.close.hook) return campaign.close.hook;
   const hollow = state.moralState.hollow || 0;
   const reputation = state.moralState.reputation || 0;
   const restraint = state.moralState.restraint || 0;
@@ -1603,6 +1709,27 @@ function reputationLabel(value) { return value >= 6 ? "legend feeding" : value >
 function civilianLabel(value) { return value >= 7 ? "protected" : value >= 4 ? "at risk" : "severe cost"; }
 function threatLabel(value) { return value <= 3 ? "scattered" : value <= 6 ? "unstable" : "dangerous"; }
 function pressureLabel(value) { return value <= 2 ? "broken" : value <= 5 ? "contested" : "commanding"; }
+
+// Data-driven "The Field" objectives. A module may declare `field`:
+// [{ key, label, dir: "up"|"down" }]. Falls back to the legacy Kael set.
+function fieldLabel(value, dir) {
+  const v = value || 0;
+  if (dir === "down") return v <= 3 ? "broken" : v <= 6 ? "contested" : "entrenched";
+  return v >= 7 ? "strong" : v >= 4 ? "holding" : "thin";
+}
+
+function fieldLines() {
+  const field = (campaign && campaign.field) || [
+    { key: "civilians", label: "Civilians", fn: civilianLabel },
+    { key: "raiderThreat", label: "Raider Threat", fn: threatLabel },
+    { key: "captainPressure", label: "Captain", fn: pressureLabel }
+  ];
+  return field.map((f) => {
+    const v = state.objectives[f.key] || 0;
+    const text = f.fn ? f.fn(v) : fieldLabel(v, f.dir);
+    return stateLine(f.label, v, () => text, true);
+  }).join("");
+}
 
 function svg(name, attrs = {}) {
   const el = document.createElementNS("http://www.w3.org/2000/svg", name);

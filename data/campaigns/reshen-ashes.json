@@ -1,0 +1,249 @@
+{
+  "id": "reshen-ashes",
+  "title": "Reshen Ashes",
+  "region": "The Eastern Marches",
+  "series": "The Unquiet Marches",
+  "brand": "The Unquiet Marches",
+  "canonStatus": "C1 game canon — After Reshen window",
+  "protagonistMode": "player",
+  "startingScene": "arrival",
+  "initialTime": { "day": 1, "phase": "Grey morning" },
+  "party": [
+    {
+      "id": "player",
+      "name": "Traveller",
+      "role": "Road Warden",
+      "drive": "You came to the ash country for your own reasons. The road decided the rest.",
+      "hp": 10,
+      "maxHp": 10,
+      "defence": 12,
+      "attack": 3
+    }
+  ],
+  "objectives": { "names": 3, "householdTrust": 3, "surveyorHold": 6 },
+  "field": [
+    { "key": "names", "label": "Marks Recovered", "dir": "up" },
+    { "key": "householdTrust", "label": "Household Trust", "dir": "up" },
+    { "key": "surveyorHold", "label": "Surveyor's Hold", "dir": "down" }
+  ],
+  "moralState": { "force": 3, "restraint": 3, "witness": 4, "hollow": 1, "reputation": 1 },
+  "locations": [
+    { "id": "road", "name": "The Toll Road", "kind": "road", "x": 170, "y": 560 },
+    { "id": "household", "name": "Vethric Camp", "kind": "objective", "x": 300, "y": 430 },
+    { "id": "ashfield", "name": "The Burned Holdings", "kind": "fire", "x": 520, "y": 320 },
+    { "id": "surveyor_post", "name": "Survey Stakes", "kind": "threat", "x": 700, "y": 300 }
+  ],
+  "routes": [
+    ["road", "household"],
+    ["household", "ashfield"],
+    ["ashfield", "surveyor_post"]
+  ],
+  "close": {
+    "eyebrow": "The ash country · the first account closes",
+    "hook": "Word of what you did on the burned holdings will travel the toll road faster than you will. Some of it will be true. A clerk in Caeden's pay has already written your description into a margin, and a household that had nothing has decided it owes you something. Neither is finished with you. And on the same road, refugees still speak of a man they call the Iron Captain — a name you have now heard too many times to keep ignoring."
+  },
+  "scenes": {
+    "arrival": {
+      "title": "The Ash Country",
+      "type": "Arrival",
+      "location": "road",
+      "mood": "grey",
+      "ambience": "calm",
+      "stakes": "You are a stranger here. Strangers are read before they are trusted.",
+      "narration": [
+        "You came into the district several weeks after Reshen burned. The fire is old news now, the kind that settles into the ground and stays. The road still carries its weather — ash worked into the ruts, a smell that the rain has not finished with.",
+        "Refugees pass you going the other way. One of them, an old surveyor with a broken satchel, looks at your face the way people here look at everyone now: deciding whether you are someone who takes, or someone who can be used.",
+        "He says a name as he passes, half a warning, half a prayer. The Iron Captain. You have heard it three times on this road already. You still do not know if the man is real."
+      ],
+      "choices": [
+        {
+          "label": "Ask the surveyor what happened at Reshen.",
+          "moral": { "witness": 1 },
+          "journal": "You asked, and listened. The account was incomplete, like all of them here.",
+          "result": "He tells you what he saw, which is not the same as what happened. A holding burned. Surveyors came before the smoke cleared. Names are being written out of the record. He points you toward a camp off the road — the Vethric household, what is left of it.",
+          "nextScene": "household"
+        },
+        {
+          "label": "Say nothing. Watch the road and the camp below it.",
+          "moral": { "restraint": 1 },
+          "journal": "You held your questions and read the ground instead.",
+          "result": "You let him pass. From the rise you can see a camp off the road — canvas, a cart with no horse, a thin line of smoke. Down the valley, fresh stakes have been driven into a field that was a holding until recently. Someone is already measuring what the fire left.",
+          "nextScene": "household"
+        }
+      ]
+    },
+    "household": {
+      "title": "What the Fire Left",
+      "type": "The Plea",
+      "location": "household",
+      "mood": "grey",
+      "ambience": "calm",
+      "stakes": "A household with no holding has only its record left to lose.",
+      "narration": [
+        "The camp is a family that used to be a holding. An old woman — Maren Vethric — does the talking, because the men who would have done it are not here anymore.",
+        "She does not ask for pity. She asks for something narrower and harder. Before the fire, the boundary stones and door-lintels of their land carried property marks — cut names, generations deep. Caeden's surveyors are pulling the stones and re-cutting the field as unclaimed. In a week the record will say the Vethrics were never there.",
+        "“Go to the holdings,” she says. “Copy the marks that are still standing. A magistrate will hear a mark. He will not hear an old woman.”"
+      ],
+      "choices": [
+        {
+          "label": "Give your word. You will copy the marks before they are pulled.",
+          "moral": { "restraint": 1 },
+          "objectives": { "householdTrust": 3 },
+          "journal": "You gave Maren Vethric your word. She wrote your name on the inside of her satchel.",
+          "result": "She does not thank you. She writes your name down, which is the same thing here. A given word is now a thing in the world that can be kept or broken.",
+          "nextScene": "ashfield"
+        },
+        {
+          "label": "Promise nothing, but go and look. You decide after you have seen.",
+          "moral": { "witness": 1 },
+          "objectives": { "householdTrust": 1 },
+          "journal": "You promised nothing and went to see for yourself.",
+          "result": "She nods. She has been disappointed by promises before and trusts a careful eye more than a quick vow. “Then see,” she says. “Seeing is the start of it.”",
+          "nextScene": "ashfield"
+        }
+      ]
+    },
+    "ashfield": {
+      "title": "The Burned Holdings",
+      "type": "The Evidence",
+      "location": "ashfield",
+      "mood": "storm",
+      "ambience": "storm",
+      "stakes": "The marks are real evidence. Reading them under pressure is the test.",
+      "narration": [
+        "The holdings are a black grid in the valley. Where houses stood, only the stone footings remain, and the boundary stones at the field edges — some toppled, some still standing, their cut faces grey with ash.",
+        "Fresh survey stakes run in a straight new line across the old boundaries, ignoring them. The fire did not respect the marks. Caeden's surveyors are choosing not to.",
+        "If you are going to copy the names, you will do it now, with rain coming and a survey crew working the far edge of the field."
+      ],
+      "choices": [
+        {
+          "label": "Work the standing stones carefully. Copy every mark you can read.",
+          "roll": {
+            "stat": "witness",
+            "target": 12,
+            "success": "You read them clean — cut names, dates, the small private signs a family uses for itself. You copy them onto the back of Maren's satchel-paper. The record now has a second voice.",
+            "failure": "Ash has eaten half the faces and the rain starts before you finish. You get some of it — enough to prove the Vethrics existed, not enough to prove everything they held."
+          },
+          "objectives": { "names": 4 },
+          "moral": { "witness": 1 },
+          "journal": "You copied the property marks from the burned holdings.",
+          "nextScene": "surveyor_post"
+        },
+        {
+          "label": "Pull a standing boundary stone loose to take the whole mark with you.",
+          "roll": {
+            "stat": "force",
+            "target": 13,
+            "success": "You lever a corner stone free and roll it onto the cart-track. The whole mark, undeniable, comes with you — but the survey crew has seen you do it.",
+            "failure": "The stone is heavier and older than it looks. You move it a hand's width and a surveyor is already walking toward you, calling for the others."
+          },
+          "objectives": { "names": 3, "surveyorHold": 1 },
+          "moral": { "force": 1 },
+          "journal": "You took a boundary stone whole, in plain sight.",
+          "nextScene": "surveyor_post"
+        }
+      ]
+    },
+    "surveyor_post": {
+      "title": "The Surveyor",
+      "type": "The Confrontation",
+      "location": "surveyor_post",
+      "mood": "storm",
+      "ambience": "storm",
+      "stakes": "Caeden's man holds the official record. How you take it decides what kind of name you make here.",
+      "narration": [
+        "His name is Tolle, and he works for Caeden, and he is not afraid of you because the law he carries is more dangerous than you are. He has a chained ledger, a seal, and the certainty of a man who has never lost an argument that mattered.",
+        "“This field is unclaimed,” he says, not even looking up. “Whatever you copied is a story. My book is the record. Go back to whatever road you came off.”",
+        "The marks you carry are real. So is his seal. Only one of these will reach the magistrate first."
+      ],
+      "choices": [
+        {
+          "label": "Out-argue him. Make him enter your marks into the record before witnesses.",
+          "roll": {
+            "stat": "restraint",
+            "target": 14,
+            "success": "You do not raise your voice. You name the procedure, the magistrate, the penalty for a falsified survey, and the survey crew listening. Tolle enters the Vethric marks into the margin of his own ledger, because the alternative is worse for him.",
+            "failure": "He is better at this than you expected. He concedes nothing and notes your name as an obstruction. But the crew heard the argument, and arguments travel."
+          },
+          "objectives": { "surveyorHold": -3, "names": 1 },
+          "moral": { "restraint": 1, "witness": 1, "reputation": 1 },
+          "journal": "You forced the marks into Tolle's own record by procedure, not force.",
+          "nextScene": "account"
+        },
+        {
+          "label": "Take the ledger from him. The marks matter more than his seal.",
+          "roll": {
+            "stat": "force",
+            "target": 13,
+            "success": "You take the chained ledger off the table before he finishes his sentence. He does not fight you for it — he simply starts writing, in his head, the report that will follow you. You have the record. You have also made an enemy who keeps records.",
+            "failure": "He clamps the chain and shouts. The crew closes in. You get a torn page and a reputation, on this road, as a man who takes things."
+          },
+          "objectives": { "surveyorHold": -2 },
+          "moral": { "force": 2, "hollow": 1, "reputation": 1 },
+          "journal": "You took the ledger from Tolle by force.",
+          "nextScene": "account"
+        },
+        {
+          "label": "Let him keep the book. Walk the marks to the magistrate yourself.",
+          "moral": { "restraint": 1, "witness": 1 },
+          "objectives": { "householdTrust": 2 },
+          "journal": "You left Tolle his seal and carried your own evidence out.",
+          "result": "You do not give him a fight to write about. You fold Maren's paper into your coat and walk out of the field with the marks intact. His seal still says one thing; now there is a second account on the road, and you are carrying it.",
+          "nextScene": "account"
+        }
+      ]
+    },
+    "account": {
+      "title": "The Second Account",
+      "type": "The Reckoning",
+      "location": "household",
+      "mood": "grey",
+      "ambience": "calm",
+      "stakes": "What you carry back is now part of the world's record, for good or against you.",
+      "narration": [
+        "You bring what you have back to the camp. Maren Vethric reads it without expression, which is how she reads everything that matters.",
+        "Whatever you recovered is now a fact that exists outside her memory — a thing a magistrate can be made to hear. It is not justice. It is the raw material justice is sometimes built from, when someone bothers.",
+        "Caeden will hear your name now. So will the household. The two will not mean the same thing by it."
+      ],
+      "choices": [
+        {
+          "label": "Hand her everything. The marks are hers; the next move is too.",
+          "moral": { "restraint": 1, "witness": 1 },
+          "objectives": { "householdTrust": 2 },
+          "journal": "You gave the Vethric household its own record back.",
+          "result": "She takes it like something heavier than paper. “This goes to the magistrate at Ashen Crossing,” she says. “With a name on it that he cannot wave off.” She means yours. You did not ask to become evidence, but you are.",
+          "nextScene": "close"
+        },
+        {
+          "label": "Keep a copy. A record like this is leverage, and you may need it.",
+          "moral": { "force": 1, "hollow": 1 },
+          "objectives": { "householdTrust": -1 },
+          "journal": "You kept a copy of the marks for yourself.",
+          "result": "You give her the original and keep a copy folded against your chest. She notices — she notices everything — and says nothing. You have helped her and quietly armed yourself in the same motion. That is a thing you will have to look at later.",
+          "nextScene": "close"
+        }
+      ]
+    },
+    "close": {
+      "title": "What the Road Remembers",
+      "type": "Close",
+      "location": "road",
+      "mood": "grey",
+      "ambience": "calm",
+      "stakes": "One holding. One record. A name that now travels without you.",
+      "narration": [
+        "You came into the ash country a stranger, and you are leaving it as something the district has an opinion about.",
+        "The fire at Reshen is still old news. But the record is one voice less certain than it was this morning, because you bent down and read what the fire left.",
+        "Out on the toll road, the refugees are still saying that name. The Iron Captain. You have a copy of a dead family's names against your chest and a clerk's grudge at your back, and you are starting to think the man in the rumour and the road you are on may not stay separate for long."
+      ],
+      "choices": [
+        {
+          "label": "Take the road east. See how far your name has already gone.",
+          "result": "Module ends. The first account is closed; the road east is open.",
+          "journal": "You took the eastern road out of the ash country.",
+          "nextScene": "close"
+        }
+      ]
+    }
+  }
+}
