@@ -1,8 +1,8 @@
 /* ════════════════════════════════════════════════════════════
    The Unquiet Marches — HUD engine (keyless)
-   Book intro (cover → open two-page spread → Chapter One) then the
-   playable HUD, driven by data/campaigns/noise-of-purpose.json.
-   Authored prose + hidden d20. No API key, no backend.
+   Book intro (cover → spread → Chapter One → How it's played) then
+   the playable HUD, driven by noise-of-purpose.json.
+   The Hollow is the stakes meter. No hit points. Hidden d20.
    ════════════════════════════════════════════════════════════ */
 (function () {
   "use strict";
@@ -10,28 +10,37 @@
   var SAVE = "um.hud.save.v1";
   var STATS = ["force", "restraint", "witness", "hollow", "reputation"];
 
-  /* ── The book intro: cover → spreads → into the game ──────── */
+  /* ── Rules text, shared by the book page and the How-to-play button ── */
+  var RULES = {
+    left:
+      '<p class="rules-h">The five qualities</p>' +
+      '<div class="qrow"><span class="qic"><img src="assets/icons/force.png" alt=""></span><div><b>Force</b> — strike, command, the surge.</div></div>' +
+      '<div class="qrow"><span class="qic"><img src="assets/icons/restraint.png" alt=""></span><div><b>Restraint</b> — hold the blade when you could act.</div></div>' +
+      '<div class="qrow"><span class="qic"><img src="assets/icons/witness.png" alt=""></span><div><b>Witness</b> — see clearly; write down the truth.</div></div>' +
+      '<div class="qrow"><span class="qic"><img src="assets/icons/reputation.png" alt=""></span><div><b>Reputation</b> — the weight of the Iron Captain&rsquo;s name.</div></div>' +
+      '<div class="qrow"><span class="qic"><img src="assets/icons/hollow.png" alt=""></span><div><b>The Hollow</b> — the cost. At 7 it shows. At 10 the account closes.</div></div>',
+    right:
+      '<p class="rules-h">How it is played</p>' +
+      '<p>You are Kael. Read the Game Master, then choose an action.</p>' +
+      '<p>Every choice tests one quality. A hidden d20 decides how it lands — you never see the number. The dice roll behind the screen.</p>' +
+      '<p>You do not choose by the numbers; the changes are hidden on purpose. <b>Choose by conscience</b> — these are the choices no one sees.</p>' +
+      '<p>There are no hit points. <b>The Hollow is your meter.</b> Keep it from reaching ten — at ten, the account closes.</p>'
+  };
+
   var SPREADS = [
-    {
-      eye: "The Northern Archive", head: "Foreword",
+    { eye: "The Northern Archive", head: "Foreword",
       left: "What follows is not a chronicle in the conventional sense. Chronicles concern themselves with events that governments have agreed were important. The man who came to be called the Iron Captain belongs uneasily to every category. He held no title that endured. He founded no house. His name appears in military accounts and disappears from them without explanation.",
-      right: "What remained were fragments — a rain-damaged garrison register, a cartographer's private maps, a letter never sent, parchments found beneath fallen shelving in a northern chamber. He wrote, it seems, not to be forgiven. He wrote to understand what he had chosen.\n\n— Aldric Vane, Keeper of the Northern Archive"
-    },
-    {
-      eye: "Before the Road", head: "Prologue · The Stone Chamber",
+      right: "What remained were fragments — a rain-damaged garrison register, a cartographer's private maps, a letter never sent, parchments found beneath fallen shelving in a northern chamber. He wrote, it seems, not to be forgiven. He wrote to understand what he had chosen.\n\n— Aldric Vane, Keeper of the Northern Archive" },
+    { eye: "Before the Road", head: "Prologue · The Stone Chamber",
       left: "The storm had been building since dusk. From the narrow eastern window, the valley lay beneath a sky the colour of bruised iron. He stood with one hand resting on the oak desk and watched the weather assemble. The chamber had been built for another purpose; its western wall had collapsed long before he found it.",
-      right: "The sword rested against the far wall — sheathed, cleaned, oiled. He had not cast it away; to destroy it would not destroy what his hand had learned. So he kept it. Any soldier of sufficient skill can become the storm. To stand in a stone chamber while one passes — and feel no obligation to draw — requires a different order of strength."
-    },
-    {
-      eye: "Part One · The Making of the Storm", head: "Chapter One · The Ridge",
+      right: "The sword rested against the far wall — sheathed, cleaned, oiled. He had not cast it away; to destroy it would not destroy what his hand had learned. So he kept it. Any soldier of sufficient skill can become the storm. To stand in a stone chamber while one passes — and feel no obligation to draw — requires a different order of strength." },
+    { eye: "Part One · The Making of the Storm", head: "Chapter One · The Ridge",
       left: "The wind came down from the high places like a remembered warning. It moved across the ridge in long, low sighs, worrying the dry grasses and pulling at the cloak of the watcher who had no business being there. Below, the Heartlands spread in muted layers — fields, forest, and the pale thread of the Northward River coiling toward the sea.",
-      right: "He had walked since first light, guided by stars and a stubborn sense of purpose he could not name. On the ridge, he found what he came for. Or rather — what had been waiting.\n\nReader: when you turn this page you are no longer reading it. You are in it.",
-      last: true
-    }
+      right: "He had walked since first light, guided by stars and a stubborn sense of purpose he could not name. On the ridge, he found what he came for. Or rather — what had been waiting.\n\nReader: when you turn this page you are no longer reading it. You are in it." },
+    { eye: "Before you choose", head: "How this story is played", rules: true, last: true }
   ];
   var spreadIx = 0;
 
-  /* ── scene → left-card portrait (null = hide) ─────────────── */
   var NPC = {
     eastern_road:"raider-captain", ridge:"raider-captain", civilians:"raider-captain",
     command:"raider-captain", surge:"raider-captain", aftermath:"raider-captain",
@@ -68,29 +77,27 @@
   function wipe() { try { localStorage.removeItem(SAVE); } catch (e) {} }
 
   /* ── Book intro ───────────────────────────────────────────── */
-  function openBook() {
-    $("bookCover").style.display = "none";
-    $("bookSpread").style.display = "";
-    spreadIx = 0;
-    renderSpread();
-  }
+  function openBook() { $("bookCover").style.display = "none"; $("bookSpread").style.display = ""; spreadIx = 0; renderSpread(); }
   function renderSpread() {
     var s = SPREADS[spreadIx];
     $("spreadEye").textContent = s.eye;
     $("spreadHead").textContent = s.head;
-    $("pageLeft").innerHTML = paras(s.left);
-    $("pageRight").innerHTML = paras(s.right);
+    if (s.rules) { $("pageLeft").innerHTML = RULES.left; $("pageRight").innerHTML = RULES.right; }
+    else { $("pageLeft").innerHTML = paras(s.left); $("pageRight").innerHTML = paras(s.right); }
+    $("bookSpread").classList.toggle("rules-mode", !!s.rules);
     $("backBtn").style.visibility = spreadIx === 0 ? "hidden" : "visible";
     $("turnBtn").textContent = s.last ? "Step onto the ridge ›" : "Turn the page ›";
     var sp = $("bookSpread"); sp.classList.remove("turning"); void sp.offsetWidth; sp.classList.add("turning");
   }
   function turnPage() {
-    var s = SPREADS[spreadIx];
-    if (s.last) { startGame(false); return; }
-    spreadIx = Math.min(spreadIx + 1, SPREADS.length - 1);
-    renderSpread();
+    if (SPREADS[spreadIx].last) { startGame(false); return; }
+    spreadIx = Math.min(spreadIx + 1, SPREADS.length - 1); renderSpread();
   }
   function backPage() { if (spreadIx > 0) { spreadIx--; renderSpread(); } }
+
+  /* ── Rules overlay (How to play, anytime) ─────────────────── */
+  function openRules() { $("rulesLeft").innerHTML = RULES.left; $("rulesRight").innerHTML = RULES.right; $("rules").style.display = ""; }
+  function closeRules() { $("rules").style.display = "none"; }
 
   /* ── Game ─────────────────────────────────────────────────── */
   function startGame(resume) {
@@ -110,9 +117,10 @@
     sc.choices.forEach(function (ch) {
       var stat = ch.roll && ch.roll.stat;
       var icon = (stat && ICONSTAT[stat]) ? stat : "purpose";
+      var hint = stat ? '<span class="abtn-hint">tests ' + cap(stat) + "</span>" : "";
       var b = document.createElement("button");
       b.className = "abtn";
-      b.innerHTML = '<span class="rune"><img src="assets/icons/' + icon + '.png" alt=""></span> <span>' + ch.label + "</span>";
+      b.innerHTML = '<span class="rune"><img src="assets/icons/' + icon + '.png" alt=""></span><span class="abtn-label">' + ch.label + hint + "</span>";
       b.addEventListener("click", function () { choose(ch); });
       ab.appendChild(b);
     });
@@ -124,9 +132,18 @@
   }
 
   function renderStats() {
-    $("kaelStats").innerHTML = STATS.map(function (k) {
-      return '<div class="stat' + (k === "hollow" ? " hollow" : "") + '"><span>' + cap(k) + "</span><b>" + state.moral[k] + "</b></div>";
+    var s = state.moral, h = s.hollow, pips = "";
+    for (var i = 1; i <= 10; i++) pips += '<span class="pip' + (i <= h ? " on" : "") + (i >= 7 ? " warn" : "") + '"></span>';
+    var cue = h >= 10 ? "the account closes" : h >= 7 ? "it shows now" : "held";
+    var meter =
+      '<div class="hollow-meter">' +
+      '<div class="hm-top"><img class="hm-ic" src="assets/icons/hollow.png" alt=""><span class="hm-name">THE HOLLOW</span><span class="hm-val">' + h + "/10</span></div>" +
+      '<div class="hm-pips">' + pips + "</div>" +
+      '<div class="hm-cue">' + cue + "</div></div>";
+    var others = ["force", "restraint", "witness", "reputation"].map(function (k) {
+      return '<div class="stat"><span>' + cap(k) + "</span><b>" + s[k] + "</b></div>";
     }).join("");
+    $("kaelStats").innerHTML = meter + '<div class="statgrid">' + others + "</div>";
   }
   function renderNpc() {
     var who = NPC[state.scene], card = $("npcCard");
@@ -151,7 +168,7 @@
     var ab = $("actions"); ab.innerHTML = "";
     var b = document.createElement("button");
     b.className = "abtn continue";
-    b.innerHTML = '<span class="rune"><img src="assets/icons/' + (done ? "legacy" : "honour") + '.png" alt=""></span> <span>' + (done ? "Close the account" : "Continue") + " &rsaquo;</span>";
+    b.innerHTML = '<span class="rune"><img src="assets/icons/' + (done ? "legacy" : "honour") + '.png" alt=""></span><span class="abtn-label">' + (done ? "Close the account" : "Continue") + " &rsaquo;</span>";
     b.addEventListener("click", function () { if (done) complete(); else { state.scene = ch.nextScene; render(); } });
     ab.appendChild(b);
     save();
@@ -184,6 +201,8 @@
     $("openBtn").addEventListener("click", openBook);
     $("turnBtn").addEventListener("click", turnPage);
     $("backBtn").addEventListener("click", backPage);
+    $("rulesBtn").addEventListener("click", openRules);
+    $("rulesClose").addEventListener("click", closeRules);
     $("newBtn").addEventListener("click", function () { wipe(); location.reload(); });
     $("restartBtn").addEventListener("click", function () { wipe(); location.reload(); });
   }).catch(function (e) {
