@@ -146,7 +146,7 @@ async function boot() {
 async function loadCampaign() {
   if (window.__CAMPAIGN__) return window.__CAMPAIGN__;
   const response = await fetch(CAMPAIGN_PATH, { cache: "no-store" });
-  if (!response.ok) throw new Error("Unable to load Stormwright campaign module.");
+  if (!response.ok) throw new Error("Unable to load The Unquiet Marches campaign module.");
   return response.json();
 }
 
