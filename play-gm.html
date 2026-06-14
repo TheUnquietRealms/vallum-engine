@@ -95,11 +95,14 @@
       <input id="keyInput" type="password" class="free-input" placeholder="sk-ant-api03-…" autocomplete="off" spellcheck="false" style="width:100%; margin-bottom:14px" />
       <div style="display:flex; gap:12px; flex-wrap:wrap">
         <button id="keySave" class="big-btn">Seat the GM</button>
+        <button id="keyTest" class="mini-btn">Test connection</button>
         <button id="keyMock" class="mini-btn">Try a demo turn (no key)</button>
       </div>
     </div>
   </section>
 
-  <script src="gm-play.js?v=3"></script>
+  <div id="buildBadge" aria-hidden="true" style="position:fixed; right:8px; bottom:6px; z-index:60; font:600 11px/1 system-ui,sans-serif; letter-spacing:.04em; color:rgba(95,74,34,.62); background:rgba(236,224,194,.72); border:1px solid rgba(154,123,58,.35); border-radius:5px; padding:3px 7px; pointer-events:none"></div>
+
+  <script src="gm-play.js?v=4"></script>
 </body>
 </html>
