@@ -114,4 +114,4 @@ Key files:
 - A release is not final until internal UAT and founder live signoff pass.
 
 ---
-© 2026 Zencloud Advisory. All rights reserved. Proprietary and confidential.
+© 2026 P A Myint · The Unquiet Realms. All rights reserved. Proprietary and confidential.
