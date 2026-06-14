@@ -46,7 +46,10 @@
     <header class="hud-top">
       <span class="brandmark">THE UNQUIET MARCHES</span>
       <span class="brandsub">Book One · The Noise of Purpose</span>
-      <button id="newBtn" class="mini-btn">New</button>
+      <span class="top-btns">
+        <button id="rulesBtn" class="mini-btn">How to play</button>
+        <button id="newBtn" class="mini-btn">New</button>
+      </span>
     </header>
 
     <div class="hud-band">
@@ -110,6 +113,19 @@
         </div>
       </div>
       <button id="restartBtn" class="big-btn">Ride East again</button>
+    </div>
+  </section>
+
+  <!-- How to play (reopenable anytime) -->
+  <section id="rules" class="rules-overlay" style="display:none">
+    <div class="rules-card">
+      <button id="rulesClose" class="rules-close" aria-label="Close">&#x2715;</button>
+      <p class="cover-eye">The Unquiet Marches</p>
+      <h2 class="rules-title">How this story is played</h2>
+      <div class="rules-cols">
+        <div id="rulesLeft"></div>
+        <div id="rulesRight"></div>
+      </div>
     </div>
   </section>
 
