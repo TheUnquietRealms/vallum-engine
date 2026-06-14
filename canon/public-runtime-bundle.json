@@ -1,0 +1,1162 @@
+{
+  "pack": {
+    "name": "The Unquiet Marches — Book One Canon Pack",
+    "version": "1.0",
+    "public_only": true,
+    "restricted_directory_excluded": "99-author-restricted"
+  },
+  "canon_classes": {
+    "C0": "published novel canon",
+    "C1": "author-approved game canon",
+    "C2": "campaign-only canon",
+    "C3": "rumour or belief"
+  },
+  "characters": [
+    {
+      "id": "char.kael_vorn",
+      "name": "Kael Vorn",
+      "role": "contract captain known as the Iron Captain",
+      "status_end_book_one": "alive; residing in the northern stone chamber",
+      "public_truth": "A highly effective captain whose reputation began at the Ridge Road and whose later work is morally disputed.",
+      "private_book_one_truth": "He experiences the Surge and the Hollow but believes them to be states of discipline, appetite and aftermath rather than magic.",
+      "drives": [
+        "precision",
+        "responsibility",
+        "escape from the Hollow",
+        "truth without acquittal"
+      ],
+      "boundaries": [
+        "cannot be reduced to a quest giver",
+        "does not seek followers after Book One",
+        "will not explain future cosmology"
+      ],
+      "sources": [
+        "BOOK1:ALL"
+      ]
+    },
+    {
+      "id": "char.sera",
+      "name": "Sera",
+      "role": "practical authority and household keeper at the House of Wool",
+      "status_end_book_one": "alive; remains at the House of Wool",
+      "public_truth": "She controls operations through judgement, contracts, observation and clear boundaries.",
+      "drives": [
+        "competent stewardship",
+        "clarity",
+        "household survival",
+        "authority that remains accountable"
+      ],
+      "boundaries": [
+        "not a passive love interest",
+        "her choices do not exist only to develop Kael"
+      ],
+      "sources": [
+        "BOOK1:CH13",
+        "BOOK1:CH14",
+        "BOOK1:CH15",
+        "BOOK1:CH16",
+        "BOOK1:CH17",
+        "BOOK1:CH18"
+      ]
+    },
+    {
+      "id": "char.mael_serrin",
+      "name": "Mael Serrin",
+      "role": "administrator and intermediary",
+      "status_end_book_one": "alive; working for the Ashen Crossing merchants' council",
+      "public_truth": "He converts power into language, charters and enforceable procedure.",
+      "drives": [
+        "indispensability",
+        "influence",
+        "livelihood",
+        "belief in lesser harm"
+      ],
+      "boundaries": [
+        "culpable but not the sole cause of Reshen",
+        "was spared by Kael"
+      ],
+      "sources": [
+        "BOOK1:CH07",
+        "BOOK1:CH19",
+        "BOOK1:CH20",
+        "BOOK1:CH21",
+        "BOOK1:CH22",
+        "BOOK1:CH23",
+        "BOOK1:CH24"
+      ]
+    },
+    {
+      "id": "char.edric_vale",
+      "name": "Edric Vale",
+      "role": "cartographer and keeper of evidence",
+      "status_end_book_one": "alive; exact current location not fixed",
+      "public_truth": "He records positions, names and omissions that official maps conceal.",
+      "drives": [
+        "accuracy",
+        "witness",
+        "refusal to live quietly with falsified record"
+      ],
+      "boundaries": [
+        "not a magical oracle",
+        "does not know unreleased cosmology"
+      ],
+      "sources": [
+        "BOOK1:CH05",
+        "BOOK1:CH11",
+        "BOOK1:CH12",
+        "BOOK1:CH19",
+        "BOOK1:CH30"
+      ]
+    },
+    {
+      "id": "char.lord_caeden",
+      "name": "Lord Caeden",
+      "role": "Marcher lord and sponsor of the Reshen road project",
+      "status_end_book_one": "alive as of the Ashen Crossing confrontation",
+      "public_truth": "A courteous and controlled lord who uses procedure and contractors to obtain strategic outcomes.",
+      "drives": [
+        "permanent road corridor",
+        "order",
+        "control",
+        "plausible legality"
+      ],
+      "boundaries": [
+        "not a theatrical tyrant",
+        "cannot be killed by the GM in canon-adjacent mode"
+      ],
+      "sources": [
+        "BOOK1:CH06",
+        "BOOK1:CH07",
+        "BOOK1:CH08",
+        "BOOK1:CH22"
+      ]
+    },
+    {
+      "id": "char.davan",
+      "name": "Davan",
+      "role": "nineteen-year-old soldier at the crossroads garrison",
+      "status_end_book_one": "alive; returned toward the garrison",
+      "public_truth": "Fair-haired, lean, still and watchful; drawn to the clean feeling of decisive violence.",
+      "drives": [
+        "mastery",
+        "meaning",
+        "instruction",
+        "escape from uncertainty"
+      ],
+      "boundaries": [
+        "not Kael's automatic apprentice",
+        "his choices remain his own"
+      ],
+      "sources": [
+        "BOOK1:CH25",
+        "BOOK1:CH26"
+      ]
+    },
+    {
+      "id": "char.mara_venn",
+      "name": "Mara Venn",
+      "role": "travelling physician",
+      "status_end_book_one": "alive; travelled west from Ashen Crossing",
+      "public_truth": "An older physician with a damaged left eye who speaks plainly about responsibility and uncertainty.",
+      "drives": [
+        "treatment",
+        "truthful limits",
+        "practical care"
+      ],
+      "sources": [
+        "BOOK1:CH21",
+        "BOOK1:CH24"
+      ]
+    },
+    {
+      "id": "char.joren",
+      "name": "Joren",
+      "role": "Kael's lieutenant during the early campaigns",
+      "status_end_book_one": "not explicitly resolved",
+      "public_truth": "A capable subordinate whose obedience and field judgement show the consequences of command.",
+      "sources": [
+        "BOOK1:CH01",
+        "BOOK1:CH02",
+        "BOOK1:CH03",
+        "BOOK1:CH08",
+        "BOOK1:CH09",
+        "BOOK1:CH10"
+      ]
+    },
+    {
+      "id": "char.fen_arlen",
+      "name": "Fen Arlen",
+      "role": "miller of Reshen",
+      "status_end_book_one": "dead",
+      "public_truth": "Killed during the Reshen operation; his name and petition history become evidence of what official language removed.",
+      "sources": [
+        "BOOK1:CH09",
+        "BOOK1:CH10",
+        "BOOK1:CH11",
+        "BOOK1:CH23",
+        "BOOK1:CH28",
+        "BOOK1:CH29"
+      ]
+    },
+    {
+      "id": "char.oren_marr",
+      "name": "Oren Marr",
+      "role": "merchant owner of the House of Wool",
+      "status_end_book_one": "alive",
+      "public_truth": "Owns the house and commercial risks that Sera manages more competently in practice.",
+      "sources": [
+        "BOOK1:CH13",
+        "BOOK1:CH16",
+        "BOOK1:CH17",
+        "BOOK1:CH18"
+      ]
+    },
+    {
+      "id": "char.pellan",
+      "name": "Pellan",
+      "role": "House of Wool steward",
+      "status_end_book_one": "alive",
+      "public_truth": "Careful, procedural and useful; often carries unwelcome facts to Sera.",
+      "sources": [
+        "BOOK1:CH13",
+        "BOOK1:CH14",
+        "BOOK1:CH15",
+        "BOOK1:CH17"
+      ]
+    },
+    {
+      "id": "char.renn",
+      "name": "Renn",
+      "role": "corporal commanding the crossroads garrison in the captain's absence",
+      "status_end_book_one": "alive",
+      "public_truth": "Maintains authority with inadequate men and resources.",
+      "sources": [
+        "BOOK1:CH25"
+      ]
+    },
+    {
+      "id": "char.edran",
+      "name": "Edran",
+      "role": "northern valley carpenter",
+      "status_end_book_one": "alive",
+      "public_truth": "Helps repair the stone chamber while preserving fair exchange and local independence.",
+      "sources": [
+        "BOOK1:CH27",
+        "BOOK1:CH28",
+        "BOOK1:CH29"
+      ]
+    },
+    {
+      "id": "char.ressa",
+      "name": "Ressa",
+      "role": "older resident of the northern valley",
+      "status_end_book_one": "alive",
+      "public_truth": "Carries local memory of the ruined fort and treats abandoned authority as practical material.",
+      "sources": [
+        "BOOK1:CH27",
+        "BOOK1:CH28"
+      ]
+    }
+  ],
+  "locations": [
+    {
+      "id": "loc.ridge_road",
+      "name": "Ridge Road",
+      "type": "road and river valley",
+      "region": "The Marches",
+      "summary": "The rain-soaked site of the caravan attack where Kael's Iron Captain reputation begins.",
+      "play_uses": [
+        "raider aftermath",
+        "survivor testimony",
+        "burial records",
+        "disputed legend"
+      ],
+      "fixed": true,
+      "sources": [
+        "BOOK1:CH01",
+        "BOOK1:CH02",
+        "BOOK1:CH03",
+        "BOOK1:CH04",
+        "BOOK1:CH05"
+      ]
+    },
+    {
+      "id": "loc.reshen",
+      "name": "Reshen Valley",
+      "type": "three hamlets, mill, roads and farmland",
+      "region": "The Marches",
+      "summary": "A valley cleared under Caeden's commission. It is the central moral wound of Book One.",
+      "play_uses": [
+        "aftermath",
+        "displaced families",
+        "evidence recovery",
+        "road occupation"
+      ],
+      "fixed": true,
+      "sources": [
+        "BOOK1:CH06",
+        "BOOK1:CH07",
+        "BOOK1:CH08",
+        "BOOK1:CH09",
+        "BOOK1:CH10",
+        "BOOK1:CH11"
+      ]
+    },
+    {
+      "id": "loc.caeden_seat",
+      "name": "Caeden's Seat",
+      "type": "lordly court and administrative centre",
+      "region": "The Marches",
+      "summary": "The court from which Caeden's road project and Reshen commission are authorised.",
+      "play_uses": [
+        "petitions",
+        "records",
+        "court intrigue",
+        "contract work"
+      ],
+      "fixed": false,
+      "sources": [
+        "BOOK1:CH06",
+        "BOOK1:CH07"
+      ]
+    },
+    {
+      "id": "loc.house_of_wool",
+      "name": "House of Wool",
+      "type": "merchant household, warehouses and counting rooms",
+      "region": "The Marches",
+      "summary": "Oren Marr's wool house, managed in practice by Sera. A centre of trade, contracts, information and household authority.",
+      "play_uses": [
+        "merchant contracts",
+        "convoys",
+        "guild pressure",
+        "household politics"
+      ],
+      "fixed": false,
+      "sources": [
+        "BOOK1:CH13",
+        "BOOK1:CH14",
+        "BOOK1:CH15",
+        "BOOK1:CH16",
+        "BOOK1:CH17",
+        "BOOK1:CH18"
+      ]
+    },
+    {
+      "id": "loc.lesten_market",
+      "name": "Lesten Market",
+      "type": "bonded market town",
+      "region": "The Marches",
+      "summary": "Destination for the House of Wool convoy through the scrub route.",
+      "play_uses": [
+        "trade",
+        "bonded storage",
+        "caravan work",
+        "price disputes"
+      ],
+      "fixed": false,
+      "sources": [
+        "BOOK1:CH13",
+        "BOOK1:CH14"
+      ]
+    },
+    {
+      "id": "loc.marrow_ford",
+      "name": "Marrow Ford",
+      "type": "river crossing and chain ferry",
+      "region": "The Marches",
+      "summary": "A disputed crossing where legal claims, commercial urgency and armed pressure produce deaths.",
+      "play_uses": [
+        "ferry control",
+        "toll claim",
+        "widows and beneficiaries",
+        "court evidence"
+      ],
+      "fixed": true,
+      "sources": [
+        "BOOK1:CH16",
+        "BOOK1:CH17",
+        "BOOK1:CH18"
+      ]
+    },
+    {
+      "id": "loc.ashen_crossing",
+      "name": "Ashen Crossing",
+      "type": "market village at three roads and a river",
+      "region": "The Marches",
+      "summary": "A trade settlement built around an old stone bridge and a newer timber span. Mael works for its merchants' council.",
+      "play_uses": [
+        "bridge rights",
+        "merchant council",
+        "tanneries",
+        "charters",
+        "Mael encounter"
+      ],
+      "fixed": true,
+      "sources": [
+        "BOOK1:CH21",
+        "BOOK1:CH22",
+        "BOOK1:CH23",
+        "BOOK1:CH24"
+      ]
+    },
+    {
+      "id": "loc.crossroads_garrison",
+      "name": "Crossroads Garrison",
+      "type": "understaffed palisade post",
+      "region": "Northern Marches",
+      "summary": "A neglected garrison built for thirty and occupied by twelve, where Kael meets Davan.",
+      "play_uses": [
+        "patrols",
+        "toll camps",
+        "rotting defences",
+        "young soldiers",
+        "local disputes"
+      ],
+      "fixed": false,
+      "sources": [
+        "BOOK1:CH25",
+        "BOOK1:CH26"
+      ]
+    },
+    {
+      "id": "loc.northern_fort",
+      "name": "The Northern Stone Chamber",
+      "type": "ruined hill fort above a valley",
+      "region": "Northern Marches",
+      "summary": "An abandoned fort where Kael repairs one chamber and begins his written account.",
+      "play_uses": [
+        "winter refuge",
+        "village relations",
+        "old records",
+        "quiet supernatural pressure"
+      ],
+      "fixed": true,
+      "sources": [
+        "BOOK1:PROLOGUE",
+        "BOOK1:CH27",
+        "BOOK1:CH28",
+        "BOOK1:CH29",
+        "BOOK1:CH30"
+      ]
+    },
+    {
+      "id": "loc.caer_ashe",
+      "name": "Caer Ashe",
+      "type": "major mercantile city",
+      "region": "Heartlands edge",
+      "summary": "A significant trade and records centre referenced by characters and beneficiary ties.",
+      "play_uses": [
+        "archives",
+        "merchant networks",
+        "family connections"
+      ],
+      "fixed": false,
+      "sources": [
+        "BOOK1:CH17",
+        "BOOK1:CH19"
+      ]
+    },
+    {
+      "id": "loc.marden",
+      "name": "Marden",
+      "type": "road district and fortification area",
+      "region": "Western Marches",
+      "summary": "A site where road labour, debt and fortification reveal the architecture of local power.",
+      "play_uses": [
+        "forced labour",
+        "fort supply",
+        "farmer resistance"
+      ],
+      "fixed": false,
+      "sources": [
+        "BOOK1:CH20",
+        "BOOK1:CH23"
+      ]
+    }
+  ],
+  "factions": [
+    {
+      "id": "faction.house_caeden",
+      "name": "House Caeden",
+      "type": "lordship",
+      "public_goal": "secure roads, grain movement and territorial authority",
+      "methods": [
+        "commissions",
+        "garrisons",
+        "charters",
+        "administrative omission"
+      ],
+      "game_pressure": "offers lawful work whose full purpose is concealed",
+      "sources": [
+        "BOOK1:CH06",
+        "BOOK1:CH07",
+        "BOOK1:CH08",
+        "BOOK1:CH22"
+      ]
+    },
+    {
+      "id": "faction.house_of_wool",
+      "name": "House of Wool",
+      "type": "merchant household",
+      "public_goal": "move wool, cloth and contracts through dangerous roads",
+      "methods": [
+        "ledgers",
+        "convoys",
+        "guild pressure",
+        "household authority"
+      ],
+      "game_pressure": "commercial urgency collides with local rights and imperfect law",
+      "sources": [
+        "BOOK1:CH13",
+        "BOOK1:CH14",
+        "BOOK1:CH15",
+        "BOOK1:CH16",
+        "BOOK1:CH17",
+        "BOOK1:CH18"
+      ]
+    },
+    {
+      "id": "faction.district_garrisons",
+      "name": "District Garrisons",
+      "type": "local military posts",
+      "public_goal": "maintain roads and order with insufficient resources",
+      "methods": [
+        "patrols",
+        "fees",
+        "selective enforcement",
+        "local reports"
+      ],
+      "game_pressure": "duty ends where jurisdiction, budget or personal risk becomes inconvenient",
+      "sources": [
+        "BOOK1:CH13",
+        "BOOK1:CH25",
+        "BOOK1:CH26"
+      ]
+    },
+    {
+      "id": "faction.ashen_merchants_council",
+      "name": "Ashen Crossing Merchants' Council",
+      "type": "commercial council",
+      "public_goal": "consolidate bridge rights and guarantee winter passage",
+      "methods": [
+        "charters",
+        "compensation",
+        "claim invalidation",
+        "hired administrators"
+      ],
+      "game_pressure": "efficient infrastructure can erase inherited livelihoods",
+      "sources": [
+        "BOOK1:CH21",
+        "BOOK1:CH22",
+        "BOOK1:CH23"
+      ]
+    },
+    {
+      "id": "faction.broken_wheel",
+      "name": "Broken Wheel Riders",
+      "type": "armed road network",
+      "public_goal": "uncertain; described through hostile reports and road activity",
+      "methods": [
+        "raiding",
+        "movement through southern corridors"
+      ],
+      "game_pressure": "official reports may exaggerate, misidentify or exploit their presence",
+      "sources": [
+        "BOOK1:CH07",
+        "BOOK1:CH22"
+      ]
+    },
+    {
+      "id": "faction.harren_clans",
+      "name": "Harren Clans",
+      "type": "eastern federated clans",
+      "public_goal": "protect clan territory and political autonomy",
+      "methods": [
+        "scouts",
+        "clan alliances",
+        "border movement"
+      ],
+      "game_pressure": "Heartlands and Marcher propaganda often flatten them into a hostile category",
+      "sources": [
+        "BOOK1:CH07",
+        "BOOK1:CH22",
+        "C1:BOOK_ONE_GAME_CANON"
+      ]
+    },
+    {
+      "id": "faction.compact",
+      "name": "The Compact",
+      "type": "loose political federation",
+      "public_goal": "provide common legal and political order",
+      "methods": [
+        "courts",
+        "seals",
+        "charters",
+        "distant authority"
+      ],
+      "game_pressure": "local institutions invoke the Compact selectively",
+      "sources": [
+        "BOOK1:FOREWORD",
+        "C1:BOOK_ONE_GAME_CANON"
+      ]
+    },
+    {
+      "id": "faction.borrowed_war_lordships",
+      "name": "Borrowed-War Lordships",
+      "type": "minor rival houses",
+      "public_goal": "defend bridges, levies, farms and prestige",
+      "methods": [
+        "contract captains",
+        "road closure",
+        "retaliation",
+        "legal claims"
+      ],
+      "game_pressure": "small disputes become war without a formal declaration",
+      "sources": [
+        "BOOK1:CH19",
+        "BOOK1:CH20"
+      ]
+    }
+  ],
+  "chapters": [
+    {
+      "unit": "Foreword",
+      "title": "A Compiler of Fragments",
+      "summary": "Aldric Vane frames the surviving account as evidence rather than acquittal and identifies Kael's error: mistaking urgency and narrowing for moral clarity.",
+      "source": "BOOK1:FOREWORD"
+    },
+    {
+      "unit": "Prologue",
+      "title": "The Stone Chamber",
+      "summary": "An older Kael sits in a ruined northern fort during a storm and prepares to write the next true thing.",
+      "source": "BOOK1:PROLOGUE"
+    },
+    {
+      "unit": "Chapter One",
+      "title": "The Ridge",
+      "summary": "Kael surveys a caravan attack in hard rain and chooses the civilian right flank.",
+      "source": "BOOK1:CH01"
+    },
+    {
+      "unit": "Chapter Two",
+      "title": "The Riverbank",
+      "summary": "Kael leads the descent, restores order in mud and smoke, and moves toward the raider captain.",
+      "source": "BOOK1:CH02"
+    },
+    {
+      "unit": "Chapter Three",
+      "title": "The Invitation",
+      "summary": "Kael defeats the raider captain as the Surge intensifies and wonders how far the feeling can take him.",
+      "source": "BOOK1:CH03"
+    },
+    {
+      "unit": "Chapter Four",
+      "title": "The Name in the Ledger",
+      "summary": "The dead and survivors are counted, the story hardens, and the title Iron Captain attaches to Kael.",
+      "source": "BOOK1:CH04"
+    },
+    {
+      "unit": "Chapter Five",
+      "title": "A Cartographer’s Measure",
+      "summary": "Edric maps the Ridge Road accurately and identifies the dangerous logic behind Caeden's Reshen interest.",
+      "source": "BOOK1:CH05"
+    },
+    {
+      "unit": "Chapter Six",
+      "title": "Lord Caeden",
+      "summary": "Caeden summons Kael and introduces the road-security purpose that will become the Reshen commission.",
+      "source": "BOOK1:CH06"
+    },
+    {
+      "unit": "Chapter Seven",
+      "title": "Permission",
+      "summary": "Caeden and Mael define broad authority while omissions and operational language transfer responsibility toward Kael.",
+      "source": "BOOK1:CH07"
+    },
+    {
+      "unit": "Chapter Eight",
+      "title": "Three Hamlets",
+      "summary": "Kael enters Reshen and turns its people, roads, stores and possible resistance into an operational field.",
+      "source": "BOOK1:CH08"
+    },
+    {
+      "unit": "Chapter Nine",
+      "title": "The Mill Road",
+      "summary": "Resistance, smoke, fire and ambiguous categories collapse civilian life into hostile action.",
+      "source": "BOOK1:CH09"
+    },
+    {
+      "unit": "Chapter Ten",
+      "title": "The Second Evening",
+      "summary": "The operation ends without tactical failure, but the Hollow no longer feels ordinary.",
+      "source": "BOOK1:CH10"
+    },
+    {
+      "unit": "Chapter Eleven",
+      "title": "The Debt of Maps",
+      "summary": "Edric presents the second map, omitted names and evidence that the official purpose concealed a road seizure.",
+      "source": "BOOK1:CH11"
+    },
+    {
+      "unit": "Chapter Twelve",
+      "title": "Before Dawn",
+      "summary": "Kael leaves and begins an autopsy of his own decisions without accepting easy absolution.",
+      "source": "BOOK1:CH12"
+    },
+    {
+      "unit": "Chapter Thirteen",
+      "title": "The House of Wool",
+      "summary": "Sera hires Kael for a convoy and evaluates the man beneath the Iron Captain reputation.",
+      "source": "BOOK1:CH13"
+    },
+    {
+      "unit": "Chapter Fourteen",
+      "title": "Terms",
+      "summary": "Kael and Sera establish contractual, personal and consensual boundaries around authority and power.",
+      "source": "BOOK1:CH14"
+    },
+    {
+      "unit": "Chapter Fifteen",
+      "title": "The Iron Captain",
+      "summary": "Kael's reputation becomes part of the House of Wool's defence while Sera tests whether destructive power can choose precision.",
+      "source": "BOOK1:CH15"
+    },
+    {
+      "unit": "Chapter Sixteen",
+      "title": "The River Crossing",
+      "summary": "A commercial crossing dispute becomes armed conflict; Henric and Toman die inside a contract Kael accepted.",
+      "source": "BOOK1:CH16"
+    },
+    {
+      "unit": "Chapter Seventeen",
+      "title": "What Comes After",
+      "summary": "Widows, beneficiaries and household records force the human cost into the room; Sera witnesses Kael's absence.",
+      "source": "BOOK1:CH17"
+    },
+    {
+      "unit": "Chapter Eighteen",
+      "title": "The Man at Her Table",
+      "summary": "Kael answers the dead without recruiting them into purpose and leaves Sera rather than pretending transformation is complete.",
+      "source": "BOOK1:CH18"
+    },
+    {
+      "unit": "Chapter Nineteen",
+      "title": "The Names of Men",
+      "summary": "Kael begins tracing Mael and converts names into coordinates, repeating the instrumental logic he condemns.",
+      "source": "BOOK1:CH19"
+    },
+    {
+      "unit": "Chapter Twenty",
+      "title": "Borrowed Wars",
+      "summary": "For eighteen months Kael follows Mael through minor wars, drawing moral lines without escaping the structures that employ him.",
+      "source": "BOOK1:CH20"
+    },
+    {
+      "unit": "Chapter Twenty-One",
+      "title": "The Market Stall",
+      "summary": "After temporarily abandoning the search, Kael sees Mael in Ashen Crossing and follows him into an alley.",
+      "source": "BOOK1:CH21"
+    },
+    {
+      "unit": "Chapter Twenty-Two",
+      "title": "Grey Rain",
+      "summary": "Mael admits what he knew, identifies Kael's part in Reshen and refuses to become a simple enemy.",
+      "source": "BOOK1:CH22"
+    },
+    {
+      "unit": "Chapter Twenty-Three",
+      "title": "The Wall",
+      "summary": "Kael holds Mael at sword point while the full chain of differentiated responsibility remains visible.",
+      "source": "BOOK1:CH23"
+    },
+    {
+      "unit": "Chapter Twenty-Four",
+      "title": "The Gap",
+      "summary": "Kael spares Mael without extracting gratitude, obedience or proof that restraint will produce a good future.",
+      "source": "BOOK1:CH24"
+    },
+    {
+      "unit": "Chapter Twenty-Five",
+      "title": "The Crossroads Garrison",
+      "summary": "Kael recognises the Surge's appeal in Davan and refuses the young soldier's request to follow.",
+      "source": "BOOK1:CH25"
+    },
+    {
+      "unit": "Chapter Twenty-Six",
+      "title": "A Question Answered",
+      "summary": "Kael teaches Davan to notice what the clean feeling removes and sends him back with Orris Pell's name.",
+      "source": "BOOK1:CH26"
+    },
+    {
+      "unit": "Chapter Twenty-Seven",
+      "title": "Northbound",
+      "summary": "Kael travels without a target, finds an abandoned northern fort and considers staying.",
+      "source": "BOOK1:CH27"
+    },
+    {
+      "unit": "Chapter Twenty-Eight",
+      "title": "The Stone Chamber",
+      "summary": "Kael repairs one room, accepts village terms and begins preserving names without turning them into self-defence.",
+      "source": "BOOK1:CH28"
+    },
+    {
+      "unit": "Chapter Twenty-Nine",
+      "title": "The First Winter",
+      "summary": "Stillness exposes uncertainty; Kael records names, questions and the limits of his first interpretations.",
+      "source": "BOOK1:CH29"
+    },
+    {
+      "unit": "Chapter Thirty",
+      "title": "The First Line",
+      "summary": "During a storm, Kael writes the opening sentence of the account the reader has just read.",
+      "source": "BOOK1:CH30"
+    }
+  ],
+  "mechanics": {
+    "version": "1.0",
+    "resolution": {
+      "die": "d20",
+      "difficulty_bands": {
+        "routine_under_pressure": 8,
+        "standard": 12,
+        "hard": 15,
+        "severe": 18,
+        "exceptional": 22
+      },
+      "natural_20": "improves quality or reduces cost without violating canon",
+      "natural_1": "creates a serious complication without forcing stupidity"
+    },
+    "hp": {
+      "minimum": 0,
+      "default_max": 10,
+      "zero_rule": "defeat state determined by established stakes"
+    },
+    "surge": {
+      "minimum": 0,
+      "maximum": 6,
+      "gain_triggers": [
+        "meaningful risk for declared purpose",
+        "protect another at cost",
+        "difficult oath fulfilled",
+        "decisive action under uncertainty",
+        "accept earned consequence"
+      ],
+      "spends": {
+        "1": [
+          "add 2 after roll",
+          "reroll and keep new result"
+        ],
+        "2": [
+          "seize initiative",
+          "plausible tactical opening",
+          "protect from immediate consequence",
+          "extraordinary physically possible act"
+        ],
+        "3": [
+          "Storm Act within Book One manifestation limits"
+        ]
+      },
+      "overdraw": "each missing Surge becomes one Hollow plus immediate complication"
+    },
+    "hollow": {
+      "minimum": 0,
+      "maximum": 6,
+      "thresholds": {
+        "2": "subtle omissions and emotional distance",
+        "3": "player-defined fixation becomes a temptation",
+        "4": "bond, reputation or conviction under active strain",
+        "5": "rest cannot reduce Hollow",
+        "6": "player-chosen breaking or legacy scene"
+      }
+    },
+    "hidden_tags": [
+      "witness",
+      "restraint",
+      "honour",
+      "loyalty",
+      "sacrifice",
+      "purpose",
+      "legacy"
+    ]
+  },
+  "claims": [
+    {
+      "id": "claim.book1.identity",
+      "class": "C0",
+      "text": "The published Book One is The Noise of Purpose, Book One of The Unquiet Marches, by P A Myint.",
+      "sources": [
+        "PUBLICATION_MASTER"
+      ]
+    },
+    {
+      "id": "claim.kael.name",
+      "class": "C0",
+      "text": "The protagonist is Kael Vorn.",
+      "sources": [
+        "BOOK1:CH04",
+        "BOOK1:ALL"
+      ]
+    },
+    {
+      "id": "claim.kael.title",
+      "class": "C0",
+      "text": "Kael becomes known as the Iron Captain after the Ridge Road battle.",
+      "sources": [
+        "BOOK1:CH03",
+        "BOOK1:CH04"
+      ]
+    },
+    {
+      "id": "claim.ridge.choice",
+      "class": "C0",
+      "text": "At the Ridge Road, Kael chooses the civilian right flank while leaving the raider captain initially free.",
+      "sources": [
+        "BOOK1:CH01"
+      ]
+    },
+    {
+      "id": "claim.reshen.commission",
+      "class": "C0",
+      "text": "Caeden commissions the Reshen operation through broad road-security and hostile-support language.",
+      "sources": [
+        "BOOK1:CH06",
+        "BOOK1:CH07"
+      ]
+    },
+    {
+      "id": "claim.reshen.outcome",
+      "class": "C0",
+      "text": "The Reshen operation causes civilian deaths, fire, seizure and dispossession despite no tactical failure.",
+      "sources": [
+        "BOOK1:CH08",
+        "BOOK1:CH09",
+        "BOOK1:CH10"
+      ]
+    },
+    {
+      "id": "claim.edric.record",
+      "class": "C0",
+      "text": "Edric preserves a second account through maps, names and omissions.",
+      "sources": [
+        "BOOK1:CH05",
+        "BOOK1:CH11"
+      ]
+    },
+    {
+      "id": "claim.sera.role",
+      "class": "C0",
+      "text": "Sera exercises practical authority over the House of Wool through judgement, contracts and household management.",
+      "sources": [
+        "BOOK1:CH13",
+        "BOOK1:CH14"
+      ]
+    },
+    {
+      "id": "claim.sera.kael_terms",
+      "class": "C0",
+      "text": "Sera and Kael establish explicit terms and consensual boundaries around authority.",
+      "sources": [
+        "BOOK1:CH14",
+        "BOOK1:CH15"
+      ]
+    },
+    {
+      "id": "claim.marrow.deaths",
+      "class": "C0",
+      "text": "Henric and Toman die because the Marrow Ford contract becomes armed conflict.",
+      "sources": [
+        "BOOK1:CH16",
+        "BOOK1:CH17",
+        "BOOK1:CH18"
+      ]
+    },
+    {
+      "id": "claim.mael.alive",
+      "class": "C0",
+      "text": "Mael Serrin is alive at the end of the Ashen Crossing confrontation.",
+      "sources": [
+        "BOOK1:CH24"
+      ]
+    },
+    {
+      "id": "claim.mael.work",
+      "class": "C0",
+      "text": "Mael works for the Ashen Crossing merchants' council on bridge-right consolidation.",
+      "sources": [
+        "BOOK1:CH21",
+        "BOOK1:CH22"
+      ]
+    },
+    {
+      "id": "claim.davan.status",
+      "class": "C0",
+      "text": "Davan is alive and returns toward the crossroads garrison after speaking with Kael.",
+      "sources": [
+        "BOOK1:CH26"
+      ]
+    },
+    {
+      "id": "claim.kael.end",
+      "class": "C0",
+      "text": "Kael ends Book One in the northern stone chamber and writes the first line of his account.",
+      "sources": [
+        "BOOK1:CH30"
+      ]
+    },
+    {
+      "id": "claim.magic.exists",
+      "class": "C1",
+      "text": "Rare supernatural phenomena are publicly believed to exist in the wider world.",
+      "sources": [
+        "AUTHOR_DECISION:2026-06-14"
+      ]
+    },
+    {
+      "id": "claim.magic.rare",
+      "class": "C1",
+      "text": "Book One magic is rare, ambiguous and culturally interpreted rather than routine spellcasting.",
+      "sources": [
+        "AUTHOR_DECISION:2026-06-14"
+      ]
+    },
+    {
+      "id": "claim.kael.ignorance",
+      "class": "C1",
+      "text": "Kael does not know that the Surge and Hollow may belong to the world's deeper power.",
+      "sources": [
+        "AUTHOR_DECISION:2026-06-14",
+        "BOOK1:ALL"
+      ]
+    },
+    {
+      "id": "claim.player.original",
+      "class": "C1",
+      "text": "The default player character is original and does not replace a canonical protagonist.",
+      "sources": [
+        "AUTHOR_DECISION:GAME_MODEL"
+      ]
+    },
+    {
+      "id": "claim.game.open",
+      "class": "C1",
+      "text": "The game is open-world and must accept free-form player intent.",
+      "sources": [
+        "AUTHOR_DECISION:GAME_MODEL"
+      ]
+    },
+    {
+      "id": "claim.game.anchors",
+      "class": "C1",
+      "text": "Published Book One anchor events remain fixed in canon-adjacent mode.",
+      "sources": [
+        "AUTHOR_DECISION:GAME_MODEL"
+      ]
+    }
+  ],
+  "rumours": [
+    {
+      "id": "rumour.iron_captain.forty",
+      "claim": "The Iron Captain killed forty raiders alone.",
+      "truth": "exaggerated",
+      "sources": [
+        "BOOK1:CH13"
+      ]
+    },
+    {
+      "id": "rumour.reshen.army",
+      "claim": "Reshen held a large organised rebel force.",
+      "truth": "false_or_grossly_misleading",
+      "sources": [
+        "BOOK1:CH07",
+        "BOOK1:CH11",
+        "BOOK1:CH22"
+      ]
+    },
+    {
+      "id": "rumour.harren.barbarian",
+      "claim": "The Harren Clans are a single barbarian horde.",
+      "truth": "propaganda",
+      "sources": [
+        "C1:BOOK_ONE_GAME_CANON"
+      ]
+    },
+    {
+      "id": "rumour.storm_marked",
+      "claim": "Some soldiers become impossible to stop when thunder answers them.",
+      "truth": "unverified_folk_interpretation",
+      "sources": [
+        "BOOK1:CH03",
+        "C1:MAGIC_KNOWLEDGE"
+      ]
+    },
+    {
+      "id": "rumour.ashen_bridge",
+      "claim": "The Orren tannery never held lawful bridge rights.",
+      "truth": "disputed",
+      "sources": [
+        "BOOK1:CH22",
+        "BOOK1:CH23"
+      ]
+    },
+    {
+      "id": "rumour.edric_traitor",
+      "claim": "Edric Vale falsified maps to damage Caeden.",
+      "truth": "hostile_counterclaim",
+      "sources": [
+        "BOOK1:CH05",
+        "BOOK1:CH11"
+      ]
+    }
+  ],
+  "banned_contradictions": {
+    "version": "1.0",
+    "forbidden_public_assertions": [
+      "Kael's Surge has a fully explained named cosmological source.",
+      "The player is the singular chosen saviour of the world.",
+      "Mael died in the Ashen Crossing alley.",
+      "The Reshen operation was a clean battle against a confirmed standing army.",
+      "Sera exists only as Kael's subordinate or reward.",
+      "Davan is already Kael's formal apprentice.",
+      "Routine resurrection, teleportation or public combat spell schools exist in the Book One Marches.",
+      "The former name Vaen is Kael's canonical name.",
+      "Stormwright is the current series identity."
+    ],
+    "fixed_anchor_ids": [
+      "anchor.ridge_road",
+      "anchor.reshen",
+      "anchor.house_of_wool",
+      "anchor.marrow_ford",
+      "anchor.ashen_crossing",
+      "anchor.davan",
+      "anchor.first_line"
+    ]
+  },
+  "assets": {
+    "map": {
+      "id": "asset.map.core",
+      "path": "vallum-engine/assets/map/core-map.jpg"
+    },
+    "characters": {
+      "Kael Vorn": "vallum-engine/assets/cards/kael.png",
+      "Lord Caeden": "vallum-engine/assets/cards/caeden.png",
+      "Sera": "vallum-engine/assets/cards/sera.png",
+      "Mael Serrin": "vallum-engine/assets/cards/mael.png",
+      "Edric Vale": "vallum-engine/assets/cards/edric.png",
+      "Davan": "vallum-engine/assets/cards/davan.png",
+      "Raider Captain": "vallum-engine/assets/cards/raider-captain.png"
+    },
+    "icons": {
+      "force": "vallum-engine/assets/icons/force.png",
+      "restraint": "vallum-engine/assets/icons/restraint.png",
+      "witness": "vallum-engine/assets/icons/witness.png",
+      "hollow": "vallum-engine/assets/icons/hollow.png",
+      "reputation": "vallum-engine/assets/icons/reputation.png",
+      "honour": "vallum-engine/assets/icons/honour.png",
+      "purpose": "vallum-engine/assets/icons/purpose.png",
+      "loyalty": "vallum-engine/assets/icons/loyalty.png",
+      "sacrifice": "vallum-engine/assets/icons/sacrifice.png",
+      "legacy": "vallum-engine/assets/icons/legacy.png"
+    }
+  }
+}

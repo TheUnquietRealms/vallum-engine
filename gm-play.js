@@ -8,8 +8,9 @@
 (function () {
   "use strict";
   var KEY_STORE = "vallum.anthropic.key";
-  var SAVE = "um.gm.save.v2";
-  var PACK_PATH = "canon/book-one-canon-pack.json";
+  var SAVE = "um.gm.save.v3";
+  var PACK_PATH = "canon/public-runtime-bundle.json";
+  var PROMPT_PATH = "canon/ai-gm-system-prompt.md";
   var MODEL = "claude-opus-4-8";   // route cheaper models for routine turns once hosted
 
   var WRAPPER = [
@@ -23,9 +24,9 @@
     "Every field except narration and actions is optional. JSON only."
   ].join("\n");
 
-  var FALLBACK_CANON = '{"meta":{"world":"The Unquiet Marches"},"note":"canon pack failed to load — run on Book One public tone: dark feudal fantasy, terse present tense, HP/Surge/Hollow/d20, the world remembers."}';
-  var SYSTEM = WRAPPER, PACK = null;
-  function buildSystem() { SYSTEM = WRAPPER + "\n\nYOUR CANON (the brain — obey it):\n" + (PACK ? JSON.stringify(PACK) : FALLBACK_CANON); }
+  var FALLBACK_CANON = '{"meta":{"world":"The Unquiet Marches"},"note":"canon bundle failed to load — run on Book One public tone: dark feudal fantasy, terse present tense, HP/Surge/Hollow/d20, the world remembers."}';
+  var SYSTEM = WRAPPER, PACK = null, PROMPT_TEXT = null;
+  function buildSystem() { SYSTEM = (PROMPT_TEXT || WRAPPER) + "\n\nCANON BUNDLE — your source of truth; treat C0 as immutable, C3 as rumour, never reveal restricted material:\n" + (PACK ? JSON.stringify(PACK) : FALLBACK_CANON); }
 
   var REGIONS = [
     ["greywatch",72,8],["north",55,12],["grey pike",76,26],["harren",92,40],["pass",88,32],
@@ -43,7 +44,8 @@
   function save() { try { localStorage.setItem(SAVE, JSON.stringify({ state: state, history: history.slice(-16) })); } catch (e) {} }
   function load() { try { var r = localStorage.getItem(SAVE); return r ? JSON.parse(r) : null; } catch (e) { return null; } }
   function wipe() { try { localStorage.removeItem(SAVE); } catch (e) {} }
-  function freshState() { return { hp: 20, hpMax: 20, surge: 3, surgeMax: 5, hollow: 0, location: "The Eastern Marches", world: { time: "dusk", facts: [], hooks: [], rel: {}, fac: {} } }; }
+  function mechMax(which, dflt) { try { var m = PACK.mechanics; return (which === "hp" ? m.hp.default_max : which === "surge" ? m.surge.maximum : m.hollow.maximum) || dflt; } catch (e) { return dflt; } }
+  function freshState() { var hpM = mechMax("hp", 10), suM = mechMax("surge", 6), hoM = mechMax("hollow", 6); return { hp: hpM, hpMax: hpM, surge: Math.min(2, suM), surgeMax: suM, hollow: 0, hollowMax: hoM, location: "The Eastern Marches", world: { time: "dusk", facts: [], hooks: [], rel: {}, fac: {} } }; }
 
   function isMock() { return location.search.indexOf("mock=1") > -1; }
 
@@ -53,7 +55,7 @@
     var res = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
       headers: { "content-type": "application/json", "x-api-key": k, "anthropic-version": "2023-06-01", "anthropic-dangerous-direct-browser-access": "true" },
-      body: JSON.stringify({ model: MODEL, max_tokens: 1000, system: SYSTEM, messages: messages })
+      body: JSON.stringify({ model: MODEL, max_tokens: 1000, system: [{ type: "text", text: SYSTEM, cache_control: { type: "ephemeral" } }], messages: messages })
     });
     if (!res.ok) { var e = {}; try { e = await res.json(); } catch (x) {} throw new Error((e.error && e.error.message) || ("API error " + res.status)); }
     var data = await res.json();
@@ -123,7 +125,7 @@
     $("gmText").innerHTML = String(obj.narration || "").split("\n\n").map(function (p) { return "<p>" + p + "</p>"; }).join("");
     renderDice(obj.dice); renderMeters();
     var p = locToPos(state.location); var tk = $("tokKael"); tk.style.left = p[0] + "%"; tk.style.top = p[1] + "%";
-    if (state.hollow >= 10) return ending("The Hollow has taken them. The account closes.");
+    if (state.hollow >= (state.hollowMax || 6)) return ending("The Hollow has taken them. The account closes.");
     if (state.hp <= 0) return ending("They fall on the road. The Marches keep no record of it — but the world remembers what they did to get here.");
     setActions(Array.isArray(obj.actions) && obj.actions.length ? obj.actions : ["Press on"]);
   }
@@ -137,10 +139,11 @@
   }
   function renderMeters() {
     function bar(name, v, max, cls) { var pct = Math.round((v / max) * 100); return '<div class="meter ' + cls + '"><div class="m-top"><span>' + name + "</span><b>" + v + "/" + max + '</b></div><div class="m-track"><div class="m-fill" style="width:' + pct + '%"></div></div></div>'; }
-    var h = state.hollow, pips = ""; for (var i = 1; i <= 10; i++) pips += '<span class="pip' + (i <= h ? " on" : "") + (i >= 7 ? " warn" : "") + '"></span>';
-    var cue = h >= 10 ? "the account closes" : h >= 7 ? "it shows now" : "held";
+    var h = state.hollow, hm = state.hollowMax || 6, warn = hm - 1, pips = "";
+    for (var i = 1; i <= hm; i++) pips += '<span class="pip' + (i <= h ? " on" : "") + (i >= warn ? " warn" : "") + '"></span>';
+    var cue = h >= hm ? "it breaks him" : h >= warn ? "rest will not ease it" : "held";
     $("kaelStats").innerHTML = bar("Health", state.hp, state.hpMax, "hp") + bar("Surge", state.surge, state.surgeMax, "surge") +
-      '<div class="meter hollow"><div class="m-top"><span>The Hollow</span><b>' + h + '/10</b></div><div class="hm-pips">' + pips + '</div><div class="hm-cue">' + cue + "</div></div>";
+      '<div class="meter hollow"><div class="m-top"><span>The Hollow</span><b>' + h + "/" + hm + '</b></div><div class="hm-pips">' + pips + '</div><div class="hm-cue">' + cue + "</div></div>";
   }
   function setActions(list) {
     var ab = $("actions"); ab.innerHTML = "";
@@ -157,6 +160,7 @@
     var sv = resume && load();
     state = (sv && sv.state) || freshState();
     if (!state.world) state.world = freshState().world;
+    if (!state.hollowMax) state.hollowMax = mechMax("hollow", 6);
     history = (sv && sv.history) || [];
     $("cover").style.display = "none"; $("complete").style.display = "none"; $("hud").style.display = "";
     renderMeters(); var p = locToPos(state.location); var tk = $("tokKael"); tk.style.left = p[0] + "%"; tk.style.top = p[1] + "%";
@@ -170,7 +174,10 @@
 
   function boot() {
     var mock = isMock();
-    fetch(PACK_PATH, { cache: "no-store" }).then(function (r) { return r.json(); }).then(function (j) { PACK = j; }).catch(function () { PACK = null; }).then(buildSystem);
+    Promise.all([
+      fetch(PROMPT_PATH, { cache: "no-store" }).then(function (r) { return r.text(); }).catch(function () { return null; }),
+      fetch(PACK_PATH, { cache: "no-store" }).then(function (r) { return r.json(); }).catch(function () { return null; })
+    ]).then(function (res) { PROMPT_TEXT = res[0]; PACK = res[1]; buildSystem(); });
     if (load()) { $("continueBtn").style.display = ""; $("continueBtn").addEventListener("click", function () { startGame(true); }); }
     $("beginBtn").addEventListener("click", function () { if (!mock && !getKey()) { showKeyModal(); return; } wipe(); startGame(false); });
     $("keySave").addEventListener("click", function () { var v = $("keyInput").value; if (v) { setKey(v); hideKeyModal(); wipe(); startGame(false); } });
