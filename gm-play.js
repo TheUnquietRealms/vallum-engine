@@ -12,6 +12,7 @@
   var PACK_PATH = "canon/public-runtime-bundle.json";
   var PROMPT_PATH = "canon/ai-gm-system-prompt.md";
   var MODEL = "claude-opus-4-8";   // route cheaper models for routine turns once hosted
+  var BUILD = "v4";                 // shown in the on-screen badge so we can confirm the live build
 
   var WRAPPER = [
     "You are the Game Master of a solo tabletop RPG. ONE player, playing their OWN ORIGINAL character — NOT Kael Vorn (Kael and the rest are canon NPCs in the world). You are their Dungeon Master: reactive, fair, vivid, never railroading.",
@@ -219,6 +220,39 @@
   function hideKeyModal() { $("keyModal").style.display = "none"; }
   function sendFree() { var v = $("freeInput").value.trim(); if (v) { $("freeInput").value = ""; takeTurn(v); } }
 
+  function keyMsg(el, color, text) { if (!el) return; el.style.display = ""; el.style.color = color; el.style.borderColor = color; el.textContent = text; }
+  function humanKeyError(status, msg) {
+    if (status === 401 || /x-api-key|authentication|unauthor/i.test(msg)) return "✗ Anthropic rejected this key (" + msg + "). It must be an API key from console.anthropic.com → API Keys — not your Claude.ai login.";
+    if (status === 402 || /credit|billing|insufficient|balance|quota/i.test(msg)) return "✗ The key is valid, but the account has no credit (" + msg + "). Add credit at console.anthropic.com → Billing.";
+    if (status === 429) return "✗ Rate limited (" + msg + "). Wait a few seconds and test again.";
+    if (status >= 500) return "✗ Anthropic is having trouble right now (" + msg + "). Try again shortly.";
+    return "✗ " + msg;
+  }
+  // One tiny real call so the player (and I) can see in plain words whether the key works — before playing.
+  async function testConnection() {
+    var el = $("keyError");
+    var v = (($("keyInput").value || "").replace(/\s+/g, "")) || getKey();
+    if (!v) { keyMsg(el, "#a23a2a", "Paste your key first, then test."); return; }
+    if (v.indexOf("sk-ant-") !== 0) { keyMsg(el, "#a23a2a", "That does not look like an API key — it should start with “sk-ant-”."); return; }
+    keyMsg(el, "#5f4a22", "Testing the key against Anthropic…");
+    var ctrl = new AbortController(); var t = setTimeout(function () { ctrl.abort(); }, 30000);
+    try {
+      var res = await fetch("https://api.anthropic.com/v1/messages", {
+        method: "POST",
+        headers: { "content-type": "application/json", "x-api-key": v, "anthropic-version": "2023-06-01", "anthropic-dangerous-direct-browser-access": "true" },
+        body: JSON.stringify({ model: MODEL, max_tokens: 8, messages: [{ role: "user", content: "ping" }] }),
+        signal: ctrl.signal
+      });
+      clearTimeout(t);
+      if (res.ok) { setKey(v); keyMsg(el, "#3a6a2a", "✓ Connected — the key works. Seat the GM and play."); return; }
+      var e = {}; try { e = await res.json(); } catch (x) {}
+      keyMsg(el, "#a23a2a", humanKeyError(res.status, (e.error && e.error.message) || ("HTTP " + res.status)));
+    } catch (err) {
+      clearTimeout(t);
+      keyMsg(el, "#a23a2a", (err && err.name === "AbortError") ? "✗ No answer in 30s — a network, VPN, or firewall is blocking Anthropic." : "✗ Could not reach Anthropic — check your internet, VPN, or ad-blocker.");
+    }
+  }
+
   function boot() {
     var mock = isMock();
     Promise.all([
@@ -240,7 +274,9 @@
     $("surgeBtn").addEventListener("click", function () { takeTurn("The character reaches for the Surge — lets it rise and uses it now, on whatever is before them. Charge the Hollow."); });
     $("sendBtn").addEventListener("click", sendFree);
     $("freeInput").addEventListener("keydown", function (e) { if (e.key === "Enter") sendFree(); });
-    if ($("keyBtn")) $("keyBtn").addEventListener("click", showKeyModal);
+    if ($("keyBtn")) $("keyBtn").addEventListener("click", function () { showKeyModal(); });
+    if ($("keyTest")) $("keyTest").addEventListener("click", testConnection);
+    var bb = $("buildBadge"); if (bb) bb.textContent = "engine " + BUILD + (mock ? " · demo" : "");
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot); else boot();
 })();
