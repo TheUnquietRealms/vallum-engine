@@ -1275,6 +1275,8 @@ function renderSessionComplete() {
   dom.sessionComplete.hidden = false;
   setText(dom.completeTitle, campaign.title);
   setText(dom.completeEyebrow, (campaign.close && campaign.close.eyebrow) || "Book One closes");
+  const portraitLabel = $("completePortraitLabel");
+  if (portraitLabel) setText(portraitLabel, ((state.player && state.player.name) ? state.player.name + " — " : "") + "After the Road");
   if (dom.completeJournal) {
     dom.completeJournal.innerHTML = "";
     state.journal.forEach((entry) => {

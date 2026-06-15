@@ -36,7 +36,7 @@
               <p class="page-eyebrow">The Compiler's note, on the final leaf</p>
               <div class="page-body page-prose">
                 <p>Here my hand stops. I have given you everything the Archive holds — the road, the rain, the man riding into both.</p>
-                <p>The pages that remain are not written in ink. They wait. What the Iron Captain does next was never recorded, because it has not happened yet — it happens when you decide it.</p>
+                <p>The pages that remain are not written in ink. They wait. What happens next in the Marches was never recorded, because it has not happened yet — it happens when you decide it.</p>
                 <p>Reader: the story knows you are here. When you turn this page you will not be reading it any longer. You will be in it.</p>
                 <p class="page-rule-line">The table keeps its own rules, and the Game Master keeps them for you. Choose, and the dice answer. Everything else, you may ask.</p>
               </div>
@@ -53,17 +53,17 @@
         <!-- Leaf 3 · Kael Vorn -->
         <div class="leaf" data-leaf="2">
           <div class="leaf-front">
-            <div class="page-inner" id="introBeat4" data-screen-label="Page 3 Kael Vorn">
-              <p class="page-eyebrow">Iron Captain &middot; Eastern Marches</p>
-              <h2 class="page-title">Kael Vorn</h2>
+            <div class="page-inner" id="introBeat4" data-screen-label="Page 3 The table's measures">
+              <p class="page-eyebrow">The table &middot; what is kept on you</p>
+              <h2 class="page-title">Your Own Account</h2>
               <div class="page-body">
-                <p class="page-prose page-bio"><em>Decorated officer. Effective beyond the needs of the situation. Men follow the name before they follow the orders. He has not decided whether that is useful or dangerous.</em></p>
+                <p class="page-prose page-bio"><em>You are not the Iron Captain. He is a name carried ahead of you on this road &mdash; a rumour, a warning, a man others measure themselves against. You come to the Marches as your own, and the table keeps an account of who you turn out to be.</em></p>
                 <div class="book-stats">
-                  <div class="book-stat"><span class="bs-name">Force</span><span class="bs-dots">●●●●○</span><span class="bs-note">where the account begins</span></div>
-                  <div class="book-stat"><span class="bs-name">Restraint</span><span class="bs-dots">●●○○○</span><span class="bs-note">the work ahead of him</span></div>
-                  <div class="book-stat"><span class="bs-name">Witness</span><span class="bs-dots">●●○○○</span><span class="bs-note">he sees, he does not always act</span></div>
+                  <div class="book-stat"><span class="bs-name">Force</span><span class="bs-dots">●●●○○</span><span class="bs-note">what you are willing to break</span></div>
+                  <div class="book-stat"><span class="bs-name">Restraint</span><span class="bs-dots">●●●○○</span><span class="bs-note">what you are willing to hold</span></div>
+                  <div class="book-stat"><span class="bs-name">Witness</span><span class="bs-dots">●●●○○</span><span class="bs-note">what you let yourself see</span></div>
                   <div class="book-stat book-stat-hollow"><span class="bs-name">Hollow</span><span class="bs-dots">○○○○○</span><span class="bs-note">at seven it shows; at ten the account closes</span></div>
-                  <div class="book-stat"><span class="bs-name">Reputation</span><span class="bs-dots">●●●○○</span><span class="bs-note">the name precedes the man</span></div>
+                  <div class="book-stat"><span class="bs-name">Reputation</span><span class="bs-dots">●○○○○</span><span class="bs-note">what the road decides to say of you</span></div>
                 </div>
               </div>
               <div class="page-actions">
@@ -112,19 +112,14 @@
 
         <!-- Front cover (opens to become the left board) -->
         <div class="book-cover" id="bookCover">
-          <div class="cover-front" id="introBeat1" data-screen-label="Book cover">
-            <div class="cover-rule" aria-hidden="true"></div>
-            <p class="cover-eyebrow">The Unquiet Marches</p>
-            <h1 class="cover-title">The Iron<br>Captain</h1>
-            <p class="cover-chapter">Book One · The Noise of Purpose</p>
-            <p class="cover-tagline">&ldquo;Any soldier of sufficient skill can be the storm.&rdquo;</p>
+          <div class="cover-front cover-front--art" id="introBeat1" data-screen-label="Book cover">
+            <img class="cover-art-img" src="assets/cover.png" alt="The Unquiet Marches, Book One: The Noise of Purpose, by P A Myint" />
             <div class="cover-actions-book">
               <button id="introEnterBtn" class="cover-open-btn">Open the book</button>
               <button id="continueBtn" class="cover-resume-btn" hidden>Resume the session</button>
             </div>
             <p class="cover-status" id="coverStatus"></p>
             <button id="seatGmLink" class="cover-gm-link" type="button" hidden>Want a live Game Master? Seat one</button>
-            <div class="cover-rule cover-rule-btm" aria-hidden="true"></div>
           </div>
           <div class="cover-inside">
             <div class="endpaper-orn" aria-hidden="true"></div>
@@ -320,7 +315,7 @@
           <div id="completeJournal"></div>
         </div>
         <div class="complete-portrait">
-          <p class="eyebrow">Kael Vorn — After the Road</p>
+          <p class="eyebrow" id="completePortraitLabel">After the Road</p>
           <div id="completePortrait"></div>
         </div>
       </div>

@@ -2574,3 +2574,28 @@ body.cover-open .play-shell { display: none; }
   color: #f3e7cd; font-size: 16px; font-family: Georgia, serif; letter-spacing: 0.02em;
 }
 .create-begin:hover { background: linear-gradient(180deg, #8d3322, #6a2417); }
+
+/* ── Real cover art on the book front ──────────────────────────────── */
+.cover-front--art { position: absolute; inset: 0; padding: 0 !important; overflow: hidden; }
+.cover-front--art .cover-art-img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; display: block; user-select: none; -webkit-user-drag: none;
+}
+.cover-front--art .cover-actions-book {
+  position: absolute; left: 0; right: 0; bottom: 13%; z-index: 3;
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  padding: 0 18px;
+}
+.cover-front--art .cover-open-btn,
+.cover-front--art .cover-resume-btn {
+  background: rgba(14,9,5,0.72); border: 1px solid rgba(216,189,132,0.55);
+  color: #f3e7cd; backdrop-filter: blur(2px); padding: 11px 22px; border-radius: 8px;
+  font-family: Georgia, serif; letter-spacing: 0.02em; cursor: pointer;
+}
+.cover-front--art .cover-open-btn:hover,
+.cover-front--art .cover-resume-btn:hover { background: rgba(40,28,14,0.85); border-color: #c8a850; }
+.cover-front--art .cover-status {
+  position: absolute; left: 0; right: 0; bottom: 7%; z-index: 3;
+  text-align: center; color: #e9dcc0; text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+  padding: 0 18px; font-size: 12px;
+}
