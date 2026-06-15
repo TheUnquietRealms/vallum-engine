@@ -2633,3 +2633,35 @@ body.cover-open .play-shell { display: none; }
 .measure-list li img { width: 26px; height: 26px; flex-shrink: 0; object-fit: contain; margin-top: 1px; filter: drop-shadow(0 1px 1px rgba(0,0,0,0.5)); }
 .measure-list li span { font-size: 13.5px; line-height: 1.5; color: #ddccab; }
 .measure-list li strong { color: #f1e6cc; }
+
+/* ── Lightweight fade onboarding (replaces the heavy 3D page-turn) ──── */
+/* Kills perspective/preserve-3d/rotateY/backface compositing that caused
+   freezes, cursor artefacts and pages that would not turn on some machines. */
+.book-scene, .book { perspective: none !important; }
+.book, .leaf, .leaf-front, .leaf-back, .book-cover, .cover-inside {
+  transform: none !important;
+  transform-style: flat !important;
+  -webkit-transform-style: flat !important;
+}
+.leaf, .leaf-front, .leaf-back, .book-cover {
+  backface-visibility: visible !important;
+  -webkit-backface-visibility: visible !important;
+}
+.leaf {
+  position: absolute; inset: 0;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.32s ease;
+}
+.leaf.page-active { opacity: 1; pointer-events: auto; }
+.leaf .leaf-front { position: absolute; inset: 0; visibility: visible !important; }
+.leaf .leaf-back { display: none !important; }
+.book-cover {
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.32s ease;
+}
+.book-cover.page-active { opacity: 1; pointer-events: auto; }
+.cover-inside { display: none !important; }
+.leaf.turned { cursor: default; }
+@media (prefers-reduced-motion: reduce) {
+  .leaf, .book-cover { transition-duration: 0.01s; }
+}

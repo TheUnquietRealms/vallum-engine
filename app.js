@@ -242,13 +242,18 @@ function showIntroBeat(n) {
     root.classList.remove("open");
     if (hint) hint.hidden = false;
   }
+  // Lightweight fade model: exactly one page is shown at a time.
+  // n < 2 → the cover;  n >= 2 → leaf (n - 2). No 3D page-turn.
+  const cover = document.getElementById("bookCover");
   const leaves = Array.from(root.querySelectorAll(".leaf"))
     .sort((a, b) => Number(a.dataset.leaf) - Number(b.dataset.leaf));
+  const activeLeaf = n >= 2 ? n - 2 : -1;
+  if (cover) cover.classList.toggle("page-active", activeLeaf < 0);
   leaves.forEach((leaf, i) => {
-    const turned = i < n - 2;
-    leaf.classList.toggle("turned", turned);
-    // Turned leaves pile left (later turns on top); unturned stack right (next page on top)
-    leaf.style.zIndex = turned ? String(10 + i) : String(30 - i);
+    const active = i === activeLeaf;
+    leaf.classList.toggle("page-active", active);
+    leaf.classList.toggle("turned", i < activeLeaf); // kept for back-compat styles only
+    leaf.style.zIndex = active ? "40" : "10";
   });
 }
 
