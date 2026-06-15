@@ -632,7 +632,11 @@ function renderBackgroundChoices() {
     const b = document.createElement("button");
     b.type = "button";
     b.className = "create-bg" + (bg.id === pendingBackground.id ? " selected" : "");
-    b.innerHTML = `<span class="create-bg-title">${escapeHtml(bg.title)}</span><span class="create-bg-drive">${escapeHtml(bg.drive)}</span>`;
+    const leanKey = bg.lean ? Object.keys(bg.lean)[0] : null;
+    const leanTag = leanKey
+      ? `<span class="create-bg-lean"><img class="stat-icon-sm" src="assets/icons/${leanKey}.png" alt="" aria-hidden="true" />Starts with +1 ${leanKey.charAt(0).toUpperCase() + leanKey.slice(1)}</span>`
+      : "";
+    b.innerHTML = `<span class="create-bg-title">${escapeHtml(bg.title)}</span><span class="create-bg-drive">${escapeHtml(bg.drive)}</span>${leanTag}`;
     b.addEventListener("click", () => { pendingBackground = bg; renderBackgroundChoices(); });
     wrap.appendChild(b);
   });
@@ -778,19 +782,20 @@ function renderCharacterPanel() {
   panel.className = "storm-state-panel";
   panel.innerHTML = `
     <div class="section-title">Inner State</div>
-    ${stateLine("Force", state.moralState.force, forceLabel)}
-    ${stateLine("Restraint", state.moralState.restraint, restraintLabel)}
-    ${stateLine("Witness", state.moralState.witness, witnessLabel)}
-    ${stateLine("Hollow", state.moralState.hollow, hollowLabel)}
-    ${stateLine("Reputation", state.moralState.reputation, reputationLabel)}
+    ${stateLine("Force", state.moralState.force, forceLabel, false, "force")}
+    ${stateLine("Restraint", state.moralState.restraint, restraintLabel, false, "restraint")}
+    ${stateLine("Witness", state.moralState.witness, witnessLabel, false, "witness")}
+    ${stateLine("Hollow", state.moralState.hollow, hollowLabel, false, "hollow")}
+    ${stateLine("Reputation", state.moralState.reputation, reputationLabel, false, "reputation")}
     <div class="section-title objective-title">The Field</div>
     ${fieldLines()}
   `;
   dom.partyList.appendChild(panel);
 }
 
-function stateLine(label, value = 0, labelFn = genericLabel, objective = false) {
-  return `<div class="state-line ${objective ? "objective" : ""}"><span>${label}<em>${labelFn(value)}</em></span><strong>${value}</strong></div>`;
+function stateLine(label, value = 0, labelFn = genericLabel, objective = false, icon = null) {
+  const ic = icon ? `<img class="stat-icon" src="assets/icons/${icon}.png" alt="" aria-hidden="true" />` : "";
+  return `<div class="state-line ${objective ? "objective" : ""}">${ic}<span>${label}<em>${labelFn(value)}</em></span><strong>${value}</strong></div>`;
 }
 
 function renderJournal() {

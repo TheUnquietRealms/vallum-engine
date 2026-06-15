@@ -828,20 +828,25 @@
 /* ── Decision card choices ───────────────────────────────── */
 
 .storm-choice {
-  border: 1px solid rgba(216, 189, 132, 0.10);
-  border-left: 3px solid rgba(216, 189, 132, 0.22);
+  display: block;
+  width: 100%;
+  text-align: left;
+  border: 1px solid rgba(216, 189, 132, 0.22);
+  border-left: 3px solid rgba(216, 189, 132, 0.5);
   border-radius: 10px;
-  padding: 13px 14px 13px 18px;
-  margin-bottom: 8px;
-  background: rgba(255, 255, 255, 0.025);
-  transition: border-left-color 0.16s ease, background 0.16s ease, transform 0.12s ease;
-  line-height: 1.45;
+  padding: 16px 16px 16px 18px;
+  margin-bottom: 10px;
+  background: linear-gradient(180deg, rgba(42, 31, 18, 0.55), rgba(24, 17, 10, 0.62));
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(238, 223, 160, 0.06);
+  transition: border-left-color 0.16s ease, background 0.16s ease, transform 0.12s ease, box-shadow 0.16s ease;
+  line-height: 1.5;
 }
 
 .storm-choice:hover {
-  background: rgba(216, 189, 132, 0.07);
+  background: linear-gradient(180deg, rgba(54, 40, 21, 0.72), rgba(30, 21, 12, 0.72));
   border-left-color: var(--candle);
-  transform: translateX(2px) translateY(-1px);
+  transform: translateY(-1px);
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.38), inset 0 1px 0 rgba(238, 223, 160, 0.09);
 }
 
 .storm-choice:focus-visible {
@@ -867,8 +872,8 @@
 .choice-title {
   display: inline;
   color: var(--parchment);
-  font-size: 0.95rem;
-  line-height: 1.45;
+  font-size: 1.02rem;
+  line-height: 1.5;
 }
 
 .choice-meta {
@@ -2589,7 +2594,7 @@ body.cover-open .play-shell { display: none; }
 .cover-front--art .cover-open-btn,
 .cover-front--art .cover-resume-btn {
   background: rgba(14,9,5,0.72); border: 1px solid rgba(216,189,132,0.55);
-  color: #f3e7cd; backdrop-filter: blur(2px); padding: 11px 22px; border-radius: 8px;
+  color: #f3e7cd; padding: 11px 22px; border-radius: 8px;
   font-family: Georgia, serif; letter-spacing: 0.02em; cursor: pointer;
 }
 .cover-front--art .cover-open-btn:hover,
@@ -2599,3 +2604,32 @@ body.cover-open .play-shell { display: none; }
   text-align: center; color: #e9dcc0; text-shadow: 0 1px 3px rgba(0,0,0,0.8);
   padding: 0 18px; font-size: 12px;
 }
+
+/* ── Sigil icons in the state panel ────────────────────────────────── */
+.state-line .stat-icon {
+  width: 20px; height: 20px; flex-shrink: 0; margin-right: 9px;
+  object-fit: contain; opacity: 0.92;
+  filter: drop-shadow(0 1px 1px rgba(0,0,0,0.5));
+}
+.state-line { align-items: center; }
+
+/* ── Character-creation: background bonus + measures legend ─────────── */
+.create-bg-lean {
+  display: inline-flex; align-items: center; gap: 6px; margin-top: 8px;
+  font-size: 12px; letter-spacing: 0.04em; color: #d8bd84;
+}
+.create-bg-lean .stat-icon-sm { width: 16px; height: 16px; object-fit: contain; }
+.create-measures {
+  margin-top: 18px; border-top: 1px solid rgba(216,189,132,0.18); padding-top: 12px;
+}
+.create-measures > summary {
+  cursor: pointer; color: #c8a850; font-size: 13px; letter-spacing: 0.06em;
+  text-transform: uppercase; list-style: revert; padding: 4px 0;
+}
+.create-measures > summary:hover { color: #e0c270; }
+.create-measures-intro { margin: 10px 0 12px; font-size: 13.5px; line-height: 1.55; color: #cdbfa0; }
+.measure-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 11px; }
+.measure-list li { display: flex; align-items: flex-start; gap: 11px; }
+.measure-list li img { width: 26px; height: 26px; flex-shrink: 0; object-fit: contain; margin-top: 1px; filter: drop-shadow(0 1px 1px rgba(0,0,0,0.5)); }
+.measure-list li span { font-size: 13.5px; line-height: 1.5; color: #ddccab; }
+.measure-list li strong { color: #f1e6cc; }
