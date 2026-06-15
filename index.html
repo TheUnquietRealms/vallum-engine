@@ -199,6 +199,14 @@
         <div class="your-hand">
           <p class="eyebrow">Your hand</p>
           <p class="hand-hint" id="handHint" hidden>The Game Master keeps the rules. Each action tests a quality of the man — choose, and the dice answer.</p>
+          <div class="surge-prompt" id="surgePrompt" hidden>
+            <p class="surge-prompt-eyebrow">The Surge</p>
+            <p class="surge-prompt-lead" id="surgePromptLead"></p>
+            <div class="surge-prompt-actions">
+              <button id="surgeReachBtn" class="surge-reach" type="button"></button>
+              <button id="surgeHoldBtn" class="surge-hold" type="button">Hold — let it stand <span class="surge-btn-note">+1 Surge</span></button>
+            </div>
+          </div>
           <div id="choiceList"></div>
           <div class="ask-zone" id="gmAskRow" hidden>
             <input id="gmAskInput" type="text" placeholder="Ask the Game Master — examine the field, talk to someone…" class="gm-ask-input" autocomplete="off" />

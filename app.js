@@ -35,6 +35,7 @@ const BACKGROUNDS = [
 ];
 
 let pendingBackground = BACKGROUNDS[0];
+let pendingChoice = null; // a roll awaiting the player's Surge decision
 
 // ── Token visual identity ─────────────────────────────────────────
 
@@ -194,6 +195,8 @@ function createInitialState(module) {
     party: (module.party || []).map((member) => ({ ...member })),
     objectives: { ...(module.objectives || {}) },
     moralState: { ...(module.moralState || {}) },
+    surge: (module.surge != null ? module.surge : 2),
+    maxSurge: 6,
     journal: [`Campaign started: ${module.title}.`],
     latestOutcome: {
       consequence: "No choices resolved yet.",
@@ -329,6 +332,8 @@ function wireControls() {
   on(dom.startBtn, "click", () => startNewSession(true));
   on($("createBeginBtn"), "click", finalizeCharacter);
   on($("createNameInput"), "keydown", (e) => { if (e.key === "Enter") finalizeCharacter(); });
+  on($("surgeReachBtn"), "click", surgeReach);
+  on($("surgeHoldBtn"), "click", surgeHold);
   on(dom.saveBtn, "click", saveState);
   on(dom.newGameBtn, "click", startNewSession);
   on(dom.ambienceBtn, "click", toggleAmbience);
@@ -742,6 +747,7 @@ function renderNarration(scene) {
 
 function renderChoices(scene) {
   if (!dom.choiceList) return;
+  dom.choiceList.style.display = "";
   dom.choiceList.innerHTML = "";
   (scene.choices || []).forEach((choice, index) => {
     const button = document.createElement("button");
@@ -786,6 +792,10 @@ function renderCharacterPanel() {
   const panel = document.createElement("div");
   panel.className = "storm-state-panel";
   panel.innerHTML = `
+    <div class="surge-track" title="Surge — your reserve of power. Spend it to push a roll; reach past it and it hollows you.">
+      <span class="surge-name">Surge</span>
+      <span class="surge-pips">${surgePips()}</span>
+    </div>
     <div class="section-title">Inner State</div>
     ${stateLine("Force", state.moralState.force, forceLabel, false, "force")}
     ${stateLine("Restraint", state.moralState.restraint, restraintLabel, false, "restraint")}
@@ -1422,53 +1432,139 @@ function downloadStory() {
   URL.revokeObjectURL(url);
 }
 
-async function choose(choice) {
+function choose(choice) {
   try {
     clearDiceResult();
-    // Capture scene and snapshot BEFORE state changes — GM narrates from this context
-    const sceneAtChoice = getScene();
-    const before = snapshotState();
-    const startingScene = state.currentScene;
-
-    // Resolve roll and apply all state changes
-    const roll = choice.roll ? resolveRoll(choice.roll) : null;
-    if (choice.objectives) applyDelta(state.objectives, choice.objectives);
-    if (choice.moral) applyDelta(state.moralState, choice.moral);
-    if (choice.damage) applyDamage(choice.damage);
-    if (choice.heal) applyHeal(choice.heal);
-    if (choice.journal) addJournal(choice.journal);
-    if (choice.time) advanceTime(choice.time);
-    if (choice.nextScene) state.currentScene = choice.nextScene;
-    if (choice.result && choice.result.toLowerCase().includes("module ends")) state.sessionComplete = true;
-
-    state.previousScene = startingScene;
-    state.latestOutcome = {
-      consequence: roll ? roll.text : choice.result || "The choice is recorded.",
-      stateChange: describeStateChange(before, snapshotState())
+    hideSurgePrompt();
+    const ctx = {
+      choice,
+      before: snapshotState(),
+      startingScene: state.currentScene,
+      roll: null
     };
-    state.completedChoices.push({ scene: startingScene, label: choice.label, nextScene: state.currentScene, at: new Date().toISOString() });
-    saveSilent();
-    setStatus("Autosaved");
-    clearGMResponse();
-    render();
-
-    if (!state.sessionComplete && dom.outcomeText) {
-      dom.outcomeText.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    if (choice.roll) {
+      const r = computeRoll(choice.roll);
+      ctx.roll = r;
+      showDiceResult(r);
+      if (!r.success) {
+        // ── The Surge moment ──────────────────────────────────────
+        // The roll turns against you. Reach for the Surge to push through
+        // (or overdraw into Hollow), or hold and accept the cost.
+        pendingChoice = ctx;
+        showSurgePrompt(r);
+        return;
+      }
     }
-
-    // AI GM narration — streams into centre table after mechanical render
-    if (GM.hasKey() && !state.sessionComplete) {
-      showGMSpeaking();
-      await GM.stream({
-        userContent: GM.choicePrompt(choice, roll, state, sceneAtChoice),
-        onToken: appendGMToken,
-        onDone: doneGMSpeaking,
-        onError(err) { showGMError(err); doneGMSpeaking(); }
-      });
-    }
+    finalizeChoice(ctx);
   } catch (error) {
     showFatalError(error);
   }
+}
+
+// Pure roll — no side effects, so the Surge decision can re-evaluate it.
+function computeRoll(rollDef) {
+  const raw = d20();
+  const bonus = statBonus(rollDef.stat);
+  const total = raw + bonus;
+  return {
+    def: rollDef, raw, bonus, total,
+    target: rollDef.target, stat: rollDef.stat,
+    success: total >= rollDef.target,
+    pushed: false
+  };
+}
+
+// Reach for the Surge — spend it to push the roll, or overdraw into Hollow.
+function surgeReach() {
+  const ctx = pendingChoice;
+  if (!ctx || !ctx.roll) return;
+  if ((state.surge || 0) >= 1) {
+    state.surge -= 1;
+    ctx.surgeNote = "You reach, and the Surge answers — the moment bends back your way.";
+  } else {
+    state.moralState.hollow = Math.min(10, (state.moralState.hollow || 0) + 1);
+    ctx.surgeNote = "You reach past what you have. The power comes — and something in you hollows to pay for it.";
+  }
+  ctx.roll.total += 2;
+  ctx.roll.pushed = true;
+  ctx.roll.success = ctx.roll.total >= ctx.roll.target;
+  if (!ctx.roll.success) ctx.surgeNote += " And even that was not enough.";
+  hideSurgePrompt();
+  showDiceResult(ctx.roll);
+  finalizeChoice(ctx);
+}
+
+// Hold — accept the failure. Discipline restores a measure of Surge.
+function surgeHold() {
+  const ctx = pendingChoice;
+  if (!ctx) return;
+  state.surge = Math.min(state.maxSurge || 6, (state.surge || 0) + 1);
+  ctx.heldNote = "You hold. You let the moment cost what it costs — and something in you steadies, and refills.";
+  hideSurgePrompt();
+  finalizeChoice(ctx);
+}
+
+function finalizeChoice(ctx) {
+  const { choice, before, startingScene, roll } = ctx;
+  if (choice.objectives) applyDelta(state.objectives, choice.objectives);
+  if (choice.moral) applyDelta(state.moralState, choice.moral);
+  if (choice.surge) state.surge = Math.min(state.maxSurge || 6, (state.surge || 0) + choice.surge);
+  if (choice.damage) applyDamage(choice.damage);
+  if (choice.heal) applyHeal(choice.heal);
+  if (choice.journal) addJournal(choice.journal);
+  if (choice.time) advanceTime(choice.time);
+  if (choice.nextScene) state.currentScene = choice.nextScene;
+  if (choice.result && choice.result.toLowerCase().includes("module ends")) state.sessionComplete = true;
+
+  state.previousScene = startingScene;
+  const base = roll ? (roll.success ? roll.def.success : roll.def.failure) : (choice.result || "The choice is recorded.");
+  const prefix = ctx.surgeNote ? ctx.surgeNote + " " : (ctx.heldNote ? ctx.heldNote + " " : "");
+  state.latestOutcome = {
+    consequence: prefix + base,
+    stateChange: describeStateChange(before, snapshotState())
+  };
+  if (roll) addJournal(base);
+  state.completedChoices.push({ scene: startingScene, label: choice.label, nextScene: state.currentScene, at: new Date().toISOString() });
+  pendingChoice = null;
+  saveSilent();
+  setStatus("Autosaved");
+  clearGMResponse();
+  render();
+  if (!state.sessionComplete && dom.outcomeText) {
+    dom.outcomeText.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+}
+
+function showSurgePrompt(r) {
+  const panel = $("surgePrompt");
+  if (!panel) { return; }
+  const lead = $("surgePromptLead");
+  const reach = $("surgeReachBtn");
+  const haveSurge = (state.surge || 0) >= 1;
+  if (lead) lead.textContent = "The moment turns against you — and you can feel the Surge waiting, the way you always could. Reach for it, or hold.";
+  if (reach) {
+    reach.innerHTML = haveSurge
+      ? `Reach for the Surge <span class="surge-btn-note">spend 1 · ${state.surge} left</span>`
+      : `Reach past yourself <span class="surge-btn-note">it will hollow you</span>`;
+    reach.classList.toggle("is-overdraw", !haveSurge);
+  }
+  if (dom.choiceList) dom.choiceList.style.display = "none";
+  panel.hidden = false;
+  panel.scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+
+function hideSurgePrompt() {
+  const panel = $("surgePrompt");
+  if (panel) panel.hidden = true;
+  if (dom.choiceList) dom.choiceList.style.display = "";
+}
+
+function surgePips() {
+  const n = state.surge || 0;
+  const max = state.maxSurge || 6;
+  let out = "";
+  for (let i = 0; i < max; i += 1) out += `<span class="surge-pip ${i < n ? "lit" : ""}"></span>`;
+  return out;
 }
 
 function snapshotState() {
@@ -1489,22 +1585,13 @@ function collectChanges(changes, before, after) {
   });
 }
 
-function resolveRoll(roll) {
-  const raw   = d20();
-  const bonus = statBonus(roll.stat);
-  const total = raw + bonus;
-  const success = total >= roll.target;
-  const text = success ? roll.success : roll.failure;
-  addJournal(text);
-  showDiceResult(roll, raw, bonus, total, success);
-  return { success, text };
-}
-
-function showDiceResult(roll, raw, bonus, total, success) {
+// The Game Master keeps the machinery behind the screen: the die is shown,
+// but never the modifier or the target — only the die, and a verdict.
+function showDiceResult(r) {
   if (!dom.diceLog) return;
-  const sign = bonus >= 0 ? `+${bonus}` : `${bonus}`;
+  const success = r.success;
 
-  dom.diceLog.innerHTML = `<div class="dice-result dice-rolling"><span class="dice-label">d20</span><span class="dice-rolled">—</span></div>`;
+  dom.diceLog.innerHTML = `<div class="dice-result dice-rolling"><span class="dice-label">the moment</span><span class="dice-rolled">—</span></div>`;
   dom.diceLog.classList.remove("hidden-rolls");
 
   const face = dom.diceLog.querySelector('.dice-rolled');
@@ -1519,7 +1606,8 @@ function showDiceResult(roll, raw, bonus, total, success) {
     } else {
       box.classList.remove('dice-rolling');
       box.classList.add(success ? 'dice-success' : 'dice-failure');
-      box.innerHTML = `<span class="dice-label">d20</span><span class="dice-rolled dice-land">${raw}</span><span class="dice-op">+</span><span class="dice-stat-name">${roll.stat}</span><span class="dice-bonus">(${sign})</span><span class="dice-op">=</span><span class="dice-total">${total}</span><span class="dice-vs">vs ${roll.target}</span><span class="dice-verdict">${success ? "✓ Success" : "✗ Failure"}</span>`;
+      box.classList.toggle('dice-pushed', !!r.pushed);
+      box.innerHTML = `<span class="dice-label">${r.pushed ? "the Surge" : "the d20"}</span><span class="dice-rolled dice-land">${r.raw}</span><span class="dice-verdict">${success ? "✓ it holds" : "✗ it slips"}</span>`;
     }
   }
   tick();

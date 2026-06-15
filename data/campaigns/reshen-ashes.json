@@ -28,6 +28,7 @@
     { "key": "surveyorHold", "label": "Surveyor's Hold", "dir": "down" }
   ],
   "moralState": { "force": 3, "restraint": 3, "witness": 4, "hollow": 1, "reputation": 1 },
+  "surge": 2,
   "locations": [
     { "id": "road", "name": "The Toll Road", "kind": "road", "x": 170, "y": 560 },
     { "id": "household", "name": "Vethric Camp", "kind": "objective", "x": 300, "y": 430 },
@@ -89,6 +90,7 @@
         {
           "label": "Give your word. You will copy the marks before they are pulled.",
           "moral": { "restraint": 1 },
+          "surge": 1,
           "objectives": { "householdTrust": 3 },
           "journal": "You gave Maren Vethric your word. She wrote your name on the inside of her satchel.",
           "result": "She does not thank you. She writes your name down, which is the same thing here. A given word is now a thing in the world that can be kept or broken.",
@@ -187,6 +189,7 @@
         {
           "label": "Let him keep the book. Walk the marks to the magistrate yourself.",
           "moral": { "restraint": 1, "witness": 1 },
+          "surge": 1,
           "objectives": { "householdTrust": 2 },
           "journal": "You left Tolle his seal and carried your own evidence out.",
           "result": "You do not give him a fight to write about. You fold Maren's paper into your coat and walk out of the field with the marks intact. His seal still says one thing; now there is a second account on the road, and you are carrying it.",
