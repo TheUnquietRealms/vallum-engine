@@ -6,6 +6,7 @@
   "brand": "The Unquiet Marches",
   "canonStatus": "C1 game canon — After Reshen window",
   "protagonistMode": "player",
+  "boardImage": "assets/map/core-map.jpg",
   "startingScene": "arrival",
   "initialTime": { "day": 1, "phase": "Grey morning" },
   "party": [

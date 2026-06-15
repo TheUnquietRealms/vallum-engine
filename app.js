@@ -811,7 +811,14 @@ function renderMap(scene) {
   dom.routeLayer.innerHTML = "";
   dom.locationLayer.innerHTML = "";
   dom.tokenLayer.innerHTML = "";
-  renderBattlefieldTexture();
+  // Real map surface: when a module supplies a board image, use it and skip the
+  // procedural parchment terrain. Otherwise fall back to the drawn battlefield.
+  const boardImg = document.getElementById("boardImage");
+  if (boardImg) {
+    if (campaign.boardImage) { boardImg.setAttribute("href", campaign.boardImage); boardImg.style.display = ""; }
+    else { boardImg.style.display = "none"; }
+  }
+  if (!campaign.boardImage) renderBattlefieldTexture();
   (activeRoutes || []).forEach(([fromId, toId]) => {
     const from = activeLocs.find(l => l.id === fromId);
     const to   = activeLocs.find(l => l.id === toId);
@@ -1091,57 +1098,82 @@ function clusterOffsets(n) {
 
 function makeToken({ cx, cy, r, body, hi, rim, initial, label, tier, isActive, isDamaged }) {
   const g = svg("g", { class: `vtt-token vtt-token--${tier}`, "aria-label": label, role: "img" });
+  const round = Math.round;
 
-  // Ground shadow ellipse — creates physical elevation sense
+  // 1) Cast shadow on the map — soft, thrown down-right (light from upper-left).
   g.appendChild(svg("ellipse", {
-    cx, cy: cy + Math.round(r * 0.3),
-    rx: Math.round(r * 1.15), ry: Math.round(r * 0.32),
-    fill: "rgba(0,0,0,0.58)"
+    cx: cx + round(r * 0.16), cy: cy + round(r * 0.66),
+    rx: round(r * 1.18), ry: round(r * 0.42),
+    fill: "rgba(0,0,0,0.5)", filter: "url(#baseShadow)"
   }));
 
-  // Active pulse ring — signals player presence
+  // 2) Pedestal base — the piece stands on a round base seen at a slight angle.
+  g.appendChild(svg("ellipse", {
+    cx, cy: cy + round(r * 0.52),
+    rx: round(r * 1.04), ry: round(r * 0.40),
+    fill: "url(#baseRim)", stroke: "#1b1208", "stroke-width": "1.5"
+  }));
+  g.appendChild(svg("ellipse", {            // base top rim highlight
+    cx, cy: cy + round(r * 0.46),
+    rx: round(r * 0.84), ry: round(r * 0.29),
+    fill: "none", stroke: "rgba(238,223,160,0.40)", "stroke-width": "1"
+  }));
+
+  // 3) Active pulse — a ring of presence around the base.
   if (isActive) {
-    g.appendChild(svg("circle", {
-      cx, cy, r: r + 9,
-      fill: "none", stroke: rim,
-      "stroke-width": "2", opacity: "0.55",
+    g.appendChild(svg("ellipse", {
+      cx, cy: cy + round(r * 0.52),
+      rx: r + 8, ry: round(r * 0.52),
+      fill: "none", stroke: rim, "stroke-width": "2", opacity: "0.5",
       class: "token-ring"
     }));
   }
 
-  // Body disc — material identity
+  // 4) The figure — a domed body standing above the base.
+  const bodyY = cy - round(r * 0.12);
   g.appendChild(svg("circle", {
-    cx, cy, r,
+    cx, cy: bodyY, r,
     fill: body,
-    stroke: isDamaged ? "rgba(216,189,132,0.22)" : rim,
-    "stroke-width": tier === "hero" ? "5" : "3.5",
+    stroke: isDamaged ? "rgba(216,189,132,0.30)" : rim,
+    "stroke-width": tier === "hero" ? "4.5" : "3",
     filter: "url(#tokenShadow)"
   }));
-
-  // Catch-light — top-left material highlight gives physical depth
-  g.appendChild(svg("circle", {
-    cx: cx - Math.round(r * 0.22), cy: cy - Math.round(r * 0.22),
-    r: Math.round(r * 0.52),
-    fill: hi, opacity: "0.14"
+  // lower half shading for volume
+  g.appendChild(svg("path", {
+    d: `M ${cx - r} ${bodyY} A ${r} ${r} 0 0 0 ${cx + r} ${bodyY}`,
+    fill: "rgba(0,0,0,0.30)", "pointer-events": "none"
+  }));
+  // upper-left catch-light (broad)
+  g.appendChild(svg("ellipse", {
+    cx: cx - round(r * 0.28), cy: bodyY - round(r * 0.30),
+    rx: round(r * 0.52), ry: round(r * 0.38),
+    fill: hi, opacity: "0.22", "pointer-events": "none"
+  }));
+  // crisp rim-light arc along the top edge
+  g.appendChild(svg("path", {
+    d: `M ${cx - r * 0.72} ${bodyY - r * 0.52} A ${r} ${r} 0 0 1 ${cx + r * 0.58} ${bodyY - r * 0.72}`,
+    fill: "none", stroke: hi, "stroke-width": "1.6", opacity: "0.55",
+    "stroke-linecap": "round", "pointer-events": "none"
   }));
 
-  // Damage crack — HP below 50%, visible wear on the piece
+  // 5) Damage crack — HP below 50%, visible wear on the piece.
   if (isDamaged) {
     g.appendChild(svg("line", {
-      x1: cx - 3, y1: cy - Math.round(r * 0.6),
-      x2: cx + 2, y2: cy + Math.round(r * 0.5),
+      x1: cx - 3, y1: bodyY - round(r * 0.6),
+      x2: cx + 2, y2: bodyY + round(r * 0.5),
       stroke: "rgba(255,120,90,0.75)",
-      "stroke-width": "1.5", "stroke-linecap": "round"
+      "stroke-width": "1.5", "stroke-linecap": "round", "pointer-events": "none"
     }));
   }
 
-  // Initial — identity mark at centre of token
+  // 6) Heraldic initial — identity mark on the figure.
   const t = svg("text", {
-    x: cx, y: cy + Math.round(r * 0.36),
+    x: cx, y: bodyY + round(r * 0.34),
     "text-anchor": "middle",
-    "font-size": String(Math.round(r * (initial.length > 1 ? 0.62 : 0.78))),
+    "font-size": String(round(r * (initial.length > 1 ? 0.6 : 0.76))),
     fill: rim, "font-weight": "700", "font-family": "inherit",
     "letter-spacing": initial.length > 1 ? "-0.5" : "0",
+    "paint-order": "stroke", stroke: "rgba(0,0,0,0.45)", "stroke-width": "0.6",
     "pointer-events": "none"
   });
   t.textContent = initial;

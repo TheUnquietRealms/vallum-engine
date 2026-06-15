@@ -239,8 +239,18 @@
                 <filter id="tokenShadow">
                   <feDropShadow dx="2" dy="3" stdDeviation="4" flood-color="#100800" flood-opacity="0.75"/>
                 </filter>
+                <filter id="baseShadow" x="-60%" y="-60%" width="220%" height="220%">
+                  <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#000000" flood-opacity="0.6"/>
+                </filter>
+                <radialGradient id="baseRim" cx="50%" cy="36%" r="66%">
+                  <stop offset="0%"   stop-color="#cdab5c"/>
+                  <stop offset="52%"  stop-color="#7c5c2a"/>
+                  <stop offset="100%" stop-color="#281a0b"/>
+                </radialGradient>
               </defs>
               <rect width="1000" height="620" fill="url(#parchGrad)"/>
+              <image id="boardImage" x="0" y="0" width="1000" height="620" preserveAspectRatio="xMidYMid slice" href="assets/map/core-map.jpg"/>
+              <rect width="1000" height="620" fill="#140c04" opacity="0.14" pointer-events="none"/>
               <g id="routeLayer"></g>
               <g id="locationLayer"></g>
               <g id="tokenLayer"></g>
@@ -288,7 +298,7 @@
         </div>
         <div class="comp-ref-block">
           <strong>The Hollow</strong>
-          <p>Some choices cost Kael something he cannot name. At seven it shows. At ten the account closes.</p>
+          <p>Some choices cost you something you cannot name. At seven it shows. At ten the account closes.</p>
         </div>
         <div class="comp-ref-block">
           <strong>The table</strong>
