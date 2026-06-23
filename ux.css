@@ -883,6 +883,34 @@
   font-size: 0.80rem;
 }
 
+/* Locked (state-gated) choice — shown, not hidden, so the road visibly narrows. */
+.storm-choice.is-locked {
+  opacity: 0.5;
+  cursor: not-allowed;
+  border-left-color: rgba(216, 189, 132, 0.18);
+  background: linear-gradient(180deg, rgba(30, 24, 16, 0.4), rgba(18, 13, 8, 0.45));
+}
+
+.storm-choice.is-locked:hover {
+  transform: none;
+  border-left-color: rgba(216, 189, 132, 0.18);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(238, 223, 160, 0.06);
+  background: linear-gradient(180deg, rgba(30, 24, 16, 0.4), rgba(18, 13, 8, 0.45));
+}
+
+.storm-choice.is-locked .choice-title {
+  color: rgba(216, 189, 132, 0.6);
+}
+
+.choice-lock {
+  display: block;
+  margin-top: 6px;
+  color: var(--blood);
+  font-size: 0.74rem;
+  font-style: italic;
+  letter-spacing: 0.02em;
+}
+
 /* ── Kael / state panel ──────────────────────────────────── */
 
 .character { cursor: pointer; }

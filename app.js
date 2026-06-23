@@ -1,5 +1,5 @@
 const CAMPAIGN_PATH = "data/campaigns/reshen-ashes.json";
-const STORAGE_KEY = "vallum.engine.session.reshen-ashes.v0.5.0";
+const STORAGE_KEY = "vallum.engine.session.reshen-ashes.v0.6.0";
 
 // AI Game Master was a browser-side test scaffold requiring the player's own
 // Anthropic API key. It is disabled: the experience is fully authored and never
@@ -750,12 +750,73 @@ function renderChoices(scene) {
   dom.choiceList.style.display = "";
   dom.choiceList.innerHTML = "";
   (scene.choices || []).forEach((choice, index) => {
+    const gate = evaluateGate(choice.requires);
     const button = document.createElement("button");
-    button.className = "choice storm-choice";
-    button.innerHTML = `<span class="choice-number">${index + 1}.</span><span class="choice-title">${escapeHtml(choice.label)}</span>`;
-    button.addEventListener("click", () => choose(choice));
+    button.className = "choice storm-choice" + (gate.locked ? " is-locked" : "");
+    const lockNote = gate.locked
+      ? `<span class="choice-lock" title="${escapeHtml(gate.reason)}">${escapeHtml(gate.reason)}</span>`
+      : "";
+    button.innerHTML = `<span class="choice-number">${index + 1}.</span><span class="choice-title">${escapeHtml(choice.label)}</span>${lockNote}`;
+    if (gate.locked) {
+      button.disabled = true;
+      button.setAttribute("aria-disabled", "true");
+    } else {
+      button.addEventListener("click", () => choose(choice));
+    }
     dom.choiceList.appendChild(button);
   });
+}
+
+// ── State-gated consequence ────────────────────────────────────────────────
+// A choice may carry `requires`, a data-driven gate evaluated against current
+// state. Prior moral state, Surge, objectives or HP can lock, unlock or
+// reframe an option. Locked choices are shown (not hidden) with their reason,
+// so the player feels the road narrowing rather than wondering what they missed.
+//
+// Schema (all optional, all ANDed together):
+//   requires: {
+//     moral:      { hollow: { max: 6 }, reputation: { min: 4 } },
+//     objectives: { civiliansSafe: { min: 1 } },
+//     surge:      { min: 2 },
+//     hp:         { min: 5 },              // checks party[0]
+//     scenesSeen: ["ridge", "caravan"],   // all must be in completedChoices
+//     reason:     "Only the feared may demand this."  // shown when locked
+//   }
+// Each leaf is { min?, max? } or a bare number (treated as min).
+function evaluateGate(requires) {
+  if (!requires) return { locked: false, reason: "" };
+  const reasons = [];
+  const checkBucket = (bucket, source, label) => {
+    if (!bucket || !source) return;
+    for (const [key, cond] of Object.entries(bucket)) {
+      const have = Number(source[key] || 0);
+      const c = (cond && typeof cond === "object") ? cond : { min: Number(cond) };
+      if (c.min != null && have < c.min) reasons.push(`needs ${readableKey(key)} ${c.min}+`);
+      if (c.max != null && have > c.max) reasons.push(`needs ${readableKey(key)} ${c.max} or less`);
+    }
+  };
+  checkBucket(requires.moral, state.moralState, "moral");
+  checkBucket(requires.objectives, state.objectives, "objective");
+  if (requires.surge && typeof requires.surge === "object") {
+    if (requires.surge.min != null && (state.surge || 0) < requires.surge.min) reasons.push(`needs Surge ${requires.surge.min}+`);
+    if (requires.surge.max != null && (state.surge || 0) > requires.surge.max) reasons.push(`needs Surge ${requires.surge.max} or less`);
+  } else if (requires.surge != null && (state.surge || 0) < Number(requires.surge)) {
+    reasons.push(`needs Surge ${Number(requires.surge)}+`);
+  }
+  if (requires.hp) {
+    const m = state.party && state.party[0];
+    const hp = m ? Number(m.hp || 0) : 0;
+    const c = (typeof requires.hp === "object") ? requires.hp : { min: Number(requires.hp) };
+    if (c.min != null && hp < c.min) reasons.push(`needs ${c.min}+ HP`);
+    if (c.max != null && hp > c.max) reasons.push(`needs ${c.max} or less HP`);
+  }
+  if (Array.isArray(requires.scenesSeen) && requires.scenesSeen.length) {
+    const seen = new Set((state.completedChoices || []).map((c) => c.scene));
+    const missing = requires.scenesSeen.filter((s) => !seen.has(s));
+    if (missing.length) reasons.push("not yet");
+  }
+  if (!reasons.length) return { locked: false, reason: "" };
+  return { locked: true, reason: requires.reason || ("Locked — " + reasons.join(", ")) };
 }
 
 function choiceMeta(choice) {
@@ -1434,6 +1495,10 @@ function downloadStory() {
 
 function choose(choice) {
   try {
+    // Defensive: never execute a choice whose gate is locked, even if invoked
+    // outside the rendered button (programmatic call, stale handler, etc.).
+    const gate = evaluateGate(choice.requires);
+    if (gate.locked) { setStatus(gate.reason); return; }
     clearDiceResult();
     hideSurgePrompt();
     const ctx = {

@@ -1,5 +1,42 @@
 # Changelog
 
+> Note: v0.4 and v0.5 (book-cover entry, VTT board surface, original-player-character
+> pivot, the Surge mechanic) shipped to `main` without dedicated changelog entries.
+> History was reconciled in PROJECT_STATE.md on 2026-06-23. Entries resume below at v0.6.0.
+
+## v0.6.0 - State-gated consequence
+
+Status: committed on main.
+
+Added:
+
+- `evaluateGate(requires)` in app.js — data-driven choice gating. A choice may carry a `requires` object evaluated against current state; prior moral state, Surge, objectives, party HP, or scenes seen can lock an option. Schema documented inline above the function.
+- locked choices render visibly disabled (`.storm-choice.is-locked`) with their reason shown beneath the label (`.choice-lock`), rather than being hidden — the player feels the road narrowing.
+- defensive guard in `choose()` — a locked choice can never execute even if invoked programmatically.
+- live gate on `reshen-ashes` → `surveyor_post`: "Out-argue him…" now requires Witness ≥ 4 and names copied ≥ 2, with an authored reason. A brute-played character can no longer corner the surveyor on the record.
+- `.choice-lock` / `.storm-choice.is-locked` styling in ux.css.
+
+Changed:
+
+- `renderChoices()` evaluates each choice's gate and skips the click handler when locked.
+- save key bumped to `vallum.engine.session.reshen-ashes.v0.6.0`.
+
+Authoring contract:
+
+- gating is fully data-driven — new gates need no engine change, only a `requires` block on a choice in campaign JSON.
+- each leaf condition is `{ min?, max? }` or a bare number (treated as `min`); all conditions are ANDed.
+- authors should supply `requires.reason` for player-facing flavour; without it a generic "Locked — needs X" is shown.
+
+Verified:
+
+- 11/11 headless gate-logic tests pass (no-requires, qualified/brute/threshold players, min/max, surge, hp, scenesSeen).
+- `node --check` clean on app.js and gm-engine.js; all three campaign JSON files parse.
+
+Known constraints:
+
+- founder live UAT (visual load, comprehension, tone) remains the release gate — not yet run.
+- generic auto-reason text is lowercased (`needs hollow 6 or less`); the live gate uses an authored reason, so players don't see the generic form.
+
 ## v0.3.4 - Loop definition and session complete
 
 Status: committed on main.

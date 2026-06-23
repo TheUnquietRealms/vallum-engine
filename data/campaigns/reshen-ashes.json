@@ -162,6 +162,11 @@
       "choices": [
         {
           "label": "Out-argue him. Make him enter your marks into the record before witnesses.",
+          "requires": {
+            "moral": { "witness": { "min": 4 } },
+            "objectives": { "names": { "min": 2 } },
+            "reason": "You have not read enough of the marks to corner him on the record."
+          },
           "roll": {
             "stat": "restraint",
             "target": 14,

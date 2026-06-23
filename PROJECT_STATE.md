@@ -8,9 +8,11 @@ Live path:
 
 https://theunquietrealms.github.io/vallum-engine/
 
-Current release posture: **v0.3.4 release candidate — static verification passed; founder live UAT remains required for visual load, comprehension and the series' tone.**
+Current release posture: **v0.6.0 release candidate (state-gated consequence) — static verification passed; founder live UAT remains required for visual load, comprehension and the series' tone.**
 
-The v0.3.x line restored the full runtime, formalised the module loop, removed pre-choice moral deltas, decoupled moral state from dice bonuses, added session complete and introduced UX identity improvements.
+Reconciled 2026-06-23 to match the shipped code. The earlier "v0.3.4" posture in this file was stale by several minor versions.
+
+The live build is now a **deterministic, authored-prose tabletop engine** (no runtime AI). The browser-side Anthropic Game Master remains in `gm-engine.js` but is gated off behind `AI_ENABLED = false` in `app.js` — no API key is ever requested at runtime. The v0.4–v0.6 line added the book-cover entry, the VTT board surface with miniature tokens, the original-player-character pivot, the **Surge** mechanic (a spendable reserve of power: reach to push a failed roll or overdraw into Hollow; hold to accept the cost and refill), and state-gated choices.
 
 ## Naming (2026-06-14)
 
@@ -53,14 +55,18 @@ The first module is `The Noise of Purpose`, adapted from Book I Chapter 1: the r
 The repository currently provides:
 
 - GitHub Pages static deployment;
-- world landing and module loading;
-- Game Master narration;
-- bounded decision cards;
+- book-cover entry and "ride east" transition to the table;
+- world landing and module loading (live module: **`reshen-ashes`**, original-player-character canon);
+- deterministic Game Master narration from authored scene prose (runtime AI gated off);
+- bounded decision cards with **state-gated choices** (prior moral/Surge/objective state can lock, unlock or reframe an option);
 - hidden d20 resolution;
+- the **Surge** mechanic — spend to push a failed roll, overdraw into Hollow, or hold to refill;
 - post-choice consequence display;
 - moral state: Force, Restraint, Witness, Hollow and Reputation;
 - objective and field state;
-- Kael character panel and drawer;
+- VTT board surface with miniature hero/companion tokens;
+- multi-seat party rendering (`renderSeats`) — companion presence scaffolded;
+- character panel and drawer;
 - Account/journal;
 - local save, continue and new session;
 - ambience;
@@ -69,7 +75,7 @@ The repository currently provides:
 - internal UAT and release signoff standards;
 - favicon and series palette.
 
-The current board remains a symbolic coded map. It proves state and movement but does not yet meet the accepted tabletop immersion target.
+Three campaign modules are on disk: `noise-of-purpose` (26 scenes, Book I full adaptation, single party), `reshen-ashes` (6 scenes, **live**, new original-PC canon) and `western-road` (5 scenes, 4-member party — companion/party testbed).
 
 ## Release history summary
 
@@ -143,25 +149,22 @@ The MLP is a three-module Unquiet Marches arc with:
 
 ## Next release
 
-### v0.4 — Tabletop Entry and Orientation
+### v0.6 — State-Gated Consequence (this candidate)
 
 Required outcome:
 
-- landing page introduces the world of The Unquiet Marches and Kael clearly;
-- transition explicitly brings the player to the table;
-- Game Master, board and character positions are staged coherently;
-- first-time player understands identity, place, pressure and role before the first choice;
-- no new mechanical expansion beyond what supports the opening experience;
+- prior moral state, Surge and objective state can lock, unlock or reframe a choice;
+- locked choices are shown with their requirement, not hidden, so the player feels the road narrowing;
+- gating is data-driven in campaign JSON (`requires` on a choice) — no engine change needed to author new gates;
+- existing modules play unchanged when no `requires` is present;
 - release passes internal UAT and founder live signoff.
 
-### Subsequent releases
+### Subsequent releases (MVP → MLP)
 
-- v0.5 — VTT Board Foundation;
-- v0.6 — Board Consequence;
-- v0.7 — Module One Completion;
-- v0.8 — Persistence and Resume hardening;
-- v0.9 — MVP UAT candidate;
-- v1.0 — MVP release;
+- v0.7 — Companion Foundation (party seats, token family, bounded companion interventions);
+- v0.8 — World Memory (cross-module account, NPC acknowledgement, persistent obligations);
+- v0.9 — Authoring Kit (story-to-module guide, board schema, validation, canon controls);
+- v1.0 — MVP UAT candidate and release (one complete, stable `reshen-ashes` session);
 - v2.0 — Minimum Lovable Product three-module arc.
 
 See `docs/PRODUCT_ROADMAP_MVP_MLP.md` for the complete release sequence.
