@@ -1,5 +1,5 @@
 const CAMPAIGN_PATH = "data/campaigns/reshen-ashes.json";
-const STORAGE_KEY = "vallum.engine.session.reshen-ashes.v0.6.0";
+const STORAGE_KEY = "vallum.engine.session.reshen-ashes.v0.6.1";
 
 // AI Game Master was a browser-side test scaffold requiring the player's own
 // Anthropic API key. It is disabled: the experience is fully authored and never

@@ -4,6 +4,11 @@
 > pivot, the Surge mechanic) shipped to `main` without dedicated changelog entries.
 > History was reconciled in PROJECT_STATE.md on 2026-06-23. Entries resume below at v0.6.0.
 
+## v0.6.1 — High-velocity process update
+
+- Adopted **Epics and Sprints** process. Releases ship to `main`; UAT runs at Sprint boundaries, not per-merge. Critical bugs hotfix-revert.
+- Replaced the v0.3.4 "release is not final until founder live signoff" rule with the high-velocity rule above.
+
 ## v0.6.0 - State-gated consequence
 
 Status: committed on main.

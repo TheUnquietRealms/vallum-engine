@@ -159,26 +159,26 @@ Required outcome:
 - existing modules play unchanged when no `requires` is present;
 - release passes internal UAT and founder live signoff.
 
-### Subsequent releases (MVP → MLP)
+### Subsequent releases (MVP → MLP, shipped via Sprints)
 
-- v0.7 — Companion Foundation (party seats, token family, bounded companion interventions);
-- v0.8 — World Memory (cross-module account, NPC acknowledgement, persistent obligations);
-- v0.9 — Authoring Kit (story-to-module guide, board schema, validation, canon controls);
-- v1.0 — MVP UAT candidate and release (one complete, stable `reshen-ashes` session);
-- v2.0 — Minimum Lovable Product three-module arc.
+We work in **Epics and Sprints** for high-velocity release. UAT is run at Sprint boundaries (the end of a Sprint), not per-merge. Merges go directly to `main` and ship to production.
+
+- **Epic A — Engine Foundations (Sprint 1)**
+  - **A.1** v0.6.0 — State-Gated Consequence (shipped).
+  - **A.2** v0.7.0 — Companion Foundation (party seats, token family, bounded companion interventions).
+  - **A.3** v0.8.0 — World Memory (cross-module account, NPC acknowledgement, persistent obligations).
+  - **A.4** v0.9.0 — Authoring Kit (story-to-module guide, board schema, validation, canon controls).
+- **Epic B — Content & MLP (Sprint 2)**
+  - **B.1** v1.0.0 — MVP Release (one complete, stable `reshen-ashes` session, full UAT).
+  - **B.2** v1.1.0 — Module Two: *Reputation* (non-battlefield board, original canon).
+  - **B.3** v1.2.0 — Module Three: *Recognition* (consequence convergence, original canon).
+  - **B.4** v2.0.0 — MLP Release (three-module arc, full UAT, public launch).
 
 See `docs/PRODUCT_ROADMAP_MVP_MLP.md` for the complete release sequence.
 
-## Current decisions required
+## Product control rule
 
-- complete the full design workshop;
-- approve landing-page world depth and copy;
-- approve sit-down transition storyboard;
-- approve the first VTT board specification;
-- approve Kael token design;
-- expand Module One to the standard loop depth;
-- reconcile implementation tags and release documentation before the next public claim;
-- define state-gate behaviour and future companion architecture.
+Every release must update `CHANGELOG.md`, `PROJECT_STATE.md` and affected roadmap or guide documents. Releases ship to `main` and deploy to production. **UAT is executed at Sprint boundaries**, not per-merge, to maintain velocity. Critical bugs found in production revert immediately via hotfix.
 
 ## Deployment
 
@@ -188,4 +188,4 @@ Current architecture remains plain HTML, CSS and JavaScript with local browser p
 
 ## Product control rule
 
-Every future release must update `CHANGELOG.md`, `PROJECT_STATE.md` and affected roadmap or guide documents. A release is not final until internal UAT and founder live signoff are complete.
+Every future release must update `CHANGELOG.md`, `PROJECT_STATE.md` and affected roadmap or guide documents. Releases ship to `main` and deploy to production. **UAT is executed at Sprint boundaries**, not per-merge, to maintain velocity. Critical bugs found in production revert immediately via hotfix.
